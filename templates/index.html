@@ -1,0 +1,20 @@
+<!doctype html>
+<html ng-app="RMI">
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>原材料检验前端</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    {% load static from staticfiles %}
+    <link rel="stylesheet" href="{% static "styles/vendor-afbe4fc290.css" %}">
+    <link rel="stylesheet" href="{% static "styles/app-1ae1d40f83.css" %}">
+</head>
+<body class="rmi-body"><!--[if lt IE 10]>
+<p class="browsehappy">浏览器太旧不受支持。</p>
+<![endif]-->
+<div ui-view=""></div>
+<script src="{% static "scripts/vendor-2ee2857d9e.js" %}"></script>
+<script src="{% static "scripts/app-b298fc5ba5.js" %}"></script>
+</body>
+</html>

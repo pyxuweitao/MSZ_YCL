@@ -1,0 +1,10 @@
+{
+  "Name": "Admin",
+  "Permission": "{'home.control.designProcess':'Permission.UI.Control.EditProcess','home.control.designEditProcess':'Permission.UI.Control.EditProcess','home.control.designEditForm':'Permission.UI.Control.EditProcess','home.control.designEditTable':'Permission.UI.Control.EditProcess','home.control.designEditMap':'Permission.UI.Control.EditProcess','home.control.designSource':'Permission.UI.Control.EditProcess'}",
+  "CreateTime": null,
+  "Job": {
+    "name": "检验员",
+    "value": 0,
+    "group": ""
+  },
+  "Avatar": "data:image/png
