@@ -1,7 +1,7 @@
 # Django settings for MSZ_ZH project.
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'RMI',                      # Or path to database file if using sqlite3.
         'USER': 'sa',                      # Not used with sqlite3.
         'PASSWORD': 'sklcc',                  # Not used with sqlite3.
-        'HOST': '10.0.0.108',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '192.168.1.240',                      # Set to empty string for localhost. Not used with sqlite3.
         'OPTIONS':{
             'host_is_server':True
         }
@@ -25,6 +25,10 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['*']
+
+#Configs about debug_toolbar
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+INTERNAL_IPS=('127.0.0.1','192.168.1.240',)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -101,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+	'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'mymiddleware.middleware.MonitorMiddleware',
@@ -130,6 +135,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'sklcc',
+	'debug_toolbar',
     #'mymiddleware',
 )
 

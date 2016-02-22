@@ -54,10 +54,18 @@ urlpatterns = patterns('',
     url(r'^api/feedback/$',views.feedback),
 
     url(r'^api/users/$',views.users_info_operations),
+    url(r'^api/users/departmentAndJob/$',views.getDepartmentsAndJobs),
     url(r'^api/users/(\w+)/$',views.user_info),
     url(r'^api/users/(\w+)/login/$',views.login),
     url(r'^api/users/(\w+)/logout/$',views.logout),
     url(r'^api/users/(\w+)/operations/$',views.users_operation),
-    url(r'^api/users/(\w+)/edit/$', views.edit),
-
+    url(r'^api/users/(\w+)/edit/$', views.editUser),
+	url(r'^api/users/(\w+)/delete/$', views.deleteUser),
 )
+
+from django.conf import settings
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )

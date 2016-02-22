@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 __author__ = 'XuWeitao'
 
-# -*- coding: utf-8 -*-
-__author__ = 'Administrator'
-
-
 from django.db.transaction import connections
 from django.db import transaction
-
-
 
 
 class Raw_sql(object):
@@ -17,41 +11,53 @@ class Raw_sql(object):
 	如果查询不到返回False，若对数据库执行删除，插入或者更新操作，需要在传入SQL之后，调用update函数
 	每个方法都可以指定一个参数owner，这个参数对应于settings.py中数据库配置名，如owner='default'，则将SQL执行于default数据库
 	"""
-	sql  = ""
+	sql = ""
 
-	def query_one( self, owner = 'default' ):
+	def query_one(self, owner='default', needColumnName=False):
 		cursor = connections[owner].cursor()
-		cursor.execute( self.sql )
-		target = cursor.fetchone( )
-		#target -> list
-		if len( target ) == 0:
-			return False
+		cursor.execute(self.sql)
+		target = cursor.fetchone()
+		# target -> list
+		if not needColumnName:
+			if len(target) == 0:
+				return ()
+			else:
+				return target
 		else:
-			return target
+			if len(target) == 0:
+				return (), [desc[0] for desc in cursor.description]
+			else:
+				return target, [desc[0] for desc in cursor.description]
 
-	def query_all( self, owner = 'default' ):
-		cursor = connections[owner].cursor( )
-		cursor.execute( self.sql )
-		target_list = cursor.fetchall( )
-		if len( target_list ) == 0:
-			return False
+	def query_all(self, owner='default', needColumnName=False):
+		cursor = connections[owner].cursor()
+		cursor.execute(self.sql)
+		target_list = cursor.fetchall()
+		if not needColumnName:
+			if len(target_list) == 0:
+				return ()
+			else:
+				return target_list
 		else:
-			return target_list
+			if len(target_list) == 0:
+				return (), [desc[0] for desc in cursor.description]
+			else:
+				return target_list, [desc[0] for desc in cursor.description]
 
-	def update( self, owner = 'default' ):
+	def update(self, owner='default'):
 		try:
-			cursor = connections[owner].cursor( )
-			cursor.execute( self.sql )
-			transaction.commit_unless_managed( owner )
+			cursor = connections[owner].cursor()
+			cursor.execute(self.sql)
+			transaction.commit_unless_managed(owner)
 		except Exception, e:
 			return e
 		else:
 			return True
 
-	def callproc(self, procname, parameter, owner = 'default' ):
+	def callproc(self, procname, parameter, owner='default'):
 		try:
 			cursor = connections[owner].cursor()
-			res    = cursor.callproc( procname, parameter )
+			res = cursor.callproc(procname, parameter)
 			return res
-		except Exception,e:
+		except Exception, e:
 			return e
