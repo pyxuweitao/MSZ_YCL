@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MSZ_ZH.iml" afterPath="$PROJECT_DIR$/.idea/MSZ_ZH.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/__init__.py" afterPath="$PROJECT_DIR$/MSZ_YCL/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/settings.py" afterPath="$PROJECT_DIR$/MSZ_YCL/settings.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/urls.py" afterPath="$PROJECT_DIR$/MSZ_YCL/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/wsgi.py" afterPath="$PROJECT_DIR$/MSZ_YCL/wsgi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MSZ_YCL/wsgi.py" afterPath="$PROJECT_DIR$/MSZ_YCL/wsgi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.py" afterPath="$PROJECT_DIR$/manage.py" />
     </list>
     <ignored path="MSZ_ZH.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,11 +99,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sklcc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04411765">
-              <caret line="248" column="35" selection-start-line="248" selection-start-column="35" selection-end-line="248" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="261" column="24" selection-start-line="261" selection-start-column="24" selection-end-line="261" selection-end-column="24" />
               <folding>
                 <element signature="e#438#511#0" expanded="false" />
                 <element signature="e#582#854#0" expanded="false" />
@@ -143,7 +137,7 @@
                 <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
                 <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
                 <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-                <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+                <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
                 <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
                 <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
                 <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -253,6 +247,48 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="manage.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/manage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3970588">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MSZ_YCL/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.081081">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MSZ_YCL/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MSZ_YCL/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider editor-type-id="MultiMarkdownFxPreviewEditor">
@@ -324,7 +360,6 @@
         <option value="$PROJECT_DIR$/sklcc/test.py" />
         <option value="$PROJECT_DIR$/../Client/scripts/app-b298fc5ba5.js" />
         <option value="$PROJECT_DIR$/static/index.html" />
-        <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/static/scripts/app-b298fc5ba5.js" />
         <option value="$PROJECT_DIR$/sklcc/helperForViews.py" />
@@ -338,6 +373,8 @@
         <option value="$PROJECT_DIR$/MSZ_ZH/wsgi.py" />
         <option value="$PROJECT_DIR$/MSZ_ZH/urls.py" />
         <option value="$PROJECT_DIR$/MSZ_ZH/settings.py" />
+        <option value="$PROJECT_DIR$/MSZ_YCL/wsgi.py" />
+        <option value="$PROJECT_DIR$/manage.py" />
       </list>
     </option>
   </component>
@@ -428,6 +465,34 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sklcc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSZ_ZH" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mymiddleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSZ_ZH" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSZ_YCL" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1535,7 +1600,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Django server.MSZ_ZH">
+  <component name="RunManager" selected="Django server.MSZ_YCL">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1753,12 +1818,12 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="MSZ_ZH" type="Python.DjangoServer" factoryName="Django server">
+    <configuration default="false" name="MSZ_YCL" type="Python.DjangoServer" factoryName="Django server">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="MSZ_ZH.settings" />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -1796,7 +1861,7 @@
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Django server.MSZ_ZH" />
+      <item index="0" class="java.lang.String" itemvalue="Django server.MSZ_YCL" />
       <item index="1" class="java.lang.String" itemvalue="Python.Unnamed" />
     </list>
   </component>
@@ -1839,7 +1904,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456130651899</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="修改项目名称文件名以及相应模块">
+      <created>1456189898184</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1456189898184</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1857,17 +1928,17 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15093304" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31578946" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.51536775" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.5175631" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.233809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119171" sideWeight="0.49341384" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.48463228" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33956388" sideWeight="0.81339186" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.4824369" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33956388" sideWeight="0.81009877" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2495424" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1894,7 +1965,8 @@
     <MESSAGE value="用户增添和修改功能实现" />
     <MESSAGE value="1.优化了用户管理界面和交互&#10;2.实现了删除用户的功能，优化了用户管理增删改查的业务逻辑" />
     <MESSAGE value="增加README.md显示迭代记录" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加README.md显示迭代记录" />
+    <MESSAGE value="修改项目名称文件名以及相应模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改项目名称文件名以及相应模块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1938,7 +2010,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2084,7 +2156,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2230,7 +2302,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2376,7 +2448,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2522,7 +2594,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2668,7 +2740,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -2805,13 +2877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Client/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.5">
@@ -2928,7 +2993,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
           <folding>
-            <element signature="e#49#94#0" expanded="true" />
+            <element signature="e#49#94#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3005,8 +3070,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04411765">
-          <caret line="248" column="35" selection-start-line="248" selection-start-column="35" selection-end-line="248" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="261" column="24" selection-start-line="261" selection-start-column="24" selection-end-line="261" selection-end-column="24" />
           <folding>
             <element signature="e#438#511#0" expanded="false" />
             <element signature="e#582#854#0" expanded="false" />
@@ -3040,7 +3105,7 @@
             <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
             <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
             <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="true" signature="7854:7886" placeholder="select * fro... missing_value" />
             <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
             <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
             <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
@@ -3146,6 +3211,48 @@
             <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
             <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MSZ_YCL/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.081081">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MSZ_YCL/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MSZ_YCL/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MSZ_YCL/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3970588">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

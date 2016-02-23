@@ -1,5 +1,5 @@
 """
-WSGI config for MSZ_ZH project.
+WSGI config for MSZ_YCL project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
