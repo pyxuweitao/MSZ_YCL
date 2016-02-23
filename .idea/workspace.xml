@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="增加README.md显示迭代记录">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MSZ_ZH.iml" afterPath="$PROJECT_DIR$/.idea/MSZ_ZH.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/__init__.py" afterPath="$PROJECT_DIR$/MSZ_YCL/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/settings.py" afterPath="$PROJECT_DIR$/MSZ_YCL/settings.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/urls.py" afterPath="$PROJECT_DIR$/MSZ_YCL/urls.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/MSZ_ZH/wsgi.py" afterPath="$PROJECT_DIR$/MSZ_YCL/wsgi.py" />
     </list>
     <ignored path="MSZ_ZH.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,86 +99,16 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
-  <component name="DockManager">
-    <window id="3">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-            <file leaf-file-name="administration.py" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/sklcc/administration.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.5768025">
-                    <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-                    <folding>
-                      <element signature="e#48#74#0" expanded="true" />
-                      <element signature="e#370#453#0" expanded="false" />
-                      <element signature="e#370#447#1" expanded="false" />
-                      <marker date="1456124607663" expanded="true" signature="227:273" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                      <marker date="1456124607663" expanded="true" signature="613:663" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                      <marker date="1456124607663" expanded="true" signature="613:668" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                      <marker date="1456124607663" expanded="true" signature="1439:1572" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1439:1575" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1439:1580" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1439:1600" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1439:1682" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1565:1567" placeholder="missing_valu... " />
-                      <marker date="1456124607663" expanded="true" signature="1601:1638" placeholder="select getda... " />
-                      <marker date="1456124607663" expanded="true" signature="1601:1682" placeholder="select getda... " />
-                      <marker date="1456124607663" expanded="true" signature="1638:1682" placeholder="select getda... " />
-                      <marker date="1456124607663" expanded="true" signature="1817:1861" placeholder="DELETE FROM " />
-                      <marker date="1456124607663" expanded="true" signature="1883:2045" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1883:2050" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="1883:2094" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-                      <marker date="1456124607663" expanded="true" signature="2050:2094" placeholder="select getda... " />
-                      <marker date="1456124607663" expanded="true" signature="2353:2360" placeholder="SELECT * FRO... SKLCC_" />
-                      <marker date="1456124607663" expanded="true" signature="2353:2420" placeholder="SELECT Depar... RMI_DEPARTMENT" />
-                      <marker date="1456124607663" expanded="true" signature="2649:2695" placeholder="SELECT JobID... RMI_JOB" />
-                      <marker date="1456124607663" expanded="true" signature="2981:3011" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                      <marker date="1456124607663" expanded="true" signature="3032:3060" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                      <marker date="1456124607663" expanded="true" signature="3333:3361" placeholder="DELETE FROM " />
-                      <marker date="1456124607663" expanded="true" signature="3339:3361" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="MSZ_ZH" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="154" column="17" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.7027025">
-              <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sklcc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.2972975">
+            <state vertical-scroll-proportion="0.04411765">
               <caret line="248" column="35" selection-start-line="248" selection-start-column="35" selection-end-line="248" selection-end-column="35" />
               <folding>
                 <element signature="e#438#511#0" expanded="false" />
@@ -317,12 +253,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3529412">
-              <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-              <folding />
+          <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor vertical-scroll-proportion="0.0">
+                <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -338,33 +280,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RMI.dbo.RMI_DEPARTMENT" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/af8ac84f/be142388-a393-47d1-9a88-ab6281188d1a/RMI.dbo.RMI_DEPARTMENT">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rawSql.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sklcc/rawSql.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-              <folding>
-                <element signature="e#49#94#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -386,6 +301,11 @@
     </option>
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../../../xuweitao/MyTranslation" value="master" />
+      </map>
+    </option>
     <option name="PUSH_TAGS">
       <GitPushTagMode>
         <option name="argument" value="--follow-tags" />
@@ -411,12 +331,13 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/be142388-a393-47d1-9a88-ab6281188d1a/console_1.sql" />
         <option value="$PROJECT_DIR$/sklcc/test.json" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/be142388-a393-47d1-9a88-ab6281188d1a/console.sql" />
-        <option value="$PROJECT_DIR$/MSZ_ZH/settings.py" />
         <option value="$PROJECT_DIR$/sklcc/rawSql.py" />
-        <option value="$PROJECT_DIR$/MSZ_ZH/urls.py" />
         <option value="$PROJECT_DIR$/sklcc/administration.py" />
         <option value="$PROJECT_DIR$/sklcc/views.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/MSZ_ZH/wsgi.py" />
+        <option value="$PROJECT_DIR$/MSZ_ZH/urls.py" />
+        <option value="$PROJECT_DIR$/MSZ_ZH/settings.py" />
       </list>
     </option>
   </component>
@@ -496,6 +417,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSZ_ZH" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sklcc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -503,7 +438,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../xuweitao/MyTranslation" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
@@ -1822,8 +1757,8 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="DJANGO_SETTINGS_MODULE" value="MSZ_ZH.settings" />
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="MSZ_ZH.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -1898,7 +1833,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456130592810</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="增加README.md显示迭代记录">
+      <created>1456130651899</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1456130651899</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1914,27 +1855,27 @@
     <frame x="89" y="-9" width="1840" height="1098" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31578946" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.5065862" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33956388" sideWeight="0.82327116" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119171" sideWeight="0.49341384" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.49341384" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3803109" sideWeight="0.6860593" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15093304" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.233809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33021808" sideWeight="0.4978046" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31578946" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.51536775" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.233809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119171" sideWeight="0.49341384" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.48463228" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33956388" sideWeight="0.81339186" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2495424" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.83629894" sideWeight="0.49707174" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3803109" sideWeight="0.6860593" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33021808" sideWeight="0.4978046" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1960,16 +1901,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2112,206 +2043,6 @@
             <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
             <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
             <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sklcc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#438#511#0" expanded="false" />
-            <element signature="e#582#854#0" expanded="false" />
-            <element signature="e#898#1672#0" expanded="false" />
-            <element signature="e#1701#3018#0" expanded="false" />
-            <element signature="e#3486#3713#0" expanded="false" />
-            <element signature="e#3747#3936#0" expanded="false" />
-            <element signature="e#3972#4308#0" expanded="false" />
-            <element signature="e#5000#5811#0" expanded="false" />
-            <element signature="e#5841#5964#0" expanded="false" />
-            <element signature="e#5994#6360#0" expanded="false" />
-            <element signature="e#6392#6520#0" expanded="false" />
-            <element signature="e#6559#6827#0" expanded="false" />
-            <element signature="e#6866#7024#0" expanded="false" />
-            <marker date="1456125025987" expanded="false" signature="632:765" placeholder="insert into RMI_OPERATION_RECORDING... " />
-            <marker date="1456125025987" expanded="false" signature="1751:1843" placeholder="select Arriv... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="1937:2041" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="2141:2236" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="2328:2405" placeholder="select Compl... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="2505:2588" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="2870:2965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="5111:5164" placeholder="select Passw... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="5306:5352" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="true" signature="6133:6167" placeholder="try: jsonCon... " />
-            <marker date="1456125025987" expanded="true" signature="6134:6167" placeholder="jsonContent " />
-            <marker date="1456125025987" expanded="true" signature="6169:6195" placeholder="if jsonConte... " />
-            <marker date="1456125025987" expanded="true" signature="6196:6261" placeholder="'True': if w... " />
-            <marker date="1456125025987" expanded="true" signature="6206:6261" placeholder="if whetherAl... " />
-            <marker date="1456125025987" expanded="false" signature="6237:6261" placeholder=": # 新增员工且已经存... " />
-            <marker date="1456125025987" expanded="true" signature="6265:6287" placeholder="return HttpR... " />
-            <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
-            <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9621:9781" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9969:10110" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10222:10344" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10966:11172" placeholder="insert into RMI_FORM... " />
-            <marker date="1456125025987" expanded="false" signature="11444:11482" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="12112:12155" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="12541:12614" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="12690:12728" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14591:14634" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14812:14885" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="15097:15234" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="15369:15412" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="18714:18757" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="18994:19067" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="19215:19287" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="19481:19608" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="19751:19888" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="20024:20102" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="20269:20378" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="20447:20499" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="20557:20600" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="21315:21394" placeholder="select Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="21732:21775" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="22228:22284" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22337:22393" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22446:22499" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22559:22620" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22779:22852" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="23000:23072" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="23266:23393" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="23536:23673" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="23809:23887" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="24054:24163" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="24232:24284" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="24342:24385" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="25143:25186" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="28511:28560" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="30630:30777" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31080:31205" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31419:31530" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31656:31745" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="32040:32109" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="32183:32266" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="32493:32631" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="32870:33019" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="33416:33500" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="33976:34039" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="34201:34270" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="34342:34425" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="34643:34781" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="34988:35137" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="35518:35602" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="36131:36180" placeholder="select * fro... RMI_ARRIVAL_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="36623:36704" placeholder="SELECT Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="36776:36864" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="36912:36999" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="37422:37514" placeholder="select Proce... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="37626:37714" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="37756:37843" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="38114:38164" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38385:38429" placeholder="select * fro... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38532:38590" placeholder="insert into RMI_KVSTORE... " />
-            <marker date="1456125025987" expanded="false" signature="38752:38808" placeholder="update RMI_K... " />
-            <marker date="1456125025987" expanded="false" signature="38945:38995" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="39106:39148" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="39470:39519" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="39572:39602" placeholder="SELECT * FRO... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40018:40075" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40407:40464" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40740:40785" placeholder="insert into RMI_PROCESS_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="41911:41984" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42379:42466" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42861:42911" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="43291:43362" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="43479:43519" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="45392:45479" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="45787:45874" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="46162:46212" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="47747:47785" placeholder="SELECT * FRO... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48026:48080" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48378:48432" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48685:48745" placeholder="insert into RMI_FORM_RESOURCE_OPTION... " />
-            <marker date="1456125025987" expanded="false" signature="49027:49088" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="49293:49347" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="49542:49594" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="49889:49930" placeholder="select Tags RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="50143:50190" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="50672:50712" placeholder="insert into RMI_FEEDBACK... " />
-            <marker date="1456125025987" expanded="false" signature="50906:50983" placeholder="select TypeI... RMI_PROCESS" />
-            <marker date="1456125025987" expanded="false" signature="51096:51165" placeholder="select Refer... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="51803:51886" placeholder="select top m... RMI_OPERATION_RECORDING" />
-            <marker date="1456125025987" expanded="false" signature="52305:52585" placeholder="SELECT RMI_P... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53227:53314" placeholder="insert into RMI_PROCESS_TYPE_SUBCLASS... " />
-            <marker date="1456125025987" expanded="false" signature="53600:53655" placeholder="select * fro... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53796:53849" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="54198:54305" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="54595:54705" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55032:55175" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2462,20 +2193,148 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
+    <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#438#511#0" expanded="false" />
+            <element signature="e#582#854#0" expanded="false" />
+            <element signature="e#898#1672#0" expanded="false" />
+            <element signature="e#1701#3018#0" expanded="false" />
+            <element signature="e#3486#3713#0" expanded="false" />
+            <element signature="e#3747#3936#0" expanded="false" />
+            <element signature="e#3972#4308#0" expanded="false" />
+            <element signature="e#5000#5811#0" expanded="false" />
+            <element signature="e#5841#5964#0" expanded="false" />
+            <element signature="e#5994#6360#0" expanded="false" />
+            <element signature="e#6392#6520#0" expanded="false" />
+            <element signature="e#6559#6827#0" expanded="false" />
+            <element signature="e#6866#7024#0" expanded="false" />
+            <marker date="1456125025987" expanded="false" signature="632:765" placeholder="insert into RMI_OPERATION_RECORDING... " />
+            <marker date="1456125025987" expanded="false" signature="1751:1843" placeholder="select Arriv... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="1937:2041" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="2141:2236" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="2328:2405" placeholder="select Compl... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="2505:2588" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="2870:2965" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="5111:5164" placeholder="select Passw... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="false" signature="5306:5352" placeholder="select * fro... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="true" signature="6133:6167" placeholder="try: jsonCon... " />
+            <marker date="1456125025987" expanded="true" signature="6134:6167" placeholder="jsonContent " />
+            <marker date="1456125025987" expanded="true" signature="6169:6195" placeholder="if jsonConte... " />
+            <marker date="1456125025987" expanded="true" signature="6196:6261" placeholder="'True': if w... " />
+            <marker date="1456125025987" expanded="true" signature="6206:6261" placeholder="if whetherAl... " />
+            <marker date="1456125025987" expanded="false" signature="6237:6261" placeholder=": # 新增员工且已经存... " />
+            <marker date="1456125025987" expanded="true" signature="6265:6287" placeholder="return HttpR... " />
+            <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
+            <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="9621:9781" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="9969:10110" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="10222:10344" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="10966:11172" placeholder="insert into RMI_FORM... " />
+            <marker date="1456125025987" expanded="false" signature="11444:11482" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="12112:12155" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="12541:12614" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="12690:12728" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="14591:14634" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="14812:14885" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="15097:15234" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="15369:15412" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="18714:18757" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="18994:19067" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="19215:19287" placeholder="select top 1... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="19481:19608" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="19751:19888" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="20024:20102" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="20269:20378" placeholder="insert into RMI_PROCESS_NODE... " />
+            <marker date="1456125025987" expanded="false" signature="20447:20499" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="20557:20600" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="21315:21394" placeholder="select Arriv... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="21732:21775" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="22228:22284" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22337:22393" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22446:22499" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22559:22620" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22779:22852" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="23000:23072" placeholder="select top 1... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="23266:23393" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="23536:23673" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="23809:23887" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="24054:24163" placeholder="insert into RMI_PROCESS_NODE... " />
+            <marker date="1456125025987" expanded="false" signature="24232:24284" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="24342:24385" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="25143:25186" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="28511:28560" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="30630:30777" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31080:31205" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31419:31530" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31656:31745" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="32040:32109" placeholder="select Sourc... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="32183:32266" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="32493:32631" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="32870:33019" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="33416:33500" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="33976:34039" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="34201:34270" placeholder="select Sourc... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="34342:34425" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="34643:34781" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="34988:35137" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="35518:35602" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="36131:36180" placeholder="select * fro... RMI_ARRIVAL_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="36623:36704" placeholder="SELECT Arriv... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="36776:36864" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="36912:36999" placeholder="update RMI_A... " />
+            <marker date="1456125025987" expanded="false" signature="37422:37514" placeholder="select Proce... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="37626:37714" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="37756:37843" placeholder="update RMI_A... " />
+            <marker date="1456125025987" expanded="false" signature="38114:38164" placeholder="select [Valu... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="38385:38429" placeholder="select * fro... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="38532:38590" placeholder="insert into RMI_KVSTORE... " />
+            <marker date="1456125025987" expanded="false" signature="38752:38808" placeholder="update RMI_K... " />
+            <marker date="1456125025987" expanded="false" signature="38945:38995" placeholder="select [Valu... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="39106:39148" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="39470:39519" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="39572:39602" placeholder="SELECT * FRO... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40018:40075" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40407:40464" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40740:40785" placeholder="insert into RMI_PROCESS_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="41911:41984" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="42379:42466" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="42861:42911" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="43291:43362" placeholder="create table... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="43479:43519" placeholder="create table... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="45392:45479" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="45787:45874" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="46162:46212" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="47747:47785" placeholder="SELECT * FRO... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48026:48080" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48378:48432" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48685:48745" placeholder="insert into RMI_FORM_RESOURCE_OPTION... " />
+            <marker date="1456125025987" expanded="false" signature="49027:49088" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="49293:49347" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="49542:49594" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="49889:49930" placeholder="select Tags RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="50143:50190" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="50672:50712" placeholder="insert into RMI_FEEDBACK... " />
+            <marker date="1456125025987" expanded="false" signature="50906:50983" placeholder="select TypeI... RMI_PROCESS" />
+            <marker date="1456125025987" expanded="false" signature="51096:51165" placeholder="select Refer... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="51803:51886" placeholder="select top m... RMI_OPERATION_RECORDING" />
+            <marker date="1456125025987" expanded="false" signature="52305:52585" placeholder="SELECT RMI_P... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="53227:53314" placeholder="insert into RMI_PROCESS_TYPE_SUBCLASS... " />
+            <marker date="1456125025987" expanded="false" signature="53600:53655" placeholder="select * fro... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="53796:53849" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="54198:54305" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="54595:54705" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55032:55175" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
           </folding>
         </state>
       </provider>
@@ -2626,20 +2485,148 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
+    <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="98" selection-start-line="18" selection-start-column="98" selection-end-line="18" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#438#511#0" expanded="false" />
+            <element signature="e#582#854#0" expanded="false" />
+            <element signature="e#898#1672#0" expanded="false" />
+            <element signature="e#1701#3018#0" expanded="false" />
+            <element signature="e#3486#3713#0" expanded="false" />
+            <element signature="e#3747#3936#0" expanded="false" />
+            <element signature="e#3972#4308#0" expanded="false" />
+            <element signature="e#5000#5811#0" expanded="false" />
+            <element signature="e#5841#5964#0" expanded="false" />
+            <element signature="e#5994#6360#0" expanded="false" />
+            <element signature="e#6392#6520#0" expanded="false" />
+            <element signature="e#6559#6827#0" expanded="false" />
+            <element signature="e#6866#7024#0" expanded="false" />
+            <marker date="1456125025987" expanded="false" signature="632:765" placeholder="insert into RMI_OPERATION_RECORDING... " />
+            <marker date="1456125025987" expanded="false" signature="1751:1843" placeholder="select Arriv... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="1937:2041" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="2141:2236" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="2328:2405" placeholder="select Compl... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="2505:2588" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="2870:2965" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="5111:5164" placeholder="select Passw... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="false" signature="5306:5352" placeholder="select * fro... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="true" signature="6133:6167" placeholder="try: jsonCon... " />
+            <marker date="1456125025987" expanded="true" signature="6134:6167" placeholder="jsonContent " />
+            <marker date="1456125025987" expanded="true" signature="6169:6195" placeholder="if jsonConte... " />
+            <marker date="1456125025987" expanded="true" signature="6196:6261" placeholder="'True': if w... " />
+            <marker date="1456125025987" expanded="true" signature="6206:6261" placeholder="if whetherAl... " />
+            <marker date="1456125025987" expanded="false" signature="6237:6261" placeholder=": # 新增员工且已经存... " />
+            <marker date="1456125025987" expanded="true" signature="6265:6287" placeholder="return HttpR... " />
+            <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
+            <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
+            <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="9621:9781" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="9969:10110" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="10222:10344" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="10966:11172" placeholder="insert into RMI_FORM... " />
+            <marker date="1456125025987" expanded="false" signature="11444:11482" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="12112:12155" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="12541:12614" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="12690:12728" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="14591:14634" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="14812:14885" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="15097:15234" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="15369:15412" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="18714:18757" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="18994:19067" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="19215:19287" placeholder="select top 1... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="19481:19608" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="19751:19888" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="20024:20102" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="20269:20378" placeholder="insert into RMI_PROCESS_NODE... " />
+            <marker date="1456125025987" expanded="false" signature="20447:20499" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="20557:20600" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="21315:21394" placeholder="select Arriv... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="21732:21775" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="22228:22284" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22337:22393" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22446:22499" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22559:22620" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="22779:22852" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="23000:23072" placeholder="select top 1... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="23266:23393" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="23536:23673" placeholder="insert into RMI_ARRIVAL... " />
+            <marker date="1456125025987" expanded="false" signature="23809:23887" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="24054:24163" placeholder="insert into RMI_PROCESS_NODE... " />
+            <marker date="1456125025987" expanded="false" signature="24232:24284" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="24342:24385" placeholder="select * fro... RMI_FORM_DATA" />
+            <marker date="1456125025987" expanded="false" signature="25143:25186" placeholder="select [Data... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="28511:28560" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="30630:30777" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31080:31205" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31419:31530" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="31656:31745" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="32040:32109" placeholder="select Sourc... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="32183:32266" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="32493:32631" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="32870:33019" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="33416:33500" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="33976:34039" placeholder="select * fro... RMI_PROCESS_DATA" />
+            <marker date="1456125025987" expanded="false" signature="34201:34270" placeholder="select Sourc... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="34342:34425" placeholder="select Proce... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="34643:34781" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="34988:35137" placeholder="select Avail... RMI_PROCESS_NODE" />
+            <marker date="1456125025987" expanded="false" signature="35518:35602" placeholder="select * fro... RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="36131:36180" placeholder="select * fro... RMI_ARRIVAL_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="36623:36704" placeholder="SELECT Arriv... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="36776:36864" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="36912:36999" placeholder="update RMI_A... " />
+            <marker date="1456125025987" expanded="false" signature="37422:37514" placeholder="select Proce... RMI_ARRIVAL" />
+            <marker date="1456125025987" expanded="false" signature="37626:37714" placeholder="insert into RMI_PROCESS... " />
+            <marker date="1456125025987" expanded="false" signature="37756:37843" placeholder="update RMI_A... " />
+            <marker date="1456125025987" expanded="false" signature="38114:38164" placeholder="select [Valu... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="38385:38429" placeholder="select * fro... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="38532:38590" placeholder="insert into RMI_KVSTORE... " />
+            <marker date="1456125025987" expanded="false" signature="38752:38808" placeholder="update RMI_K... " />
+            <marker date="1456125025987" expanded="false" signature="38945:38995" placeholder="select [Valu... RMI_KVSTORE" />
+            <marker date="1456125025987" expanded="false" signature="39106:39148" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="39470:39519" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="39572:39602" placeholder="SELECT * FRO... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40018:40075" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40407:40464" placeholder="select * fro... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="40740:40785" placeholder="insert into RMI_PROCESS_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="41911:41984" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="42379:42466" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="42861:42911" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="43291:43362" placeholder="create table... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="43479:43519" placeholder="create table... missing_value" />
+            <marker date="1456125025987" expanded="false" signature="45392:45479" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="45787:45874" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="46162:46212" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
+            <marker date="1456125025987" expanded="false" signature="47747:47785" placeholder="SELECT * FRO... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48026:48080" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48378:48432" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="48685:48745" placeholder="insert into RMI_FORM_RESOURCE_OPTION... " />
+            <marker date="1456125025987" expanded="false" signature="49027:49088" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="49293:49347" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
+            <marker date="1456125025987" expanded="false" signature="49542:49594" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="49889:49930" placeholder="select Tags RMI_FORM" />
+            <marker date="1456125025987" expanded="false" signature="50143:50190" placeholder="update RMI_F... " />
+            <marker date="1456125025987" expanded="false" signature="50672:50712" placeholder="insert into RMI_FEEDBACK... " />
+            <marker date="1456125025987" expanded="false" signature="50906:50983" placeholder="select TypeI... RMI_PROCESS" />
+            <marker date="1456125025987" expanded="false" signature="51096:51165" placeholder="select Refer... RMI_PROCESS_TYPE" />
+            <marker date="1456125025987" expanded="false" signature="51803:51886" placeholder="select top m... RMI_OPERATION_RECORDING" />
+            <marker date="1456125025987" expanded="false" signature="52305:52585" placeholder="SELECT RMI_P... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="53227:53314" placeholder="insert into RMI_PROCESS_TYPE_SUBCLASS... " />
+            <marker date="1456125025987" expanded="false" signature="53600:53655" placeholder="select * fro... RMI_PROCESS_TYPE_SUBCLASS" />
+            <marker date="1456125025987" expanded="false" signature="53796:53849" placeholder="delete from " />
+            <marker date="1456125025987" expanded="false" signature="54198:54305" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="54595:54705" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55032:55175" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
+            <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
           </folding>
         </state>
       </provider>
@@ -2787,349 +2774,6 @@
             <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
             <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="125" selection-start-line="13" selection-start-column="125" selection-end-line="13" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sklcc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#438#511#0" expanded="false" />
-            <element signature="e#582#854#0" expanded="false" />
-            <element signature="e#898#1672#0" expanded="false" />
-            <element signature="e#1701#3018#0" expanded="false" />
-            <element signature="e#3486#3713#0" expanded="false" />
-            <element signature="e#3747#3936#0" expanded="false" />
-            <element signature="e#3972#4308#0" expanded="false" />
-            <element signature="e#5000#5811#0" expanded="false" />
-            <element signature="e#5841#5964#0" expanded="false" />
-            <element signature="e#5994#6360#0" expanded="false" />
-            <element signature="e#6392#6520#0" expanded="false" />
-            <element signature="e#6559#6827#0" expanded="false" />
-            <element signature="e#6866#7024#0" expanded="false" />
-            <marker date="1456125025987" expanded="false" signature="632:765" placeholder="insert into RMI_OPERATION_RECORDING... " />
-            <marker date="1456125025987" expanded="false" signature="1751:1843" placeholder="select Arriv... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="1937:2041" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="2141:2236" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="2328:2405" placeholder="select Compl... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="2505:2588" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="2870:2965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="5111:5164" placeholder="select Passw... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="5306:5352" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="true" signature="6133:6167" placeholder="try: jsonCon... " />
-            <marker date="1456125025987" expanded="true" signature="6134:6167" placeholder="jsonContent " />
-            <marker date="1456125025987" expanded="true" signature="6169:6195" placeholder="if jsonConte... " />
-            <marker date="1456125025987" expanded="true" signature="6196:6261" placeholder="'True': if w... " />
-            <marker date="1456125025987" expanded="true" signature="6206:6261" placeholder="if whetherAl... " />
-            <marker date="1456125025987" expanded="false" signature="6237:6261" placeholder=": # 新增员工且已经存... " />
-            <marker date="1456125025987" expanded="true" signature="6265:6287" placeholder="return HttpR... " />
-            <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
-            <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9621:9781" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9969:10110" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10222:10344" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10966:11172" placeholder="insert into RMI_FORM... " />
-            <marker date="1456125025987" expanded="false" signature="11444:11482" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="12112:12155" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="12541:12614" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="12690:12728" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14591:14634" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14812:14885" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="15097:15234" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="15369:15412" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="18714:18757" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="18994:19067" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="19215:19287" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="19481:19608" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="19751:19888" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="20024:20102" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="20269:20378" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="20447:20499" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="20557:20600" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="21315:21394" placeholder="select Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="21732:21775" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="22228:22284" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22337:22393" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22446:22499" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22559:22620" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22779:22852" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="23000:23072" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="23266:23393" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="23536:23673" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="23809:23887" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="24054:24163" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="24232:24284" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="24342:24385" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="25143:25186" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="28511:28560" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="30630:30777" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31080:31205" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31419:31530" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31656:31745" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="32040:32109" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="32183:32266" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="32493:32631" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="32870:33019" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="33416:33500" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="33976:34039" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="34201:34270" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="34342:34425" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="34643:34781" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="34988:35137" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="35518:35602" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="36131:36180" placeholder="select * fro... RMI_ARRIVAL_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="36623:36704" placeholder="SELECT Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="36776:36864" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="36912:36999" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="37422:37514" placeholder="select Proce... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="37626:37714" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="37756:37843" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="38114:38164" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38385:38429" placeholder="select * fro... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38532:38590" placeholder="insert into RMI_KVSTORE... " />
-            <marker date="1456125025987" expanded="false" signature="38752:38808" placeholder="update RMI_K... " />
-            <marker date="1456125025987" expanded="false" signature="38945:38995" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="39106:39148" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="39470:39519" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="39572:39602" placeholder="SELECT * FRO... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40018:40075" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40407:40464" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40740:40785" placeholder="insert into RMI_PROCESS_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="41911:41984" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42379:42466" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42861:42911" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="43291:43362" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="43479:43519" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="45392:45479" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="45787:45874" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="46162:46212" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="47747:47785" placeholder="SELECT * FRO... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48026:48080" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48378:48432" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48685:48745" placeholder="insert into RMI_FORM_RESOURCE_OPTION... " />
-            <marker date="1456125025987" expanded="false" signature="49027:49088" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="49293:49347" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="49542:49594" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="49889:49930" placeholder="select Tags RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="50143:50190" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="50672:50712" placeholder="insert into RMI_FEEDBACK... " />
-            <marker date="1456125025987" expanded="false" signature="50906:50983" placeholder="select TypeI... RMI_PROCESS" />
-            <marker date="1456125025987" expanded="false" signature="51096:51165" placeholder="select Refer... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="51803:51886" placeholder="select top m... RMI_OPERATION_RECORDING" />
-            <marker date="1456125025987" expanded="false" signature="52305:52585" placeholder="SELECT RMI_P... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53227:53314" placeholder="insert into RMI_PROCESS_TYPE_SUBCLASS... " />
-            <marker date="1456125025987" expanded="false" signature="53600:53655" placeholder="select * fro... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53796:53849" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="54198:54305" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="54595:54705" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55032:55175" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="125" selection-start-line="13" selection-start-column="125" selection-end-line="13" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sklcc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#438#511#0" expanded="false" />
-            <element signature="e#582#854#0" expanded="false" />
-            <element signature="e#898#1672#0" expanded="false" />
-            <element signature="e#1701#3018#0" expanded="false" />
-            <element signature="e#3486#3713#0" expanded="false" />
-            <element signature="e#3747#3936#0" expanded="false" />
-            <element signature="e#3972#4308#0" expanded="false" />
-            <element signature="e#5000#5811#0" expanded="false" />
-            <element signature="e#5841#5964#0" expanded="false" />
-            <element signature="e#5994#6360#0" expanded="false" />
-            <element signature="e#6392#6520#0" expanded="false" />
-            <element signature="e#6559#6827#0" expanded="false" />
-            <element signature="e#6866#7024#0" expanded="false" />
-            <marker date="1456125025987" expanded="false" signature="632:765" placeholder="insert into RMI_OPERATION_RECORDING... " />
-            <marker date="1456125025987" expanded="false" signature="1751:1843" placeholder="select Arriv... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="1937:2041" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="2141:2236" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="2328:2405" placeholder="select Compl... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="2505:2588" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="2870:2965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="5111:5164" placeholder="select Passw... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="5306:5352" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="true" signature="6133:6167" placeholder="try: jsonCon... " />
-            <marker date="1456125025987" expanded="true" signature="6134:6167" placeholder="jsonContent " />
-            <marker date="1456125025987" expanded="true" signature="6169:6195" placeholder="if jsonConte... " />
-            <marker date="1456125025987" expanded="true" signature="6196:6261" placeholder="'True': if w... " />
-            <marker date="1456125025987" expanded="true" signature="6206:6261" placeholder="if whetherAl... " />
-            <marker date="1456125025987" expanded="false" signature="6237:6261" placeholder=": # 新增员工且已经存... " />
-            <marker date="1456125025987" expanded="true" signature="6265:6287" placeholder="return HttpR... " />
-            <marker date="1456125025987" expanded="true" signature="6288:6336" placeholder="print 'ok' e... " />
-            <marker date="1456125025987" expanded="true" signature="7132:7178" placeholder="select * fro... RMI_ACCOUNT_USER" />
-            <marker date="1456125025987" expanded="false" signature="7660:7692" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="7854:7886" placeholder="select * fro... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="8076:8148" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="8257:8353" placeholder="select FormC... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="true" signature="9161:9335" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9621:9781" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="9969:10110" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10222:10344" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="10966:11172" placeholder="insert into RMI_FORM... " />
-            <marker date="1456125025987" expanded="false" signature="11444:11482" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="12112:12155" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="12541:12614" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="12690:12728" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14591:14634" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="14812:14885" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="15097:15234" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="15369:15412" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="18714:18757" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="18994:19067" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="19215:19287" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="19481:19608" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="19751:19888" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="20024:20102" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="20269:20378" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="20447:20499" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="20557:20600" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="21315:21394" placeholder="select Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="21732:21775" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="22228:22284" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22337:22393" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22446:22499" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22559:22620" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="22779:22852" placeholder="select Proce... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="23000:23072" placeholder="select top 1... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="23266:23393" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="23536:23673" placeholder="insert into RMI_ARRIVAL... " />
-            <marker date="1456125025987" expanded="false" signature="23809:23887" placeholder="select Id fr... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="24054:24163" placeholder="insert into RMI_PROCESS_NODE... " />
-            <marker date="1456125025987" expanded="false" signature="24232:24284" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="24342:24385" placeholder="select * fro... RMI_FORM_DATA" />
-            <marker date="1456125025987" expanded="false" signature="25143:25186" placeholder="select [Data... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="28511:28560" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="30630:30777" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31080:31205" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31419:31530" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="31656:31745" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="32040:32109" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="32183:32266" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="32493:32631" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="32870:33019" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="33416:33500" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="33976:34039" placeholder="select * fro... RMI_PROCESS_DATA" />
-            <marker date="1456125025987" expanded="false" signature="34201:34270" placeholder="select Sourc... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="34342:34425" placeholder="select Proce... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="34643:34781" placeholder="select Id,[O... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="34988:35137" placeholder="select Avail... RMI_PROCESS_NODE" />
-            <marker date="1456125025987" expanded="false" signature="35518:35602" placeholder="select * fro... RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="36131:36180" placeholder="select * fro... RMI_ARRIVAL_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="36623:36704" placeholder="SELECT Arriv... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="36776:36864" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="36912:36999" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="37422:37514" placeholder="select Proce... RMI_ARRIVAL" />
-            <marker date="1456125025987" expanded="false" signature="37626:37714" placeholder="insert into RMI_PROCESS... " />
-            <marker date="1456125025987" expanded="false" signature="37756:37843" placeholder="update RMI_A... " />
-            <marker date="1456125025987" expanded="false" signature="38114:38164" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38385:38429" placeholder="select * fro... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="38532:38590" placeholder="insert into RMI_KVSTORE... " />
-            <marker date="1456125025987" expanded="false" signature="38752:38808" placeholder="update RMI_K... " />
-            <marker date="1456125025987" expanded="false" signature="38945:38995" placeholder="select [Valu... RMI_KVSTORE" />
-            <marker date="1456125025987" expanded="false" signature="39106:39148" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="39470:39519" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="39572:39602" placeholder="SELECT * FRO... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40018:40075" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40407:40464" placeholder="select * fro... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="40740:40785" placeholder="insert into RMI_PROCESS_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="41911:41984" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42379:42466" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="42861:42911" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="43291:43362" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="43479:43519" placeholder="create table... missing_value" />
-            <marker date="1456125025987" expanded="false" signature="45392:45479" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="45787:45874" placeholder="select * fro... RMI_PROCESS_NODE_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="46162:46212" placeholder="insert into RMI_PROCESS_NODE_TYPE... " />
-            <marker date="1456125025987" expanded="false" signature="47747:47785" placeholder="SELECT * FRO... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48026:48080" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48378:48432" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="48685:48745" placeholder="insert into RMI_FORM_RESOURCE_OPTION... " />
-            <marker date="1456125025987" expanded="false" signature="49027:49088" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="49293:49347" placeholder="select * fro... RMI_FORM_RESOURCE_OPTION" />
-            <marker date="1456125025987" expanded="false" signature="49542:49594" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="49889:49930" placeholder="select Tags RMI_FORM" />
-            <marker date="1456125025987" expanded="false" signature="50143:50190" placeholder="update RMI_F... " />
-            <marker date="1456125025987" expanded="false" signature="50672:50712" placeholder="insert into RMI_FEEDBACK... " />
-            <marker date="1456125025987" expanded="false" signature="50906:50983" placeholder="select TypeI... RMI_PROCESS" />
-            <marker date="1456125025987" expanded="false" signature="51096:51165" placeholder="select Refer... RMI_PROCESS_TYPE" />
-            <marker date="1456125025987" expanded="false" signature="51803:51886" placeholder="select top m... RMI_OPERATION_RECORDING" />
-            <marker date="1456125025987" expanded="false" signature="52305:52585" placeholder="SELECT RMI_P... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53227:53314" placeholder="insert into RMI_PROCESS_TYPE_SUBCLASS... " />
-            <marker date="1456125025987" expanded="false" signature="53600:53655" placeholder="select * fro... RMI_PROCESS_TYPE_SUBCLASS" />
-            <marker date="1456125025987" expanded="false" signature="53796:53849" placeholder="delete from " />
-            <marker date="1456125025987" expanded="false" signature="54198:54305" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="54595:54705" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55032:55175" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55534:55607" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
-            <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3214,7 +2858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3222,9 +2865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding>
-            <element signature="e#55#100#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3232,7 +2872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3240,21 +2879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.52996254">
           <caret line="4" column="20037" selection-start-line="4" selection-start-column="20037" selection-end-line="4" selection-end-column="20037" />
-          <folding>
-            <marker date="1455936033776" expanded="true" signature="394:466" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="44853:44922" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="45096:45193" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="45290:45318" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="102887:102898" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="103749:103763" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="103969:103990" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104180:104301" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104315:104349" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104422:104435" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104470:104498" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104548:104576" placeholder="..." />
-            <marker date="1455936033776" expanded="true" signature="104752:104836" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3262,7 +2886,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33222592">
           <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3270,7 +2893,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3278,7 +2900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3286,20 +2907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3139535">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/af8ac84f/be142388-a393-47d1-9a88-ab6281188d1a/RMI.dbo.RMI_ACCOUNT_USER">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3326,63 +2933,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="154" column="17" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.8">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MSZ_ZH/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.7027025">
-          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor vertical-scroll-proportion="0.0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/administration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5768025">
+        <state vertical-scroll-proportion="0.35799208">
           <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="e#48#74#0" expanded="true" />
-            <element signature="e#370#453#0" expanded="false" />
-            <element signature="e#370#447#1" expanded="false" />
-            <marker date="1456124607663" expanded="true" signature="227:273" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-            <marker date="1456124607663" expanded="true" signature="613:663" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-            <marker date="1456124607663" expanded="true" signature="613:668" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-            <marker date="1456124607663" expanded="true" signature="1439:1572" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1439:1575" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1439:1580" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1439:1600" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1439:1682" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1565:1567" placeholder="missing_valu... " />
-            <marker date="1456124607663" expanded="true" signature="1601:1638" placeholder="select getda... " />
-            <marker date="1456124607663" expanded="true" signature="1601:1682" placeholder="select getda... " />
-            <marker date="1456124607663" expanded="true" signature="1638:1682" placeholder="select getda... " />
-            <marker date="1456124607663" expanded="true" signature="1817:1861" placeholder="DELETE FROM " />
-            <marker date="1456124607663" expanded="true" signature="1883:2045" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1883:2050" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="1883:2094" placeholder="INSERT INTO RMI_ACCOUNT_USER... " />
-            <marker date="1456124607663" expanded="true" signature="2050:2094" placeholder="select getda... " />
-            <marker date="1456124607663" expanded="true" signature="2353:2360" placeholder="SELECT * FRO... SKLCC_" />
-            <marker date="1456124607663" expanded="true" signature="2353:2420" placeholder="SELECT Depar... RMI_DEPARTMENT" />
-            <marker date="1456124607663" expanded="true" signature="2649:2695" placeholder="SELECT JobID... RMI_JOB" />
-            <marker date="1456124607663" expanded="true" signature="2981:3011" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-            <marker date="1456124607663" expanded="true" signature="3032:3060" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-            <marker date="1456124607663" expanded="true" signature="3333:3361" placeholder="DELETE FROM " />
-            <marker date="1456124607663" expanded="true" signature="3339:3361" placeholder="SELECT * FRO... RMI_ACCOUNT_USER" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/af8ac84f/be142388-a393-47d1-9a88-ab6281188d1a/RMI.dbo.RMI_ACCOUNT_USER">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../xuweitao/MyTranslation/README.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor vertical-scroll-proportion="0.10093458">
+            <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../xuweitao/MyTranslation/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../xuweitao/MyTranslation/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0448505">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.2972975">
+        <state vertical-scroll-proportion="0.04411765">
           <caret line="248" column="35" selection-start-line="248" selection-start-column="35" selection-end-line="248" selection-end-column="35" />
           <folding>
             <element signature="e#438#511#0" expanded="false" />
@@ -3523,14 +3146,6 @@
             <marker date="1456125025987" expanded="false" signature="55892:55965" placeholder="update RMI_P... " />
             <marker date="1456125025987" expanded="false" signature="56022:56097" placeholder="update RMI_P... " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3529412">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>

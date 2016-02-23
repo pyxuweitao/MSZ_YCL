@@ -1,4 +1,4 @@
-# Django settings for MSZ_ZH project.
+# Django settings for MSZ_YCL project.
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -74,7 +74,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    #'E:/code/MSZ_ZH/static/',
+    #'E:/code/MSZ_YCL/static/',
     'E:/program/sklcc/MSZ_YCL/Server/static/',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
@@ -111,10 +111,10 @@ MIDDLEWARE_CLASSES = (
     #'mymiddleware.middleware.MonitorMiddleware',
 )
 
-ROOT_URLCONF = 'MSZ_ZH.urls'
+ROOT_URLCONF = 'MSZ_YCL.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'MSZ_ZH.wsgi.application'
+WSGI_APPLICATION = 'MSZ_YCL.wsgi.application'
 
 TEMPLATE_DIRS = (
     'E:/program/sklcc/MSZ_YCL/Server/templates',

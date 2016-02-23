@@ -7,8 +7,8 @@ from sklcc import views
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'MSZ_ZH.views.home', name='home'),
-    # url(r'^MSZ_ZH/', include('MSZ_ZH.foo.urls')),
+    # url(r'^$', 'MSZ_YCL.views.home', name='home'),
+    # url(r'^MSZ_YCL/', include('MSZ_YCL.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
