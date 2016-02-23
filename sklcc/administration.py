@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+所有权限和用户管理相关业务逻辑函数
+"""
 __author__ = 'XuWeitao'
 from rawSql import Raw_sql
 import json
@@ -32,7 +35,7 @@ def getEmployeeCreateTime(Id):
 	:return: 返回对应创建时间的字段的值
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT CreateTime FROM RMI_ACCOUNT_USER WHERE Id = '%s'" % Id
+	raw.sql = "SELECT CONVERT(varchar(25), CreateTime, 20) CreateTime FROM RMI_ACCOUNT_USER WHERE Id = '%s'" % Id
 	result = raw.query_one()
 	if not result:
 		return None
@@ -42,15 +45,10 @@ def getEmployeeCreateTime(Id):
 
 def editEmployeeInfo(employeeInfo):
 	"""
-	根据isNew字段以及传入的信息来新插入或先删除再插入一个员工数据。
+	根据isNew字段以及传入的信息来新插入或更新一个员工数据。
 	:param employeeInfo: 员工信息字典
-	:return:
+	:return:返回编辑成功与否的布尔标志
 	"""
-	Id           = employeeInfo['ID']
-	password     = employeeInfo['Password']
-	name         = employeeInfo['Name']
-	departmentId = employeeInfo['DepartmentID']
-	jobId        = employeeInfo['JobID']
 	permission   = 'default' if 'Permission' not in employeeInfo else json.dumps(employeeInfo['Permission'],
 	                                                                           encoding='GB2312')
 	permission   = permission.replace("'", '"')
@@ -58,15 +56,14 @@ def editEmployeeInfo(employeeInfo):
 	raw          = Raw_sql()
 	if isNew:
 		raw.sql = "INSERT INTO RMI_ACCOUNT_USER(id, Password, DepartmentID, JobID, Permission, CreateTime, LastModifiedTime, Name)"\
-		          " VALUES ('%s','%s','%s','%s','%s', CONVERT(varchar(100), GETDATE(), 21), CONVERT(varchar(100), GETDATE(), 21), '%s');" % (
-			          Id, password, departmentId, jobId, permission, name)
+		          " VALUES ('%s','%s','%s','%s','%s', GETDATE(), GETDATE(), '%s');" % (
+			          employeeInfo['ID'], employeeInfo['Password'], employeeInfo['DepartmentID'], employeeInfo['JobID'], permission, employeeInfo['Name'])
 	else:
-		createtime = getEmployeeCreateTime(Id)
-		raw.sql  = "DELETE FROM RMI_ACCOUNT_USER WHERE Id = '%s';" % Id
-		raw.sql += "INSERT INTO RMI_ACCOUNT_USER(id, Password, DepartmentID, JobID, Permission, CreateTime, LastModifiedTime, Name)"\
-		           " VALUES ('%s','%s','%s','%s','%s','%s', CONVERT(varchar(100), GETDATE(), 21), '%s');" % (
-			           Id, password, departmentId, jobId, permission, createtime, name)
-	print raw.update()
+		raw.sql  = "UPDATE RMI_ACCOUNT_USER SET Password = '%s', DepartmentID = '%s', " \
+		           "JobID = '%s', Permission = '%s', LastModifiedTime = getdate(), Name = '%s' WHERE ID = '%s'"%(
+			        employeeInfo['Password'], employeeInfo['DepartmentID'], employeeInfo['JobID'],
+			        permission, employeeInfo['Name'], employeeInfo['ID'])
+	return raw.update()
 
 
 def getAllDepartmentsInfo():
@@ -96,7 +93,9 @@ def getUserInfo(ID='ALL'):
 	:return:返回与数据库字段和记录一一对应的若干字典组成的列表
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT * FROM RMI_ACCOUNT_USER"
+	raw.sql = "SELECT ID, Name, Password, DepartmentID, JobID, Permission," \
+	          " CONVERT(varchar(16), CreateTime, 20) CreateTime," \
+	          " CONVERT(varchar(16), LastModifiedTime, 20) LastModifiedTime FROM RMI_ACCOUNT_USER"
 	if ID != 'ALL':
 		raw.sql += " WHERE ID = '%s'"%ID
 	res, columns = raw.query_all(needColumnName=True)

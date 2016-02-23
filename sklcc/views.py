@@ -9,6 +9,7 @@ import time
 import urllib
 import sys
 from administration import *
+from inspectFunction import *
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -1290,3 +1291,23 @@ def process_iscomplete(request, ASN):
 		return HttpResponse(request.body)
 	else:
 		return HttpResponseBadRequest()
+
+#==============================================================
+
+def getTasks(request, UserID):
+	"""
+	映射到获取所有对应检验列表的链接
+	:param request: 客户端请求
+	:param UserID: 如果是ALL在，则返回所有的检验任务列表，否则返回对应UserID的检验任务列表
+	:return:返回JSON打包之后的检验任务信息列表
+	"""
+	return HttpResponse(json.dumps(getTasksList(UserID), ensure_ascii=False, encoding='GB2312'))
+
+def editTask(request):
+	"""
+	映射到编辑任务的用户列表
+	:param request:客户端请求，其中包含需要修改的任务的serialNo和对应的信息
+	:return:
+	"""
+	editTaskInfo(json.loads(request.body[5:], encoding='utf-8'), request.session['UserId'])
+	return HttpResponse()

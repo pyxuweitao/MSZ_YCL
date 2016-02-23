@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index ),
 
+	url(r'^api/inspect/(\w+)/getTasks/$', views.getTasks),
+	url(r'^api/inspect/editTask/', views.editTask),
+    # ========================================================
     url(r'^api/forms/$', views.get_form),
     url(r'^api/forms/(\w{6})/$', views.get_form_id),
     url(r'^api/forms/(\w{6})/data/$',views.get_data),
@@ -53,6 +56,7 @@ urlpatterns = patterns('',
 
     url(r'^api/feedback/$',views.feedback),
 
+    # ==================================================
     url(r'^api/users/$',views.users_info_operations),
     url(r'^api/users/departmentAndJob/$',views.getDepartmentsAndJobs),
     url(r'^api/users/(\w+)/$',views.user_info),
@@ -69,3 +73,4 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
+
