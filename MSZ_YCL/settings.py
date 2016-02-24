@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'RMI',                      # Or path to database file if using sqlite3.
         'USER': 'sa',                      # Not used with sqlite3.
         'PASSWORD': 'sklcc',                  # Not used with sqlite3.
-        'HOST': '192.168.1.240',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'OPTIONS':{
             'host_is_server':True
         }

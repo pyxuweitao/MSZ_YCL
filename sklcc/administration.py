@@ -14,7 +14,7 @@ def whetherAlreadyRegistered(Id):
 	:return: 是否数据库中已经存在的布尔值
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT * FROM RMI_ACCOUNT_USER WHERE Id = '%s'" % Id
+	raw.sql = "SELECT * FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE Id = '%s'" % Id
 	return True if len(raw.query_all()) != 0 else False
 
 
@@ -35,7 +35,7 @@ def getEmployeeCreateTime(Id):
 	:return: 返回对应创建时间的字段的值
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT CONVERT(varchar(25), CreateTime, 20) CreateTime FROM RMI_ACCOUNT_USER WHERE Id = '%s'" % Id
+	raw.sql = "SELECT CONVERT(varchar(25), CreateTime, 20) CreateTime FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE Id = '%s'" % Id
 	result = raw.query_one()
 	if not result:
 		return None
@@ -55,11 +55,11 @@ def editEmployeeInfo(employeeInfo):
 	isNew        = True if employeeInfo['isNew'] == "True" else False
 	raw          = Raw_sql()
 	if isNew:
-		raw.sql = "INSERT INTO RMI_ACCOUNT_USER(id, Password, DepartmentID, JobID, Permission, CreateTime, LastModifiedTime, Name)"\
+		raw.sql = "INSERT INTO RMI_ACCOUNT_USER WITH(ROWLOCK) (id, Password, DepartmentID, JobID, Permission, CreateTime, LastModifiedTime, Name)"\
 		          " VALUES ('%s','%s','%s','%s','%s', GETDATE(), GETDATE(), '%s');" % (
 			          employeeInfo['ID'], employeeInfo['Password'], employeeInfo['DepartmentID'], employeeInfo['JobID'], permission, employeeInfo['Name'])
 	else:
-		raw.sql  = "UPDATE RMI_ACCOUNT_USER SET Password = '%s', DepartmentID = '%s', " \
+		raw.sql  = "UPDATE RMI_ACCOUNT_USER WITH(ROWLOCK) SET Password = '%s', DepartmentID = '%s', " \
 		           "JobID = '%s', Permission = '%s', LastModifiedTime = getdate(), Name = '%s' WHERE ID = '%s'"%(
 			        employeeInfo['Password'], employeeInfo['DepartmentID'], employeeInfo['JobID'],
 			        permission, employeeInfo['Name'], employeeInfo['ID'])
@@ -72,7 +72,7 @@ def getAllDepartmentsInfo():
 	:return:返回{departmentid,department,classification}组成的字典列表
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT DepartmentID, Department, Classification FROM RMI_DEPARTMENT"
+	raw.sql = "SELECT DepartmentID, Department, Classification FROM RMI_DEPARTMENT WITH(NOLOCK)"
 	res = raw.query_all()
 	return [ {"value":row[0], "name":row[1], "group":row[2]} for row in res ]
 
@@ -82,7 +82,7 @@ def getAllJobsInfo():
 	:return:返回{jobid,job,classification}组成的字典列表
 	"""
 	raw = Raw_sql()
-	raw.sql = "SELECT JobID, Job, Classification FROM RMI_JOB"
+	raw.sql = "SELECT JobID, Job, Classification FROM RMI_JOB WITH(NOLOCK)"
 	res = raw.query_all()
 	return [ {"value":row[0], "name":row[1], "group":row[2]} for row in res ]
 
@@ -95,7 +95,7 @@ def getUserInfo(ID='ALL'):
 	raw = Raw_sql()
 	raw.sql = "SELECT ID, Name, Password, DepartmentID, JobID, Permission," \
 	          " CONVERT(varchar(16), CreateTime, 20) CreateTime," \
-	          " CONVERT(varchar(16), LastModifiedTime, 20) LastModifiedTime FROM RMI_ACCOUNT_USER"
+	          " CONVERT(varchar(16), LastModifiedTime, 20) LastModifiedTime FROM RMI_ACCOUNT_USER WITH(NOLOCK)"
 	if ID != 'ALL':
 		raw.sql += " WHERE ID = '%s'"%ID
 	res, columns = raw.query_all(needColumnName=True)
@@ -108,7 +108,7 @@ def deleteUserInfo(ID='ALL'):
 	:return:
 	"""
 	raw = Raw_sql()
-	raw.sql = "DELETE FROM RMI_ACCOUNT_USER"
+	raw.sql = "DELETE FROM RMI_ACCOUNT_USER WITH(ROWLOCK)"
 	if ID != 'ALL':
 		raw.sql += " WHERE ID = '%s'"%ID
 	raw.update()

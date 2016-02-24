@@ -170,6 +170,7 @@ def login(request, Id):
 			return HttpResponse(status=401)
 		pw = pw[0]
 		if pw == data['Password']:
+			#TODO:fix this bug
 			cursor.execute("select * from RMI_ACCOUNT_USER where Id = '%s'" % Id)
 			user_data = cursor.fetchone()
 			col_names = [desc[0] for desc in cursor.description]
@@ -820,7 +821,6 @@ def get_process(request, ASN):
 			form = cursor.fetchone()
 			form_names = [desc[0] for desc in cursor.description]
 			inner_dict['Form'] = dict(zip(form_names, form))
-			print inner_dict
 			dic['Nodes'].append(inner_dict)
 		return HttpResponse(json.dumps(dic, encoding='GB2312'), content_type="application/json")
 	else:
@@ -1311,3 +1311,22 @@ def editTask(request):
 	"""
 	editTaskInfo(json.loads(request.body[5:], encoding='utf-8'), request.session['UserId'])
 	return HttpResponse()
+
+def getFlow(request):
+	"""
+	获取所有的工作流程列表
+	:param request:客户端请求
+	:return:返回所有键值对列表
+	"""
+	return HttpResponse(json.dumps(getFlowList(), encoding='GB2312'))
+
+def test(request):
+	raw = Raw_sql()
+	for i in range(1,10):
+		raw.sql = "INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo, ArriveTime, UserID, FlowID) "\
+		          "VALUES( '2016-02-23 16:23:09.187',	'2016-02-23 16:23:09.187',	'234','234'	,'2016-02-06 00:00:00.000',	'1227401050','b6eb0acf-7c31-44f5-ae44-931ee2ff90a2' );"
+		raw.update()
+	return HttpResponse()
+
+
+

@@ -15,7 +15,7 @@ def getTasksList(UserID):
 	raw     = Raw_sql()
 	raw.sql = "SELECT SerialNo, CONVERT(varchar(16), a.CreateTime, 20) CreateTime, CONVERT(varchar(16), a.LastModifiedTime, 20) LastModifiedTime," \
 	          " ProductNo, ColorNo, CONVERT(varchar(10), a.ArriveTime, 20) ArriveTime, Name" \
-	          " FROM RMI_TASK a JOIN RMI_ACCOUNT_USER b" \
+	          " FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_ACCOUNT_USER b WITH(NOLOCK)" \
 	          " ON ID = UserID"
 	if UserID != 'ALL':
 		raw.sql += " WHERE ID = '%s'"%UserID
@@ -32,12 +32,34 @@ def editTaskInfo(taskInfo, userID):
 	isNew        = True if taskInfo['isNew'] == "True" else False
 	raw          = Raw_sql()
 	if isNew:
-		raw.sql = "INSERT INTO RMI_TASK( CreateTime, LastModifiedTime, ProductNo, ColorNo," \
-		          " ArriveTime, UserID)"\
-		          " VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s');" % (
-			        taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID)
+		raw.sql = "INSERT INTO RMI_TASK WITH(ROWLOCK) ( CreateTime, LastModifiedTime, ProductNo, ColorNo," \
+		          " ArriveTime, UserID, FlowID)"\
+		          " VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s');" % (
+			        taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID, taskInfo['FlowID'])
 	else:
-		raw.sql = "UPDATE RMI_TASK SET ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s'" \
+		raw.sql = "UPDATE RMI_TASK WITH(ROWLOCK) SET ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s'" \
 		          " WHERE SerialNo = '%s'"%( taskInfo['ProductNo'], taskInfo['ColorNo'],
 		                                     taskInfo['ArriveTime'][:10], taskInfo['SerialNo'],)
 	return raw.update()
+
+
+def getFlowList():
+	"""
+	从数据库获取所有的工作流列表
+	:return:返回{"name":FlowName,"value":FlowID}
+	"""
+	raw = Raw_sql()
+	raw.sql = "SELECT FlowID as value, FlowName as name FROM RMI_WORK_FLOW WITH(NOLOCK)"
+	res, columns = raw.query_all(needColumnName=True)
+	return translateQueryResIntoJSON(columns, res)
+
+def getProcessBySerialNo(SerialNo):
+	"""
+	根据流水号获取所有的表单ID和名称
+	:return:返回
+	"""
+	raw = Raw_sql()
+	raw.sql = "SELECT name,  FROM RMI_TASK_PROCESS a WITH(NOLOCK) JOIN RMI_PROCESS_TYPE b WITH(NOLOCK)" \
+	          " ON  a.ProcessID = b.Id WHERE a.SerialNo = '%s'"%SerialNo
+	res, columns = raw.query_all(needColumnName=True)
+	return translateQueryResIntoJSON(columns, res)

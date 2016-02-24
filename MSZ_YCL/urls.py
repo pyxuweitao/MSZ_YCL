@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^$', views.index ),
 
 	url(r'^api/inspect/(\w+)/getTasks/$', views.getTasks),
-	url(r'^api/inspect/editTask/', views.editTask),
+	url(r'^api/inspect/editTask/$', views.editTask),
+    url(r'^api/inspect/getFlowList/$', views.getFlow),
     # ========================================================
     url(r'^api/forms/$', views.get_form),
     url(r'^api/forms/(\w{6})/$', views.get_form_id),
@@ -65,6 +66,9 @@ urlpatterns = patterns('',
     url(r'^api/users/(\w+)/operations/$',views.users_operation),
     url(r'^api/users/(\w+)/edit/$', views.editUser),
 	url(r'^api/users/(\w+)/delete/$', views.deleteUser),
+
+
+	url(r'api/test/$', views.test)
 )
 
 from django.conf import settings
