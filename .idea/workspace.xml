@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="简化、优化了工作流程，实现了“任务流”的工作流程设计，检验操作界面重新设计。&#10;实现了对任务的增删查改功能，数据库建立相应数据表与前台联动。">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SQL/CreateTriggerFunction.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MSZ_YCL/settings.py" afterPath="$PROJECT_DIR$/MSZ_YCL/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MSZ_YCL/urls.py" afterPath="$PROJECT_DIR$/MSZ_YCL/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sklcc/administration.py" afterPath="$PROJECT_DIR$/sklcc/administration.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sklcc/inspectFunction.py" afterPath="$PROJECT_DIR$/sklcc/inspectFunction.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sklcc/views.py" afterPath="$PROJECT_DIR$/sklcc/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="MSZ_ZH.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sklcc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.74509805">
-              <caret line="1300" column="8" selection-start-line="1300" selection-start-column="8" selection-end-line="1300" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1300" column="27" selection-start-line="1300" selection-start-column="27" selection-end-line="1300" selection-end-column="27" />
               <folding>
                 <element signature="e#24#129#0" expanded="true" />
                 <element signature="e#468#541#0" expanded="false" />
@@ -260,6 +253,22 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor vertical-scroll-proportion="0.9009174">
+                <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MSZ_YCL/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -350,7 +359,6 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/be142388-a393-47d1-9a88-ab6281188d1a/console.sql" />
         <option value="$PROJECT_DIR$/sklcc/test.json" />
         <option value="$PROJECT_DIR$/sklcc/CommonUtilities.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="&lt;4edd5cf1-9d23-412a-96d6-0b0363afa0e4&gt;/pelican-themes/niu-x2-sidebar/static/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/sklcc/administration.py" />
         <option value="$PROJECT_DIR$/sklcc/rawSql.py" />
@@ -358,6 +366,7 @@
         <option value="$PROJECT_DIR$/sklcc/views.py" />
         <option value="$PROJECT_DIR$/MSZ_YCL/urls.py" />
         <option value="$PROJECT_DIR$/sklcc/inspectFunction.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -1915,7 +1924,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456217894408</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="数据库表存储结构重新设计，实现细化到表单填写各步骤完成状态、自动创建对应流程表单的数据存储应用&#10;重新设计了任务列表，实现分页和搜索功能&#10;设计和实现了任务明细页面表单的显示和修改">
+      <created>1456313440143</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1456313440143</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1929,21 +1944,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="89" y="-9" width="1840" height="1098" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2107574" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31578946" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34994808" sideWeight="0.2360044" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.233809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119171" sideWeight="0.49341384" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.4824369" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.4824369" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3509865" sideWeight="0.7639956" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24917673" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281412" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1999,7 +2014,8 @@
     <MESSAGE value="修改项目文件名并测试成功启动" />
     <MESSAGE value="简化、优化了工作流程，实现了“任务流”的工作流程设计，检验操作界面重新设计。&#10;实现了对任务的增删查改功能，数据库建立相应数据表与前台联动。" />
     <MESSAGE value="添加通用工具模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加通用工具模块" />
+    <MESSAGE value="数据库表存储结构重新设计，实现细化到表单填写各步骤完成状态、自动创建对应流程表单的数据存储应用&#10;重新设计了任务列表，实现分页和搜索功能&#10;设计和实现了任务明细页面表单的显示和修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="数据库表存储结构重新设计，实现细化到表单填写各步骤完成状态、自动创建对应流程表单的数据存储应用&#10;重新设计了任务列表，实现分页和搜索功能&#10;设计和实现了任务明细页面表单的显示和修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -3671,24 +3687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.8">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor vertical-scroll-proportion="0.069587626">
-            <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/CommonUtilities.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11868132">
@@ -3773,8 +3771,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sklcc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74509805">
-          <caret line="1300" column="8" selection-start-line="1300" selection-start-column="8" selection-end-line="1300" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1300" column="27" selection-start-line="1300" selection-start-column="27" selection-end-line="1300" selection-end-column="27" />
           <folding>
             <element signature="e#24#129#0" expanded="true" />
             <element signature="e#468#541#0" expanded="false" />
@@ -3947,6 +3945,25 @@
             <marker date="1456309265269" expanded="true" signature="57059:57172" placeholder="INSERT INTO RMI_TASK... " />
             <marker date="1456309265269" expanded="true" signature="57059:57344" placeholder="INSERT INTO RMI_TASK... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.8">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor vertical-scroll-proportion="0.9009174">
+            <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
