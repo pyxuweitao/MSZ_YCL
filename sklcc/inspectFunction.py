@@ -40,6 +40,7 @@ def editTaskInfo(taskInfo, userID):
 		raw.sql = "UPDATE RMI_TASK WITH(ROWLOCK) SET ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s'" \
 		          " WHERE SerialNo = '%s'"%( taskInfo['ProductNo'], taskInfo['ColorNo'],
 		                                     taskInfo['ArriveTime'][:10], taskInfo['SerialNo'],)
+	print raw.sql
 	return raw.update()
 
 

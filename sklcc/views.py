@@ -161,30 +161,35 @@ def RTX_message(msg, receiver):
 #         return HttpResponseBadRequest()
 
 def login(request, Id):
-	cursor = connection.cursor()
-	if request.method == 'POST':
-		data = json.loads(request.body)
-		cursor.execute("select Password from RMI_ACCOUNT_USER where Id = '%s'" % Id)
-		pw = cursor.fetchone()
-		if not pw:
-			return HttpResponse(status=401)
-		pw = pw[0]
-		if pw == data['Password']:
-			#TODO:fix this bug
-			cursor.execute("select * from RMI_ACCOUNT_USER where Id = '%s'" % Id)
-			user_data = cursor.fetchone()
-			col_names = [desc[0] for desc in cursor.description]
-			user = dict(zip(col_names, user_data))
-			request.session['UserId'] = Id
-			request.session['Name'] = user['Name']
-			response = HttpResponse(json.dumps(user, encoding='GB2312'), content_type="application/json")
-			return response
+	try:
+		cursor = connection.cursor()
+		if request.method == 'POST':
+			data = json.loads(request.body)
+			cursor.execute("select Password from RMI_ACCOUNT_USER where Id = '%s'" % Id)
+			pw = cursor.fetchone()
+			if not pw:
+				return HttpResponse(status=401)
+			pw = pw[0]
+			if pw == data['Password']:
+				#TODO:fix this bug
+				cursor.execute("SELECT ID, Name, Password, DepartmentID, JobID, Permission,\
+				CONVERT(varchar(16), CreateTime, 20) CreateTime, CONVERT(varchar(16), LastModifiedTime, 20) LastModifiedTime"
+				               " FROM RMI_ACCOUNT_USER WHERE Id = '%s'" % Id)
+				user_data = cursor.fetchone()
+				col_names = [desc[0] for desc in cursor.description]
+				user = dict(zip(col_names, user_data))
+				request.session['UserId'] = Id
+				request.session['Name'] = user['Name']
+				response = HttpResponse(json.dumps(user, encoding='GB2312'), content_type="application/json")
+				return response
+			else:
+				response = HttpResponse(status=401)
+				return response
 		else:
-			response = HttpResponse(status=401)
+			response = HttpResponseBadRequest()
 			return response
-	else:
-		response = HttpResponseBadRequest()
-		return response
+	except Exception,e:
+		print e
 
 def logout(request, user):
 	try:
