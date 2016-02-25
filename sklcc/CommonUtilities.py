@@ -4,7 +4,7 @@
 """
 __author__ = 'XuWeitao'
 
-def translateQueryResIntoJSON(columns, res):
+def translateQueryResIntoDict(columns, res):
 	"""
 	将数据库中检索到的数据按照字段名和记录构成字典列表
 	:param columns: 字段名列表

@@ -3,7 +3,7 @@ __author__ = 'XuWeitao'
 
 from django.db.transaction import connections
 from django.db import transaction
-
+from tempfile import TemporaryFile
 
 class Raw_sql(object):
 	"""
@@ -64,6 +64,29 @@ class Raw_sql(object):
 		:return:提交成功返回True，提交失败返回False
 		"""
 		try:
+			cursor = connections[owner].cursor()
+			cursor.execute(self.sql)
+			transaction.commit_unless_managed(owner)
+		except Exception, e:
+			transaction.rollback(owner)
+			return False
+		else:
+			return True
+
+	def bulk_insert(self, rawData, owner='default'):
+		"""
+		暂不使用
+		:param owner:对应settings中的数据库key，默认为default
+		:param rawData:原始数据列表，每个元素是一行数据库记录
+		:return:提交成功返回True，提交失败返回False
+		"""
+		try:
+			tempf  = TemporaryFile(mode='w+t')
+			for row in rawData:
+				tempf.writelines([unicode(item)+' ' for item in row])
+
+			tempf.seek(0)
+			tempf.close()
 			cursor = connections[owner].cursor()
 			cursor.execute(self.sql)
 			transaction.commit_unless_managed(owner)

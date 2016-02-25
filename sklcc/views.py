@@ -1320,6 +1320,25 @@ def getFlow(request):
 	"""
 	return HttpResponse(json.dumps(getFlowList(), encoding='GB2312'))
 
+def getF01Data(request, serialNo):
+	"""
+	根据流水号获取F01所有数据
+	:param request: 客户端请求
+	:param serialNo:任务流水号
+	:return: 返回相应JSON打包后的数据
+	"""
+	return HttpResponse(json.dumps(getF01DataBySerialNo(serialNo, 'F01'), encoding='GB2312'))
+
+def insertF01Data(request, serialNo):
+	"""
+	向F01表格插入数据
+	:param request:客户端请求
+	:param serialNo:任务流水号
+	:return:
+	"""
+	insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]))
+	return HttpResponse()
+
 def test(request):
 	raw = Raw_sql()
 	for i in range(1,10):

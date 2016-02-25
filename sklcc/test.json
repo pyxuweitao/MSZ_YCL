@@ -1,9 +1,21 @@
 {
-  "SerialNo": "B311A9D0-52AB-4010-AA6B-6FCD499F0FD6",
-  "CreateTime": "2016-02-23 13:56:26.220",
-  "LastModifiedTime": "2016-02-23 13:56:26.220",
-  "ProductNo": "IM14MC1",
-  "ColorNo": "37F",
-  "ArriveTime": "2016-02-23 13:56:26.220",
-  "Name": "徐薇桃"
+  "listData": [
+    {
+      "DingDanShu": 122,
+      "QiTa": "中文",
+      "TouChanShu": null,
+      "GuiGe": "asd",
+      "HeGeShu": 1,
+      "ShiCeShu": null,
+      "BiaoZhiShu": 1,
+      "WaiGuan": 1,
+      "JianYanHao": "sd",
+      "hasDingDanShu": true,
+      "hasTouChanShu": false
+    }
+  ],
+  "DingDanHao": "IM20150085",
+  "step": [],
+  "GongYingShang": "a's",
+  "DaoLiaoZongShu": 123
 }
