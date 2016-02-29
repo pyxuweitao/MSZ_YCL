@@ -1,21 +1,31 @@
 {
-  "listData": [
-    {
-      "DingDanShu": 122,
-      "QiTa": "中文",
-      "TouChanShu": null,
-      "GuiGe": "asd",
-      "HeGeShu": 1,
-      "ShiCeShu": null,
-      "BiaoZhiShu": 1,
-      "WaiGuan": 1,
-      "JianYanHao": "sd",
-      "hasDingDanShu": true,
-      "hasTouChanShu": false
-    }
-  ],
-  "DingDanHao": "IM20150085",
-  "step": [],
-  "GongYingShang": "a's",
-  "DaoLiaoZongShu": 123
+  "F01页面明细刷新": {
+    "listData": [
+      {
+        "DingDanShu": 122,
+        "QiTa": "中文",
+        "TouChanShu": null,
+        "GuiGe": "asd",
+        "HeGeShu": 1,
+        "ShiCeShu": null,
+        "BiaoZhiShu": 1,
+        "WaiGuan": 1,
+        "JianYanHao": "sd",
+        "hasDingDanShu": true,
+        "hasTouChanShu": false
+      }
+    ],
+    "DingDanHao": "IM20150085",
+    "step": [],
+    "GongYingShang": "a's",
+    "DaoLiaoZongShu": 123
+  },
+  "TASK所有明细表格界面": {
+    "name": "商标、纸卡、不干贴检收记录",
+    "states": 80,
+    "currentState": "现在的状态",
+    "ProcessID": "F01",
+  }
 }
+
+

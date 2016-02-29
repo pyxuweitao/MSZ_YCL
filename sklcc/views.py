@@ -10,6 +10,7 @@ import urllib
 import sys
 from administration import *
 from inspectFunction import *
+import CommonUtilities
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -1325,14 +1326,17 @@ def getFlow(request):
 	"""
 	return HttpResponse(json.dumps(getFlowList(), encoding='GB2312'))
 
-def getF01Data(request, serialNo):
+def getF01Data(request, serialNo, getMethod):
 	"""
 	根据流水号获取F01所有数据
 	:param request: 客户端请求
 	:param serialNo:任务流水号
+	:param getMethod:Check：查看汇总，归并所有人的表格数据,dataEntry:WHERE出自己的数据
 	:return: 返回相应JSON打包后的数据
 	"""
-	return HttpResponse(json.dumps(getF01DataBySerialNo(serialNo, 'F01'), encoding='GB2312'))
+
+	UserID = 'ALL' if getMethod == "Check" else request.session['UserId']
+	return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, 'F01', UserID), encoding='GB2312'))
 
 def insertF01Data(request, serialNo):
 	"""
@@ -1341,8 +1345,20 @@ def insertF01Data(request, serialNo):
 	:param serialNo:任务流水号
 	:return:
 	"""
-	insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]))
+	UserID = request.session['UserId']
+	insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
 	return HttpResponse()
+
+def getTaskProcess(request, serialNo):
+	"""
+	根据任务流水号获取所有的表格的填写状态和相关信息
+	:param request:客户端请求
+	:param serialNo:任务流水号
+	:return:与该任务对应的表单信息
+	"""
+	return HttpResponse(json.dumps(getAllProcessBySerialNo(serialNo), encoding='GB2312', cls=CommonUtilities.DecimalEncoder))
+
+
 
 def test(request):
 	raw = Raw_sql()
@@ -1351,6 +1367,3 @@ def test(request):
 		          "VALUES( '2016-02-23 16:23:09.187',	'2016-02-23 16:23:09.187',	'234','234'	,'2016-02-06 00:00:00.000',	'1227401050','b6eb0acf-7c31-44f5-ae44-931ee2ff90a2' );"
 		raw.update()
 	return HttpResponse()
-
-
-

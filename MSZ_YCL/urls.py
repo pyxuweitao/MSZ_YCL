@@ -23,8 +23,9 @@ urlpatterns = patterns('',
 	url(r'^api/inspect/editTask/$', views.editTask),
     url(r'^api/inspect/getFlowList/$', views.getFlow),
     #TODO:F01改成数据库获取
-	url(r'^api/inspect/(.+)/getF01Data/$', views.getF01Data),
+	url(r'^api/inspect/(.+)/getF01Data/(\w+)/$', views.getF01Data),
 	url(r'^api/inspect/(.+)/insertF01Data/$', views.insertF01Data),
+    url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     # ========================================================
     url(r'^api/forms/$', views.get_form),
     url(r'^api/forms/(\w{6})/$', views.get_form_id),
