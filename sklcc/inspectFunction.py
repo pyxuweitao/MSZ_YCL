@@ -43,7 +43,6 @@ def editTaskInfo(taskInfo, userID):
 		raw.sql = "UPDATE RMI_TASK WITH(ROWLOCK) SET ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s'"\
 		          " WHERE SerialNo = '%s'" % (taskInfo['ProductNo'], taskInfo['ColorNo'],
 		                                      taskInfo['ArriveTime'][:10], taskInfo['SerialNo'],)
-	print raw.sql
 	return raw.update()
 
 
@@ -83,14 +82,28 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
 	            ProductNo, ColorNo, UserID,
 	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	             Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
-	             RMI_TASK WITH(NOLOCK) WHERE SerialNo = '%s'
-	             """%serialNo
+	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
+	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+	              ON a.SerialNo = b.SerialNo And b.ProcessID = 'F01' WHERE a.SerialNo = '%s'"""%serialNo
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	#判断是否审批中
+
+	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
+ 					ON a.StepID = b.StepID
+ 				    WHERE a.SerialNo = '%s' AND a.ProcessID = 'F01' AND Finished = 0"""%(serialNo)
+	target = raw.query_one()
+	if target is not None:
+		# 所有步骤完成
+		returnInfo['info']['check'] = True
+	else:
+		# 检验步骤未完成
+		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+
+
 	raw.sql = """SELECT
 	             GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu
+	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	             WHERE SerialNo = '%s'""" % serialNo
 	if UserID != "ALL":
@@ -151,14 +164,16 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	:param UserID:插入数据的检验员工号
 	:return:
 	"""
-	ListData = rawData['listData']
-	DingDanHao = rawData['DingDanHao']
-	GongYingShang = rawData['GongYingShang']
+	ListData       = rawData['listData']
+	DingDanHao     = rawData['DingDanHao']
+	GongYingShang  = rawData['GongYingShang']
 	DaoLiaoZongShu = rawData['DaoLiaoZongShu']
-	#TODO:selectedStep
-	# selectedStep   = rawData['selectedStep']
+	selectedStep   = rawData['selectedStep']
+	isFinished     = rawData['isSubmit']
 	raw = Raw_sql()
-	raw.sql = "INSERT INTO RMI_F01_DATA(InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
+	raw.sql = "DELETE FROM RMI_F01_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
+	raw.sql += "UPDATE RMI_TASK_PROCESS SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s';"%UserID
+	raw.sql += "INSERT INTO RMI_F01_DATA(InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
 	          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa) "
 	for row in ListData:
 		raw.sql += "SELECT '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( UserID,
@@ -172,8 +187,14 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 		raw.sql += judgeWhetherNULL(row['JianYanHao'])
 		raw.sql += judgeWhetherNULL(row['QiTa'], lastOne=True)
 		raw.sql += "UNION ALL\n"
-
 	raw.sql = raw.sql[:-10]
+	if isFinished:
+		raw.sql += """;UPDATE RMI_TASK_PROCESS_STEP
+ 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+	else:
+		raw.sql += """;UPDATE RMI_TASK_PROCESS_STEP
+ 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+
 	raw.update()
 	return
 
@@ -186,12 +207,45 @@ def getAllProcessBySerialNo(serialNo):
 	"""
 	raw = Raw_sql()
 	raw.sql = """SELECT a.Name AS name, b.ProcessID AS ProcessID,
- 				CAST(SUM( b.Finished )AS DECIMAL(3,2)) / CAST( ( SELECT COUNT(*) FROM RMI_PROCESS_STEP WHERE ProcessID = b.ProcessID ) AS DECIMAL(3,2))  AS states,
- 				dbo.getCurrentFinishedStep( '%s', b.ProcessID ) AS currentState
-                FROM RMI_PROCESS_TYPE a WITH(NOLOCK)
-                JOIN RMI_TASK_PROCESS_STEP b WITH(NOLOCK)
-                ON a.Id = b.ProcessID
-                 WHERE b.SerialNo = '%s'
-                GROUP BY b.ProcessID, a.Name"""%(serialNo,serialNo)
+	  			 CAST(SUM( b.Finished )AS DECIMAL(3,2)) / CAST( ( SELECT COUNT(*) FROM RMI_PROCESS_STEP WHERE ProcessID = b.ProcessID ) AS DECIMAL(3,2))  AS states,
+	  			 dbo.getCurrentFinishedStep( '%s', b.ProcessID ) AS currentState,
+	  			 CONVERT(varchar(16),dbo.getLastModifiedTimeByProcessID('%s', 'F01'), 20) AS modifyTime,
+	  			 dbo.getLastModifiedUserNameByProcessID('%s', 'F01') AS modifyPeople
+	              FROM RMI_PROCESS_TYPE a WITH(NOLOCK)
+	              JOIN RMI_TASK_PROCESS_STEP b WITH(NOLOCK)
+	              ON a.Id = b.ProcessID
+	               WHERE b.SerialNo = '%s'
+	              GROUP BY b.ProcessID, a.Name"""%(serialNo,serialNo,serialNo,serialNo)
 	res, columns = raw.query_all(needColumnName=True)
 	return translateQueryResIntoDict(columns, res)
+
+
+def deleteTaskBySerialNo(SerialNo):
+	"""
+	删除任务，只删除RMI_TASK表中的数据，触发器跟踪删除其他表相关信息
+	:param SerialNo:任务流水号
+	:return:
+	"""
+	#TODO：触发器update_other_tables_when_delete_rmi_task更新删除F01之外其他表格的数据
+	raw = Raw_sql()
+	raw.sql = "DELETE FROM RMI_TASK WHERE SerialNo='%s'"%SerialNo
+	raw.update()
+	#call trigger delete all task info in rmi_task_process...
+	return
+
+
+def passProcessBySerialNo(serialNo, ProcessID, Assessor):
+	"""
+	审批过程通过表单，将当前的表格的审批步骤完成，并且记录审批员和审批时间的信息
+	:param serialNo:任务流水号
+	:param ProcessID:表单ID
+	:param Assessor:审批员工号
+	:return:
+	"""
+	raw      = Raw_sql()
+	raw.sql  = """UPDATE RMI_TASK_PROCESS_STEP SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate()
+				WHERE SerialNo = '%s' AND ProcessID = '%s' AND Finished = 0"""%(serialNo, ProcessID)
+	raw.sql += """UPDATE RMI_TASK_PROCESS SET Assessor = '%s', AssessTime = getdate()
+				WHERE SerialNo = '%s' AND ProcessID = '%s'"""%(Assessor, serialNo, ProcessID)
+	raw.update()
+	return

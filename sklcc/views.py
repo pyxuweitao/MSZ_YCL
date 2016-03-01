@@ -1358,6 +1358,27 @@ def getTaskProcess(request, serialNo):
 	"""
 	return HttpResponse(json.dumps(getAllProcessBySerialNo(serialNo), encoding='GB2312', cls=CommonUtilities.DecimalEncoder))
 
+def deleteTask(request, serialNo):
+	"""
+	根据任务流水号删除任务所有相关数据
+	:param request:客户端请求，包括任务流水号
+	:param serialNo:任务流水号
+	:return:
+	"""
+	deleteTaskBySerialNo(serialNo)
+	return HttpResponse()
+
+def passProcess(requests, serialNo, processID):
+	"""
+	审批界面通过一张表单
+	:param requests:客户端请求
+	:param serialNo: 任务流水号
+	:param processID: 表单ID
+	:return:
+	"""
+	UserID = requests.session['UserId']
+	passProcessBySerialNo(serialNo, processID, UserID)
+	return HttpResponse()
 
 
 def test(request):

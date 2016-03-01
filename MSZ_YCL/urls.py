@@ -26,6 +26,9 @@ urlpatterns = patterns('',
 	url(r'^api/inspect/(.+)/getF01Data/(\w+)/$', views.getF01Data),
 	url(r'^api/inspect/(.+)/insertF01Data/$', views.insertF01Data),
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
+    url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
+    url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
+
     # ========================================================
     url(r'^api/forms/$', views.get_form),
     url(r'^api/forms/(\w{6})/$', views.get_form_id),
