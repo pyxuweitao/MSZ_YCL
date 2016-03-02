@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="实现了报表审批功能&#10;实现了删除任务以及相关数据的功能&#10;实现了最近一次修改记录功能&#10;实现了更为精确的步骤确认和保存、提交表单功能&#10;实现了任务搜索功能">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/maps/scripts/app-b298fc5ba5.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/maps/scripts/vendor-2ee2857d9e.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/maps/styles/app-1ae1d40f83.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/maps/styles/vendor-afbe4fc290.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/scripts/app-b298fc5ba5.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/scripts/vendor-2ee2857d9e.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/styles/app-1ae1d40f83.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/styles/vendor-afbe4fc290.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+    <list default="true" id="30b50fee-443d-4d79-9c56-c96f6674804c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MSZ_YCL/settings.py" afterPath="$PROJECT_DIR$/MSZ_YCL/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SQL/CreateFunction.sql" afterPath="$PROJECT_DIR$/SQL/CreateFunction.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sklcc/inspectFunction.py" afterPath="$PROJECT_DIR$/sklcc/inspectFunction.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <ignored path="MSZ_ZH.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2003,7 +1987,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456844988104</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="修复了刷新需要重新登录的BUG&#10;发布0.1版本提供内部测试">
+      <created>1456926600192</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1456926600192</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2052,6 +2042,7 @@
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31568018" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281412" sideWeight="0.33150384" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119171" sideWeight="0.49341384" order="8" side_tool="false" content_ui="tabs" />
@@ -2071,7 +2062,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.83629894" sideWeight="0.49707174" order="4" side_tool="false" content_ui="combo" />
@@ -2133,7 +2123,8 @@
     <MESSAGE value="翻译完毕：Testing in Django" />
     <MESSAGE value="实现了报表审批功能&#10;实现了删除任务以及相关数据的功能&#10;实现了最近一次修改记录功能&#10;实现了更为精确的步骤确认和保存、提交表单功能&#10;实现了任务搜索功能" />
     <MESSAGE value="增加翻译：Writing and running tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加翻译：Writing and running tests" />
+    <MESSAGE value="修复了刷新需要重新登录的BUG&#10;发布0.1版本提供内部测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复了刷新需要重新登录的BUG&#10;发布0.1版本提供内部测试" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
