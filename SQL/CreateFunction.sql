@@ -13,13 +13,14 @@ IF @finish != 1
 	SELECT TOP 1 @stepName = StepName FROM RMI_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
 	 ON a.StepID = b.StepID
 	 WHERE ProcessID = @process
-	 ORDER BY StepSeq;
+	 ORDER BY StepSeq DESC;
 ELSE
 	SELECT @stepName = StepName FROM RMI_STEP WITH(NOLOCK) WHERE StepID = @step;
 RETURN @stepName;
 END
-select * from RMI_TASK_PROCESS_STEP
-SELECT dbo.getCurrentFinishedStep( 'A46DD68C-1B2E-4281-8E47-F8554BE22F4F', 'F01' )
+
+SELECT dbo.getCurrentFinishedStep( 'D409F0C2-9569-42F3-A932-B27ED42670C5', 'F01' )
+
 
 ----获取当前ProcessID对应最晚一次修改的时间
 CREATE FUNCTION getLastModifiedTimeByProcessID(@serialno uniqueidentifier, @process varchar(50))

@@ -166,3 +166,5 @@ LOGGING = {
         },
     }
 }
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

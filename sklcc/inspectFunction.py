@@ -88,12 +88,12 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
 	#判断是否审批中
-
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
  					ON a.StepID = b.StepID
  				    WHERE a.SerialNo = '%s' AND a.ProcessID = 'F01' AND Finished = 0"""%(serialNo)
-	target = raw.query_one()
-	if target is not None:
+	target = raw.query_one()[0]
+
+	if target is None:
 		# 所有步骤完成
 		returnInfo['info']['check'] = True
 	else:
