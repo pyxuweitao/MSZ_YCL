@@ -18,6 +18,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Client" />
     <orderEntry type="module" module-name="MyTranslation" />
+    <orderEntry type="module" module-name="blogs" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

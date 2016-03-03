@@ -102,7 +102,7 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 
 
 	raw.sql = """SELECT
-	             GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
+	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
 	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	             WHERE SerialNo = '%s'""" % serialNo
@@ -169,14 +169,15 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	GongYingShang  = rawData['GongYingShang']
 	DaoLiaoZongShu = rawData['DaoLiaoZongShu']
 	selectedStep   = rawData['selectedStep']
+	selectType     = rawData['selectType']
 	isFinished     = rawData['isSubmit']
 	raw = Raw_sql()
 	raw.sql = "DELETE FROM RMI_F01_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
 	raw.sql += "UPDATE RMI_TASK_PROCESS SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s';"%UserID
-	raw.sql += "INSERT INTO RMI_F01_DATA(InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
+	raw.sql += "INSERT INTO RMI_F01_DATA(MaterialType, InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
 	          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa) "
 	for row in ListData:
-		raw.sql += "SELECT '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( UserID,
+		raw.sql += "SELECT '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( selectType, UserID,
 			SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, row["GuiGe"], row['HeGeShu'])
 
 		raw.sql += judgeWhetherNULL(row['TouChanShu'])
