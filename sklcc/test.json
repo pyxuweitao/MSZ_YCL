@@ -25,7 +25,27 @@
     "states": 80,
     "currentState": "现在的状态",
     "ProcessID": "F01",
-  }
+  },
+  "F02":
+  {
+  "listData": [
+    {}
+  ],
+  "YinBiaoWeiZhi": "BuZhengQue",
+  "ShaXiang": "BuZhengQue",
+  "ShouGan": "123",
+  "YanZhenJieGuo": "234",
+  "AnLunShiYan": "HeGe",
+  "QiWeiBeiZhu": "234",
+  "QiWei": "BuZhengChang",
+  "hasBiaoZhunSeKa": true,
+  "BiaoZhunSeKa": "123",
+  "hasCaiLiaoFengYang": true,
+  "CaiLiaoFengYang": "23",
+  "JieLun": "BuHeGe",
+  "JieLunBeiZhu": "123",
+  "CaiLiaoCiDianZhuYaoWenTi": "21341234"
+}
 }
 
 

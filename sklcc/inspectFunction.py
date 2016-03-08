@@ -5,7 +5,7 @@
 __author__ = "XuWeitao"
 from rawSql import *
 from CommonUtilities import *
-
+import copy
 
 def getTasksList(UserID):
 	"""
@@ -200,6 +200,113 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	return
 
 
+def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
+	"""
+	根据流水号和表单ID获取表单数据
+	:param serialNo:任务流水号
+	:param processID:表单ID
+	:param UserID:用户名，如果是ALL则表示汇总数据
+	:return:返回对应的表单数据
+	"""
+	raw = Raw_sql()
+	returnInfo = dict()
+	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
+	            ProductNo, ColorNo, UserID,
+	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
+	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
+	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+	              ON a.SerialNo = b.SerialNo And b.ProcessID = 'F01' WHERE a.SerialNo = '%s'"""%serialNo
+	res, columns = raw.query_one(needColumnName=True)
+	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	#判断是否审批中
+	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
+ 					ON a.StepID = b.StepID
+ 				    WHERE a.SerialNo = '%s' AND a.ProcessID = 'F01' AND Finished = 0"""%(serialNo)
+	target = raw.query_one()[0]
+
+	if target is None:
+		# 所有步骤完成
+		returnInfo['info']['check'] = True
+	else:
+		# 检验步骤未完成
+		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+
+
+	raw.sql = """SELECT
+	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
+	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
+	            FROM RMI_F01_DATA WITH(NOLOCK)
+	             WHERE SerialNo = '%s'""" % serialNo
+	if UserID != "ALL":
+		raw.sql += " AND InspectorNo = '%s'"%UserID
+	res, columns = raw.query_all(needColumnName=True)
+	returnInfo['data'] = dict()
+	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
+	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
+	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+	return returnInfo
+
+def transformRawDataIntoInsertFormatDict( rawDict ):
+	"""
+	根据前台传过来的JSON，将其转换成以行记录为单元的列表，一行记录一个字典，字典中有可能缺少键
+	:param rawDict: 传过来的原始数据
+	:return:返回结构化的列表
+	"""
+	listData = rawDict.pop('listData')
+	formatData = list()
+	for row in listData:
+		itemRow = copy.deepcopy(rawDict)
+		itemRow.update(row)
+		formatData.append(itemRow)
+	return formatData
+
+def formatSQLValuesString(insertItem):
+	"""
+	将数据按类型格式化为SQL中插入的字符串，如果是字符串，左右加上单引号，如果是Bool，改为'1'或者'0'，如果是字典，转化为JSON字符串存储
+	:param insertItem:欲转换格式的数据
+	:return:返回转换格式之后的数据
+	"""
+	if isinstance(insertItem, (unicode, str)):
+		return "'" + insertItem + "'"
+	#bool是int的子类
+	elif isinstance(insertItem, (int, float)):
+		if isinstance(insertItem, bool):
+			return '1' if insertItem else '0'
+		else: #int or float
+			return insertItem
+	elif isinstance(insertItem, (dict, list)):
+		return "'"+json.dumps(insertItem, ensure_ascii=False)+"'"
+
+
+def insertF02DataBySerialNo(SerialNo, rawData, UserID):
+	"""
+	根据任务流水号和原始数据插入数据库
+	:param SerialNo:任务流水号
+	:param rawData:插入之前的原始数据字典列表
+	:param UserID:插入数据的检验员工号
+	:return:
+	"""
+	selectedStep = rawData.pop('selectedStep')
+	isFinished   = rawData.pop('isSubmit')
+	rawData['SerialNo'] = SerialNo
+	formatData   = transformRawDataIntoInsertFormatDict(rawData)
+	raw = Raw_sql()
+	raw.sql  = "DELETE FROM RMI_F02_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
+	raw.sql += "UPDATE RMI_TASK_PROCESS SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s';"%UserID
+	for row in formatData:
+		columnsString = ",".join(row.keys())
+		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ])
+		raw.sql      += "INSERT INTO RMI_F02_DATA(%s) VALUES(%s);"%(columnsString, valuesString)
+	if isFinished:
+		raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
+ 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+	else:
+		raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
+ 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+	raw.update()
+	return
+
+
 def getAllProcessBySerialNo(serialNo):
 	"""
 	通过任务流水号获取所有的表单和步骤状态
@@ -250,3 +357,6 @@ def passProcessBySerialNo(serialNo, ProcessID, Assessor):
 				WHERE SerialNo = '%s' AND ProcessID = '%s'"""%(Assessor, serialNo, ProcessID)
 	raw.update()
 	return
+
+
+

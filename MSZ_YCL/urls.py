@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/getF01Data/(\w+)/$', views.getF01Data),
 	url(r'^api/inspect/(.+)/insertF01Data/$', views.insertF01Data),
+	url(r'^api/inspect/(.+)/getF02Data/(\w+)/$', views.getF02Data),
+	url(r'^api/inspect/(.+)/insertF02Data/$', views.insertF02Data),
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),

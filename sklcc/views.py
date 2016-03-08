@@ -171,6 +171,8 @@ def login(request, Id):
 			if not pw:
 				return HttpResponse(status=401)
 			pw = pw[0]
+			print pw
+			print data['Password']
 			if pw == data['Password']:
 				#TODO:fix this bug
 				cursor.execute("SELECT ID, Name, Password, DepartmentID, JobID, Permission,\
@@ -1347,6 +1349,29 @@ def insertF01Data(request, serialNo):
 	"""
 	UserID = request.session['UserId']
 	insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	return HttpResponse()
+
+def getF02Data(request, serialNo, getMethod):
+	"""
+	根据流水号获取F02所有数据
+	:param request: 客户端请求
+	:param serialNo:任务流水号
+	:param getMethod:Check：查看汇总，归并所有人的表格数据,dataEntry:WHERE出自己的数据
+	:return: 返回相应JSON打包后的数据
+	"""
+
+	UserID = 'ALL' if getMethod == "Check" else request.session['UserId']
+	return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, 'F02', UserID), encoding='GB2312'))
+
+def insertF02Data(request, serialNo):
+	"""
+	向F02表格插入数据
+	:param request:客户端请求
+	:param serialNo:任务流水号
+	:return:
+	"""
+	UserID = request.session['UserId']
+	insertF02DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
 	return HttpResponse()
 
 def getTaskProcess(request, serialNo):
