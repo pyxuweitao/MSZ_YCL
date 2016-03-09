@@ -171,8 +171,6 @@ def login(request, Id):
 			if not pw:
 				return HttpResponse(status=401)
 			pw = pw[0]
-			print pw
-			print data['Password']
 			if pw == data['Password']:
 				#TODO:fix this bug
 				cursor.execute("SELECT ID, Name, Password, DepartmentID, JobID, Permission,\
@@ -1381,7 +1379,7 @@ def getTaskProcess(request, serialNo):
 	:param serialNo:任务流水号
 	:return:与该任务对应的表单信息
 	"""
-	return HttpResponse(json.dumps(getAllProcessBySerialNo(serialNo), encoding='GB2312', cls=CommonUtilities.DecimalEncoder))
+	return HttpResponse(json.dumps(getAllProcessStepBySerialNo(serialNo), encoding='GB2312', cls=CommonUtilities.DecimalEncoder))
 
 def deleteTask(request, serialNo):
 	"""

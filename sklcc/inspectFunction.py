@@ -23,7 +23,6 @@ def getTasksList(UserID):
 	res, columns = raw.query_all(needColumnName=True)
 	return translateQueryResIntoDict(columns, res)
 
-
 def editTaskInfo(taskInfo, userID):
 	"""
 	根据isNew字段以及传入的信息来新插入或先删除再插入一个任务数据。
@@ -45,7 +44,6 @@ def editTaskInfo(taskInfo, userID):
 		                                      taskInfo['ArriveTime'][:10], taskInfo['SerialNo'],)
 	return raw.update()
 
-
 def getFlowList():
 	"""
 	从数据库获取所有的工作流列表
@@ -55,7 +53,6 @@ def getFlowList():
 	raw.sql = "SELECT FlowID AS value, FlowName AS name FROM RMI_WORK_FLOW WITH(NOLOCK)"
 	res, columns = raw.query_all(needColumnName=True)
 	return translateQueryResIntoDict(columns, res)
-
 
 def getProcessBySerialNo(serialNo):
 	"""
@@ -68,6 +65,22 @@ def getProcessBySerialNo(serialNo):
 	res, columns = raw.query_all(needColumnName=True)
 	return translateQueryResIntoDict(columns, res)
 
+def getStepsBySerialNo(SerialNo, ProcessID):
+	"""
+	根据流水号和表单ID获取该表单的所有的步骤
+	:param SerialNo:流水号
+	:param ProcessID:表单ID
+	:return:返回{"name":步骤名称,"value":步骤ID,"state":步骤状态}
+	"""
+	raw = Raw_sql()
+	raw.sql = "SELECT a.StepID as value, b.StepName as name, Finished as state FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_STEP b WITH(NOLOCK) "\
+	          " ON a.StepID = b.StepID WHERE SerialNo = '%s' "\
+	          " AND ProcessID = '%s'" % (SerialNo, ProcessID)
+	res, columns = raw.query_all(needColumnName=True)
+	return translateQueryResIntoDict(columns, res)
+
+
+########################## F01 ########################################################
 
 def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	"""
@@ -101,35 +114,25 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
 
 
-	raw.sql = """SELECT
+
+	if UserID != "ALL":
+		raw.sql = """SELECT
+	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
+	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu
+	            FROM RMI_F01_DATA WITH(NOLOCK)
+	             WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
+	else:
+		raw.sql = """SELECT
 	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
 	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
 	            FROM RMI_F01_DATA WITH(NOLOCK)
-	             WHERE SerialNo = '%s'""" % serialNo
-	if UserID != "ALL":
-		raw.sql += " AND InspectorNo = '%s'"%UserID
+	             WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
 	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
 	return returnInfo
-
-
-def getStepsBySerialNo(SerialNo, ProcessID):
-	"""
-	根据流水号和表单ID获取该表单的所有的步骤
-	:param SerialNo:流水号
-	:param ProcessID:表单ID
-	:return:返回{"name":步骤名称,"value":步骤ID,"state":步骤状态}
-	"""
-	raw = Raw_sql()
-	raw.sql = "SELECT a.StepID as value, b.StepName as name, Finished as state FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_STEP b WITH(NOLOCK) "\
-	          " ON a.StepID = b.StepID WHERE SerialNo = '%s' "\
-	          " AND ProcessID = '%s'" % (SerialNo, ProcessID)
-	res, columns = raw.query_all(needColumnName=True)
-	return translateQueryResIntoDict(columns, res)
-
 
 def judgeWhetherNULL(param, lastOne=False):
 	"""
@@ -155,7 +158,6 @@ def judgeWhetherNULL(param, lastOne=False):
 			else:
 				return "'%s' " % param
 
-
 def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	"""
 	根据任务流水号和原始数据插入数据库
@@ -169,7 +171,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	GongYingShang  = rawData['GongYingShang']
 	DaoLiaoZongShu = rawData['DaoLiaoZongShu']
 	selectedStep   = rawData['selectedStep']
-	selectType     = rawData['selectType']
+	selectedType   = rawData['SelectedType']
 	isFinished     = rawData['isSubmit']
 	raw = Raw_sql()
 	raw.sql = "DELETE FROM RMI_F01_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
@@ -177,7 +179,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	raw.sql += "INSERT INTO RMI_F01_DATA(MaterialType, InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
 	          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa) "
 	for row in ListData:
-		raw.sql += "SELECT '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( selectType, UserID,
+		raw.sql += "SELECT '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( selectedType, UserID,
 			SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, row["GuiGe"], row['HeGeShu'])
 
 		raw.sql += judgeWhetherNULL(row['TouChanShu'])
@@ -200,6 +202,9 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	return
 
 
+########################### F02 #########################################################
+
+
 def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	"""
 	根据流水号和表单ID获取表单数据
@@ -215,13 +220,13 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
 	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
 	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-	              ON a.SerialNo = b.SerialNo And b.ProcessID = 'F01' WHERE a.SerialNo = '%s'"""%serialNo
+	              ON a.SerialNo = b.SerialNo And b.ProcessID = 'F02' WHERE a.SerialNo = '%s'"""%serialNo
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
 	#判断是否审批中
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
  					ON a.StepID = b.StepID
- 				    WHERE a.SerialNo = '%s' AND a.ProcessID = 'F01' AND Finished = 0"""%(serialNo)
+ 				    WHERE a.SerialNo = '%s' AND a.ProcessID = 'F02' AND Finished = 0"""%(serialNo)
 	target = raw.query_one()[0]
 
 	if target is None:
@@ -232,13 +237,16 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
 
 
-	raw.sql = """SELECT
-	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
-	            FROM RMI_F01_DATA WITH(NOLOCK)
-	             WHERE SerialNo = '%s'""" % serialNo
 	if UserID != "ALL":
-		raw.sql += " AND InspectorNo = '%s'"%UserID
+		raw.sql = """SELECT
+	            *
+	            FROM RMI_F02_DATA WITH(NOLOCK)
+	             WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID  )
+	else:
+		raw.sql = """SELECT
+				 *,  dbo.getUserNameByUserID(InspectorNo) AS Inspector
+	             FROM RMI_F02_DATA WITH(NOLOCK)
+	             WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
@@ -266,14 +274,16 @@ def formatSQLValuesString(insertItem):
 	:param insertItem:欲转换格式的数据
 	:return:返回转换格式之后的数据
 	"""
-	if isinstance(insertItem, (unicode, str)):
+	if insertItem is None:
+		return 'NULL'
+	elif isinstance(insertItem, (unicode, str)):
 		return "'" + insertItem + "'"
 	#bool是int的子类
 	elif isinstance(insertItem, (int, float)):
 		if isinstance(insertItem, bool):
 			return '1' if insertItem else '0'
 		else: #int or float
-			return insertItem
+			return unicode(insertItem)
 	elif isinstance(insertItem, (dict, list)):
 		return "'"+json.dumps(insertItem, ensure_ascii=False)+"'"
 
@@ -291,23 +301,25 @@ def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 	rawData['SerialNo'] = SerialNo
 	formatData   = transformRawDataIntoInsertFormatDict(rawData)
 	raw = Raw_sql()
-	raw.sql  = "DELETE FROM RMI_F02_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
+	raw.sql  = "DELETE FROM RMI_F02_DATA WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
 	raw.sql += "UPDATE RMI_TASK_PROCESS SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s';"%UserID
 	for row in formatData:
-		columnsString = ",".join(row.keys())
-		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ])
+		columnsString = ",".join(row.keys()) + ",InspectorNo"
+		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ]) + ",'" + UserID + "'"
 		raw.sql      += "INSERT INTO RMI_F02_DATA(%s) VALUES(%s);"%(columnsString, valuesString)
 	if isFinished:
 		raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
- 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+ 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F02' AND StepID = '%s'"""%(SerialNo, selectedStep)
 	else:
 		raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
- 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F01' AND StepID = '%s'"""%(SerialNo, selectedStep)
+ 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F02' AND StepID = '%s'"""%(SerialNo, selectedStep)
 	raw.update()
 	return
 
 
-def getAllProcessBySerialNo(serialNo):
+#########################################################################################
+
+def getAllProcessStepBySerialNo(serialNo):
 	"""
 	通过任务流水号获取所有的表单和步骤状态
 	:param serialNo:任务流水号
