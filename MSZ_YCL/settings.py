@@ -28,8 +28,8 @@ DATABASES = {
 ALLOWED_HOSTS = ['*']
 
 #Configs about debug_toolbar
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
-INTERNAL_IPS=('127.0.0.1','192.168.1.240',)
+#DEBUG_TOOLBAR_PATCH_SETTINGS = False
+INTERNAL_IPS=('127.0.0.1','10.0.1.179',)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -106,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-	'debug_toolbar.middleware.DebugToolbarMiddleware',
+	#'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'mymiddleware.middleware.MonitorMiddleware',
@@ -134,11 +134,11 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'sklcc',
-	'debug_toolbar',
+	#'debug_toolbar',
     #'mymiddleware',
 )
 
-# A sample logging configuration. The only tangible logging
+# A sample loggin   g configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for

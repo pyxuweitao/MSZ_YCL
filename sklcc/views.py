@@ -190,7 +190,7 @@ def login(request, Id):
 			response = HttpResponseBadRequest()
 			return response
 	except Exception,e:
-		print e
+		pass
 
 def logout(request, user):
 	try:
