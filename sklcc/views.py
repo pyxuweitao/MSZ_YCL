@@ -1326,51 +1326,44 @@ def getFlow(request):
 	"""
 	return HttpResponse(json.dumps(getFlowList(), encoding='GB2312'))
 
-def getF01Data(request, serialNo, getMethod):
+def getFormData(request, serialNo, processID, getMethod):
 	"""
-	根据流水号获取F01所有数据
+	根据流水号获取指定表格所有数据
 	:param request: 客户端请求
 	:param serialNo:任务流水号
+	:param processID: 表格ID
 	:param getMethod:Check：查看汇总，归并所有人的表格数据,dataEntry:WHERE出自己的数据
 	:return: 返回相应JSON打包后的数据
 	"""
-
 	UserID = 'ALL' if getMethod == "Check" else request.session['UserId']
-	return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, 'F01', UserID), encoding='GB2312'))
+	if processID == "F01":
+		return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, 'F01', UserID), encoding='GB2312'))
+	elif processID == "F02":
+		return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, 'F02', UserID), encoding='GB2312'))
+	elif processID == "F03":
+		return HttpResponse(json.dumps(getF03DataBySerialNoAndUserID(serialNo, 'F03', UserID), encoding='GB2312'))
 
-def insertF01Data(request, serialNo):
+
+def insertFormData(request, serialNo, processID ):
 	"""
 	向F01表格插入数据
 	:param request:客户端请求
+	:param processID: 表单ID
 	:param serialNo:任务流水号
 	:return:
 	"""
+	print 'here'
+	print processID
 	UserID = request.session['UserId']
-	insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	if processID == "F01":
+		insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	elif processID == "F02":
+		insertF02DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	elif processID == "F03":
+		print request.body[5:]
+		insertF03DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
 	return HttpResponse()
 
-def getF02Data(request, serialNo, getMethod):
-	"""
-	根据流水号获取F02所有数据
-	:param request: 客户端请求
-	:param serialNo:任务流水号
-	:param getMethod:Check：查看汇总，归并所有人的表格数据,dataEntry:WHERE出自己的数据
-	:return: 返回相应JSON打包后的数据
-	"""
-
-	UserID = 'ALL' if getMethod == "Check" else request.session['UserId']
-	return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, 'F02', UserID), encoding='GB2312'))
-
-def insertF02Data(request, serialNo):
-	"""
-	向F02表格插入数据
-	:param request:客户端请求
-	:param serialNo:任务流水号
-	:return:
-	"""
-	UserID = request.session['UserId']
-	insertF02DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
-	return HttpResponse()
 
 def getTaskProcess(request, serialNo):
 	"""
@@ -1403,7 +1396,6 @@ def passProcess(requests, serialNo, processID):
 	passProcessBySerialNo(serialNo, processID, UserID)
 	return HttpResponse()
 
-
 def test(request):
 	raw = Raw_sql()
 	for i in range(1,10):
@@ -1411,3 +1403,4 @@ def test(request):
 		          "VALUES( '2016-02-23 16:23:09.187',	'2016-02-23 16:23:09.187',	'234','234'	,'2016-02-06 00:00:00.000',	'1227401050','b6eb0acf-7c31-44f5-ae44-931ee2ff90a2' );"
 		raw.update()
 	return HttpResponse()
+

@@ -268,6 +268,7 @@ def transformRawDataIntoInsertFormatDict( rawDict ):
 		formatData.append(itemRow)
 	return formatData
 
+#F03复用
 def formatSQLValuesString(insertItem):
 	"""
 	将数据按类型格式化为SQL中插入的字符串，如果是字符串，左右加上单引号，如果是Bool，改为'1'或者'0'，如果是字典，转化为JSON字符串存储
@@ -286,7 +287,6 @@ def formatSQLValuesString(insertItem):
 			return unicode(insertItem)
 	elif isinstance(insertItem, (dict, list)):
 		return "'"+json.dumps(insertItem, ensure_ascii=False)+"'"
-
 
 def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 	"""
@@ -317,6 +317,91 @@ def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 	return
 
 
+########################### F03 #########################################################
+def getF03DataBySerialNoAndUserID(serialNo, processID, UserID):
+	try:
+		"""
+			根据流水号和表单ID获取表单数据
+			:param serialNo:任务流水号
+			:param processID:表单ID
+			:param UserID:用户名，如果是ALL则表示汇总数据
+			:return:返回对应的表单数据
+			"""
+		raw = Raw_sql()
+		returnInfo = dict()
+		raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
+		            ProductNo, ColorNo, UserID,
+		             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
+		              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
+		             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+		              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
+		res, columns = raw.query_one(needColumnName=True)
+		returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+		#判断是否审批中
+		raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
+						 ON a.StepID = b.StepID
+					     WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
+		target = raw.query_one()[0]
+		if target is None:
+			# 所有步骤完成
+			returnInfo['info']['check'] = True
+		else:
+			# 检验步骤未完成
+			returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+
+		if UserID != "ALL":
+			raw.sql = """SELECT
+		            *
+		            FROM RMI_F03_DATA WITH(NOLOCK)
+		             WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID  )
+		else:
+			raw.sql = """SELECT
+					 *,  dbo.getUserNameByUserID(InspectorNo) AS Inspector
+		             FROM RMI_F03_DATA WITH(NOLOCK)
+		             WHERE SerialNo = '%s'""" %serialNo
+		res, columns = raw.query_all(needColumnName=True)
+		returnInfo['data'] = dict()
+		#区分F02
+		returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
+		returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+		return returnInfo
+	except Exception,e:
+		print e
+
+def insertF03DataBySerialNo(SerialNo, rawData, UserID):
+	try:
+		"""
+			根据任务流水号和原始数据插入数据库
+			:param SerialNo:任务流水号
+			:param rawData:插入之前的原始数据字典列表
+			:param UserID:插入数据的检验员工号
+			:return:
+			"""
+		selectedStep = rawData.pop('selectedStep')
+		isFinished   = rawData.pop('isSubmit')
+		rawData['SerialNo'] = SerialNo
+		#区分F02
+		formatData   = rawData
+		print formatData
+		raw = Raw_sql()
+		raw.sql  = "DELETE FROM RMI_F03_DATA WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(SerialNo, UserID)
+		raw.sql += "UPDATE RMI_TASK_PROCESS SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s';"%UserID
+		#区分F02
+		columnsString = ",".join(formatData.keys()) + ",InspectorNo"
+		valuesString  = ",".join([formatSQLValuesString(formatData[key]) for key in formatData.keys() ]) + ",'" + UserID + "'"
+		raw.sql      += "INSERT INTO RMI_F03_DATA(%s) VALUES(%s);"%(columnsString, valuesString)
+
+		if isFinished:
+			raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
+							 SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F03' AND StepID = '%s'"""%(SerialNo, selectedStep)
+		else:
+			raw.sql += """UPDATE RMI_TASK_PROCESS_STEP
+							 SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = 'F03' AND StepID = '%s'"""%(SerialNo, selectedStep)
+		print raw.sql
+		raw.update()
+		return
+	except Exception,e:
+		print e
 #########################################################################################
 
 def getAllProcessStepBySerialNo(serialNo):
