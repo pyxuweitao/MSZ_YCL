@@ -1337,11 +1337,17 @@ def getFormData(request, serialNo, processID, getMethod):
 	"""
 	UserID = 'ALL' if getMethod == "Check" else request.session['UserId']
 	if processID == "F01":
-		return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, 'F01', UserID), encoding='GB2312'))
+		return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
 	elif processID == "F02":
-		return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, 'F02', UserID), encoding='GB2312'))
+		return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
 	elif processID == "F03":
-		return HttpResponse(json.dumps(getF03DataBySerialNoAndUserID(serialNo, 'F03', UserID), encoding='GB2312'))
+		return HttpResponse(json.dumps(getF03DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
+	elif processID == "F04":
+		return HttpResponse(json.dumps(getF04DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
+	elif processID == "F05":
+		return HttpResponse(json.dumps(getF05DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
+	elif processID == "F06":
+		return HttpResponse(json.dumps(getF06DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
 
 
 def insertFormData(request, serialNo, processID ):
@@ -1352,16 +1358,19 @@ def insertFormData(request, serialNo, processID ):
 	:param serialNo:任务流水号
 	:return:
 	"""
-	print 'here'
-	print processID
 	UserID = request.session['UserId']
-	if processID == "F01":
+	if processID == "F01":#商标纸卡不干贴
 		insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
-	elif processID == "F02":
+	elif processID == "F02":#辅料检验表
 		insertF02DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
-	elif processID == "F03":
-		print request.body[5:]
+	elif processID == "F03":#实验室检测报告
 		insertF03DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	elif processID == "F04":#疲劳拉伸测试报告
+		insertF04DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	elif processID == "F05":#模杯测试报告
+		insertF05DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
+	elif processID == "F06":#成品洗涤测试报告
+		insertF06DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
 	return HttpResponse()
 
 

@@ -1,13 +1,12 @@
 
 ----获取当前表单最新执行步骤的函数
-drop function getCurrentFinishedStep
 CREATE FUNCTION getCurrentFinishedStep(@serialno uniqueidentifier, @process varchar(50))
 RETURNS varchar(50)
 AS
 BEGIN
 DECLARE @step uniqueidentifier,@finish int, @stepName varchar(50);
 SELECT TOP 1 @step = a.StepID, @finish = Finished FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
-ON a.StepID = b.StepID AND a.ProcessID = b.ProcessID WHERE SerialNo = @serialno
+ON a.StepID = b.StepID AND a.ProcessID = b.ProcessID WHERE SerialNo = @serialno AND a.ProcessID = @process
 ORDER BY a.Finished DESC , b.StepSeq;
 IF @finish != 1
 	SELECT TOP 1 @stepName = StepName FROM RMI_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
@@ -18,8 +17,6 @@ ELSE
 	SELECT @stepName = StepName FROM RMI_STEP WITH(NOLOCK) WHERE StepID = @step;
 RETURN @stepName;
 END
-
-SELECT dbo.getCurrentFinishedStep( 'D409F0C2-9569-42F3-A932-B27ED42670C5', 'F01' )
 
 
 ----获取当前ProcessID对应最晚一次修改的时间
@@ -53,3 +50,4 @@ DECLARE @name varchar(50);
 SELECT TOP 1 @name = name FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE ID = @UserID;
 RETURN @name;
 END
+
