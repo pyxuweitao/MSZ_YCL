@@ -29,46 +29,39 @@ class DecimalEncoder(json.JSONEncoder):
 		return json.JSONEncoder.default(self, o)
 
 def JSONToCreateTable(JSON):
+	"""
+	根据所有的表格插入时发来的JSON生成创建数据表的SQL
+	:param JSON:表格插入发来的JSON
+	:return:创建表格生成的SQL
+	"""
 	rawDict = json.loads(JSON)
 	SQL = "CREATE TABLE("
 	for k, v in rawDict.items():
 		temp = "%s varchar(50),\n"%k if not isinstance(v, bool) else "%s bit,\n"%k
 		SQL += temp
-
+	SQL += """Id uniqueidentifier default newid() primary key,
+			  SerialNo uniqueidentifier,
+			  InspectorNo varchar(50)"""
 	SQL += ")"
 	return SQL
 
 if __name__=="__main__":
 	print JSONToCreateTable("""{
-  "QiZhouQiMao1": "215",
-  "QiZhouQiMao2": "2134",
-  "QiZhouQiMao3": "2314",
-  "QiZhouQiMao4": "2143",
-  "TuoJiaoQiPao1": "123",
-  "TuoJiaoQiPao2": "2135",
-  "TuoJiaoQiPao3": "23",
-  "TuoJiaoQiPao4": "2134",
-  "BaoKou1": "1234",
-  "BaoKou2": "345",
-  "BaoKou3": "234",
-  "BaoKou4": "1234",
-  "ShenQingBuMen": "1234",
-  "MoBeiBeiXing": "234",
-  "MoYaTiaoJianWenDu": "1234213",
-  "MoYaTiaoJianShiJian": "4231423",
-  "ShenQingRiQi": "2016-03-07T16:00:00.000Z",
-  "YanSe": "234",
-  "ShuLiang": "2134",
-  "TieHeTiaoJianWenDu": "3",
-  "TieHeTiaoJianShiJian": "1234",
-  "ShuiWen": "LenShui",
-  "ZhuanSu": "600",
-  "HongGan": "BiaoZhun",
-  "XiDiCiShu": "5",
-  "XiDiJi": "Jia",
-  "QiTaYaoQiu": "2134",
-  "hasQiZhouQiMao": true,
-  "hasBaoKou": true,
-  "hasTuoJiaoQiPao": true
+  "TongHao": "1234",
+  "BiaoZhiShu": "1234",
+  "ShiCeShu": "2134",
+  "BiaoZhi": "Shi",
+  "WaiBaoZhuang": "Shi",
+  "ZaZhi": "Wu",
+  "YanSe": "YiChang",
+  "YiWei": "You",
+  "JieGuo": "OK",
+  "DaoHuoShuLiang": "1243",
+  "JianYanShuLiang": "请让我",
+  "GongHuoShang": "2134",
+  "SongHuoDanHao": "1234",
+  "BeiZhu": "2134",
+  "PanDing": "HeGe"
 }
 """)
+
