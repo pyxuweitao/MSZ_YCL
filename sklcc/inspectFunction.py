@@ -409,10 +409,19 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ]) + ",'" + UserID + "'"
 		raw.sql      += "INSERT INTO RMI_%s_DATA(%s) VALUES(%s);"%(processID, columnsString, valuesString)
 	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
-	print raw.sql
 	raw.update()
 	return
 
+def getAllQuestionsByQuestionClass(questionClass):
+	"""
+	根据产品类型筛选出所有的相关疵点
+	:param questionClass:疵点种类
+	:return:对应疵点种类的所有疵点
+	"""
+	raw       = Raw_sql()
+	raw.sql   = "SELECT questionID as id, questionName as label FROM RMI_QUESTION WHERE questionClass LIKE '%%%%%s%%%%'"%questionClass
+	res, cols = raw.query_all(needColumnName=True)
+	return translateQueryResIntoDict(cols, res)
 
 def getAllProcessStepBySerialNo(serialNo):
 	"""

@@ -7,6 +7,8 @@ from sklcc import views
 # from django.contrib import admin
 # admin.autodiscover()
 
+
+# from django.conf import settings
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'MSZ_YCL.views.home', name='home'),
@@ -26,10 +28,10 @@ urlpatterns = patterns('',
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/get(\w+)Data/(\w+)/$', views.getFormData),
 	url(r'^api/inspect/(.+)/insert(\w+)Data/$', views.insertFormData),
+	url(r'^api/inspect/getAllQuestions/(.+)$', views.getAllQuestions),
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
-
 	#administration
     url(r'^api/users/$',views.users_info_operations),
     url(r'^api/users/departmentAndJob/$',views.getDepartmentsAndJobs),
@@ -42,8 +44,6 @@ urlpatterns = patterns('',
 
 	url(r'api/test/$', views.test)
 )
-
-# from django.conf import settings
 # if settings.DEBUG:
 #     import debug_toolbar
 #     urlpatterns += patterns('',

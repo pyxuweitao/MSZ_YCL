@@ -47,21 +47,109 @@ def JSONToCreateTable(JSON):
 
 if __name__=="__main__":
 	print JSONToCreateTable("""{
-  "TongHao": "1234",
-  "BiaoZhiShu": "1234",
-  "ShiCeShu": "2134",
-  "BiaoZhi": "Shi",
-  "WaiBaoZhuang": "Shi",
-  "ZaZhi": "Wu",
-  "YanSe": "YiChang",
-  "YiWei": "You",
-  "JieGuo": "OK",
-  "DaoHuoShuLiang": "1243",
-  "JianYanShuLiang": "请让我",
-  "GongHuoShang": "2134",
-  "SongHuoDanHao": "1234",
-  "BeiZhu": "2134",
-  "PanDing": "HeGe"
+  "CiDian": [
+    {
+      "mistake": {
+        "id": "1",
+        "label": "疵点1"
+      },
+      "count": "8",
+      "score": 0
+    },
+    {
+      "mistake": {
+        "id": "2",
+        "label": "疵点2"
+      },
+      "count": "11",
+      "score": 0
+    },
+    {
+      "mistake": {
+        "id": "4",
+        "label": "疵点4"
+      },
+      "count": "8",
+      "score": 0
+    },
+    {
+      "mistake": {
+        "id": "5",
+        "label": "疵点5"
+      },
+      "count": "7",
+      "score": 0
+    }
+  ],
+  "JuanHao": "1243",
+  "GangHao": "2134",
+  "ShuLiangPiBiao1": 2134,
+  "ShuLiangShiCe1": 2134,
+  "ShuLiangPiBiao2": "2314",
+  "ShuLiangShiCe2": "2134",
+  "JianYanShu": 2134,
+  "DengJiPanDing": "A",
+  "BeiZhu": "2314",
+  "ShouRouHuiSuoLv": "3223",
+  "ZiRanHuiSuoLv": "2134",
+  "KuanDuOrGuiGeBiaoZhunZhi": "1234",
+  "KuanDuOrGuiGeBiaoZhunPianCha": "2341",
+  "KuanDuOrGuiGeShiCe1": "1234",
+  "KuanDuOrGuiGeShiCe2": "2134",
+  "KuanDuOrGuiGeShiCe3": "1243",
+  "DuiChenXingOrWanQuDuBiaoZhunZhi": "1234",
+  "DuiChenXingOrWanQuDuBiaoZhunPianCha": "1234",
+  "DuiChenXingOrWanQuDuShiCe": 23341,
+  "KeZhongBiaoZhunZhi": "2134",
+  "KeZhongBiaoZhunPianCha": "2134",
+  "KeZhongShiCe": 1234,
+  "KaiDuBiaoZhunZhi": "142",
+  "KaiDuBiaoZhunPianCha": "1234",
+  "KaiDuShiCe": "2134",
+  "HouDuBiaoZhunZhi": "412",
+  "HouDuBiaoZhunPianCha": "4123",
+  "HouDuShiCe": 434242,
+  "HuaXingBiaoZhunZhi": "1",
+  "HuaXingBiaoZhunPianCha": "34132",
+  "ShuiXi": "HeGe",
+  "HuaXingShiCe": 432,
+  "XiangMuFlag": {
+    "hasCiDian": true,
+    "hasKuanDuOrGuiGe": true,
+    "hasDuiChenXingOrWanQuDu": true,
+    "hasKeZhong": true,
+    "hasKaiDu": true,
+    "hasHouDu": true,
+    "hasHuaXingXunHuan": true,
+    "hasShuiXi": true
+  },
+  "ShuLiang": {
+    "MiIsChecked": true
+  },
+  "LeiBie": "B",
+  "CaiLiaoMingCheng": "2134",
+  "DaoLiaoZongShu": 2341,
+  "ChanPinZhongLei": "肩带",
+  "GongYingShang": "2134",
+  "hasBiaoZhunSeKa": true,
+  "BiaoZhunSeKa": "234",
+  "CaiLiaoFengYang": "124",
+  "hasCaiLiaoFengYang": true,
+  "QiWeiBeiZhu": "1234",
+  "QiWei": "BuZhengChang",
+  "AnLunShiYan": "HeGe",
+  "YanZhenJieGuo": "2143",
+  "ZhengFanMian": "ZhengQue",
+  "ShouGan": "1243",
+  "ShaXiang": "BuZhengQue",
+  "CaiLiaoCiDianZhuYaoWenTi": "124",
+  "YinBiaoWeiZhi": "BuZhengQue",
+  "JieLun": "BuZuoPanDing",
+  "GuiGeOrKuanDu": "KuanDu",
+  "GuiGeOrKuanDuDanWei": "1243",
+  "DuiChenXingOrWanQuDu": "WanQuDu",
+  "DuiChenXingOrWanQuDuDanWei": "1234",
+  "JieLunBeiZhu": "2134"
 }
 """)
 

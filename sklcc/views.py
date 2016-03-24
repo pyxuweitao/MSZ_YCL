@@ -178,9 +178,9 @@ def getFormData(request, serialNo, processID, getMethod):
 		return HttpResponse(json.dumps(getF01DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
 	elif processID == "F02":
 		return HttpResponse(json.dumps(getF02DataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
-	elif processID == "F04" or "F06" or "F03":#疲劳拉伸测试报告,成品洗涤测试报告, 实验室检测报告
+	elif processID in ("F04", "F06", "F03"):#疲劳拉伸测试报告,成品洗涤测试报告, 实验室检测报告
 		return HttpResponse(json.dumps(withOutListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
-	elif processID == "F05" or "F07" or "F08":#模杯测试报告,海绵检验记录,白油检验报告
+	elif processID in ("F05", "F07", "F08", "F09"):#模杯测试报告,海绵检验记录,白油检验报告，主料表
 		return HttpResponse(json.dumps(WithListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID), encoding='GB2312'))
 
 def insertFormData(request, serialNo, processID ):
@@ -196,13 +196,21 @@ def insertFormData(request, serialNo, processID ):
 		insertF01DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
 	elif processID == "F02":#辅料检验表
 		insertF02DataBySerialNo(serialNo, json.loads(request.body[5:]), UserID)
-	elif processID == "F04" or "F06" or "F03":#疲劳拉伸测试报告,成品洗涤测试报告, 实验室检测报告
+	elif processID in ("F04", "F06", "F03"):#疲劳拉伸测试报告,成品洗涤测试报告, 实验室检测报告
 		WithOutListDataInsertFormDataBySerialNo(serialNo, json.loads(request.body[5:]), UserID, processID)
-	elif processID == "F05" or "F07" or "F08":#模杯测试报告,海绵检验记录,白油检验报告
+	elif processID in ("F05", "F07", "F08", "F09"):#模杯测试报告,海绵检验记录,白油检验报告,主料表
 		WithListDataInsertFormDataBySerialNo(serialNo, json.loads(request.body[5:]), UserID, processID)
 
 	return HttpResponse()
 
+def getAllQuestions(request, questionClass):
+	"""
+	获取所有的主料疵点
+	:param request:客户端请求
+	:param questionClass:疵点种类
+	:return: 返回指定格式的JSON
+	"""
+	return HttpResponse(json.dumps(getAllQuestionsByQuestionClass(questionClass), encoding='GB2312'))
 
 def getTaskProcess(request, serialNo):
 	"""

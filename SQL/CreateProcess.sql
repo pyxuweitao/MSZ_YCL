@@ -16,5 +16,5 @@ INSERT INTO RMI_PROCESS_STEP(PROCESSID, STEPID, STEPSEQ) VALUES(@processID,'3692
 END
 
 
-exec dbo.createNewProcess 'F08', '白油检验记录', '辅料', '辅料检验'
+exec dbo.createNewProcess 'F09', '材料验收记录(面料、花边)', '主料', '主料检验'
 

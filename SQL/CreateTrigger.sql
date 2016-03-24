@@ -1,5 +1,5 @@
 
-----RMI_TASK表插入后更新RMI_TASK_PROCESS
+----RMI_TASK插入任务时更新表格
 CREATE TRIGGER update_rmi_task_process_when_rmi_task_insert
 ON rmi_task
 FOR INSERT
@@ -26,7 +26,7 @@ CLOSE CUR_INS;
 DEALLOCATE CUR_INS;
 
 
-----rmi_task_process表插入后更新RMI_TASK_PROCESS_STEP
+----rmi_task_process当插入任务表格时插入表格相关步骤
 CREATE TRIGGER update_rmi_task_process_step_when_rmi_task_process_insert
 ON rmi_task_process
 FOR INSERT
@@ -53,8 +53,8 @@ END
 CLOSE CUR_INS_RMI_TASK_PROCESS;
 DEALLOCATE CUR_INS_RMI_TASK_PROCESS;
 
-
-----rmi_task表删除任务后更新所有包含流水号的表
+drop trigger update_other_tables_when_delete_rmi_task
+----rmi_task删除任务后删除所有表格数据
 CREATE TRIGGER update_other_tables_when_delete_rmi_task
 ON rmi_task
 FOR DELETE
@@ -69,6 +69,12 @@ BEGIN
 	DELETE FROM RMI_TASK_PROCESS_STEP WHERE SerialNo = @serial;
 	DELETE FROM RMI_F01_DATA WHERE SerialNo = @serial;
 	DELETE FROM RMI_F02_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F03_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F04_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F05_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F06_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F07_DATA WHERE SerialNo = @serial;
+	DELETE FROM RMI_F08_DATA WHERE SerialNo = @serial;
 	FETCH NEXT FROM CUR_DEL_IN_RMI_TASK INTO @serial;
 END
 CLOSE CUR_DEL_IN_RMI_TASK;
