@@ -32,7 +32,7 @@ def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, Us
 			SET LastModifiedTime = GETDATE() WHERE SerialNo = '%s';"""%SerialNo
 	return SQL
 
-def getStepsBySerialNo(SerialNo, ProcessID):
+def getStepsBySerialNoAndProcessID(SerialNo, ProcessID):
 	"""
 	根据流水号和表单ID获取该表单的所有的步骤
 	:param SerialNo:流水号
@@ -116,7 +116,7 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
-	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
 def judgeWhetherNULL(param, lastOne=False):
@@ -229,7 +229,7 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
-	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
 def transformRawDataIntoInsertFormatDict( rawDict ):
@@ -314,7 +314,7 @@ def withOutListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo['data'] = dict()
 	#区分F02
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
-	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
 def WithOutListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
@@ -386,7 +386,7 @@ def WithListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
-	returnInfo['data'].update({'step': getStepsBySerialNo(serialNo, processID)})
+	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
 def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
