@@ -243,6 +243,13 @@ def passProcess(requests, serialNo, processID):
 	passProcessBySerialNo(serialNo, processID, UserID)
 	return HttpResponse()
 
+def getSuppliersList(request, supplierName):
+	"""
+	根据供应商名字返回模糊匹配到的列表
+	:return:模糊匹配到的列表
+	"""
+	return HttpResponse( json.dumps(getSuppliersByName(supplierName), encoding='GBK' ))
+
 def test(request):
 	raw = Raw_sql()
 	for i in range(1,10):

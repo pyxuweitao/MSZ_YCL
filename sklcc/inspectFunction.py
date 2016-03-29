@@ -462,3 +462,12 @@ def passProcessBySerialNo(serialNo, ProcessID, Assessor):
 
 
 
+def getSuppliersByName(supplierName):
+	"""
+	根据供应商模糊名查询获取供应商列表
+	:param supplierName: 供应商的模糊名
+	:return: 返回[供应商名称]
+	"""
+	raw = Raw_sql()
+	raw.sql = """SELECT SupplierName FROM RMI_SUPPLIER WHERE SupplierName LIKE '%%%%%s%%%%'"""%supplierName
+	return 	[ row[0] for row in raw.query_all() ]

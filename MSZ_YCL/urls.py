@@ -6,9 +6,6 @@ from sklcc import views
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
-
-
-# from django.conf import settings
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'MSZ_YCL.views.home', name='home'),
@@ -32,6 +29,8 @@ urlpatterns = patterns('',
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
+    url(r'^api/inspect/getSuppliersList/(.*)/$', views.getSuppliersList),
+    #statistic
 	#administration
     url(r'^api/users/$',views.users_info_operations),
     url(r'^api/users/departmentAndJob/$',views.getDepartmentsAndJobs),
@@ -44,6 +43,9 @@ urlpatterns = patterns('',
 
 	url(r'api/test/$', views.test)
 )
+
+
+# from django.conf import settings
 # if settings.DEBUG:
 #     import debug_toolbar
 #     urlpatterns += patterns('',
