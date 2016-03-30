@@ -21,20 +21,23 @@ class Raw_sql(object):
 		:param needColumnName: 是否需要返回字段名列表以方便快速生成字段和结果对应的字典列表
 		:return: 如果不需要字段名，就返回结果元组，如果需要则返回字段列表和结果元组（res）
 		"""
-		cursor = connections[owner].cursor()
-		cursor.execute(self.sql)
-		target = cursor.fetchone()
-		# target -> list
-		if not needColumnName:
-			if len(target) == 0:
-				return ()
+		try:
+			cursor = connections[owner].cursor()
+			cursor.execute(self.sql)
+			target = cursor.fetchone()
+			# target -> list
+			if not needColumnName:
+				if len(target) == 0:
+					return ()
+				else:
+					return target
 			else:
-				return target
-		else:
-			if len(target) == 0:
-				return (), [desc[0] for desc in cursor.description]
-			else:
-				return target, [desc[0] for desc in cursor.description]
+				if len(target) == 0:
+					return (), [desc[0] for desc in cursor.description]
+				else:
+					return target, [desc[0] for desc in cursor.description]
+		except Exception,e:
+			print self.sql
 
 	def query_all(self, owner='default', needColumnName=False):
 		"""
@@ -43,19 +46,22 @@ class Raw_sql(object):
 		:param needColumnName: 是否需要返回字段名列表以方便快速生成字段和查询结果对应的字典列表
 		:return: 如果不需要字段名，就返回结果元组，如果需要则返回字段列表和结果元组((res)(res))
 		"""
-		cursor = connections[owner].cursor()
-		cursor.execute(self.sql)
-		target_list = cursor.fetchall()
-		if not needColumnName:
-			if len(target_list) == 0:
-				return ()
+		try:
+			cursor = connections[owner].cursor()
+			cursor.execute(self.sql)
+			target_list = cursor.fetchall()
+			if not needColumnName:
+				if len(target_list) == 0:
+					return ()
+				else:
+					return target_list
 			else:
-				return target_list
-		else:
-			if len(target_list) == 0:
-				return (), [desc[0] for desc in cursor.description]
-			else:
-				return target_list, [desc[0] for desc in cursor.description]
+				if len(target_list) == 0:
+					return (), [desc[0] for desc in cursor.description]
+				else:
+					return target_list, [desc[0] for desc in cursor.description]
+		except Exception,e:
+			print self.sql
 
 	def update(self, owner='default'):
 		"""
@@ -68,6 +74,7 @@ class Raw_sql(object):
 			cursor.execute(self.sql)
 			transaction.commit_unless_managed(owner)
 		except Exception, e:
+			print self.sql
 			transaction.rollback(owner)
 			return False
 		else:

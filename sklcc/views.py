@@ -250,6 +250,25 @@ def getSuppliersList(request, supplierName):
 	"""
 	return HttpResponse( json.dumps(getSuppliersByName(supplierName), encoding='GBK' ))
 
+def SuppliersInfo(request, supplierCode):
+	"""
+	供应商维护界面增删查改相关操作
+	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除供应商
+	:param supplierCode:供应商代码
+	:return:
+	"""
+	userID = request.session['UserId']
+	if request.method == 'GET':
+		return HttpResponse(json.dumps(getSupplierByCode(supplierCode), encoding='GBK'))
+	elif request.method == 'POST':
+		newSupplier(userID, json.loads(request.POST['INFO']))
+	elif request.method == 'PUT':
+		updateSupplier(userID, supplierCode, json.loads(request.body[5:]))
+	elif request.method == 'DELETE':
+		deleteSupplier(supplierCode)
+	return HttpResponse()
+
+
 def test(request):
 	raw = Raw_sql()
 	for i in range(1,10):

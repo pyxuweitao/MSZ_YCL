@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
     url(r'^api/inspect/getSuppliersList/(.*)/$', views.getSuppliersList),
+    url(r'^api/inspect/SuppliersInfo/(.*)$', views.SuppliersInfo),
     #statistic
 	#administration
     url(r'^api/users/$',views.users_info_operations),
