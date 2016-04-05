@@ -103,19 +103,24 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	if UserID != "ALL":
 		raw.sql = """SELECT
 	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu
+	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	             WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
 	else:
 		raw.sql = """SELECT
 	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector
+	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	             WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
-	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
+
+	listData = {'listData': translateQueryResIntoDict(columns, [row for row in res])}
+	for i,row in enumerate(listData['listData']):
+		if row['isZhuDiaoPai']:
+			returnInfo['data']['ZhuDiaoPai'] = listData['listData'].pop(i)
+	returnInfo['data'].update(listData)
 	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
@@ -159,14 +164,21 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	selectedStep   = rawData['selectedStep']
 	selectedType   = rawData['SelectedType']
 	isFinished     = rawData['isSubmit']
+
 	raw = Raw_sql()
 	raw.sql = "DELETE FROM RMI_%s_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
 	if len(ListData) > 0:
 		raw.sql += "INSERT INTO RMI_%s_DATA(MaterialType, InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
-		          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa) "%processID
+		          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa, isZhuDiaoPai ) "%processID
+
+		rawData['ZhuDiaoPai']['isZhuDiaoPai'] = True #如果是主吊牌，加入主吊牌标记键值对0
+		ListData.append(rawData['ZhuDiaoPai'])
+
 		for row in ListData:
-			raw.sql += "SELECT '%s', '%s', '%s', '%s', %d, '%s', '%s', %d, " % ( selectedType, UserID,
-				SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, row["GuiGe"], row['HeGeShu'])
+			raw.sql += "SELECT '%s', '%s', '%s', '%s', '%d', '%s'," % ( selectedType, UserID,
+				SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao )
+			raw.sql += "'%s',"%row['GuiGe'] if row['GuiGe'] else 'NULL,' #规格在主吊牌中有可能不填
+			raw.sql += "%s,"%row['HeGeShu'] if row['HeGeShu'] else 'NULL,' #合格数在主吊牌中有可能不填
 
 			raw.sql += judgeWhetherNULL(row['TouChanShu'] if row['hasTouChanShu'] else None)
 			raw.sql += judgeWhetherNULL(row['DingDanShu'] if row['hasDingDanShu'] else None)
@@ -174,7 +186,8 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['ShiCeShu'])
 			raw.sql += judgeWhetherNULL(row['WaiGuan'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
-			raw.sql += judgeWhetherNULL(row['QiTa'], lastOne=True)
+			raw.sql += judgeWhetherNULL(row['QiTa'])
+			raw.sql += judgeWhetherNULL(1 if row['isZhuDiaoPai'] else 0, lastOne=True)#表示非主吊牌行
 			raw.sql += "UNION ALL\n"
 		raw.sql  = raw.sql[:-10]
 	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
