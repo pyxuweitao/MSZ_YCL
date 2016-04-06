@@ -79,3 +79,4 @@ def deleteTaskBySerialNo(SerialNo):
 	raw.update()
 	#call trigger delete all task info in rmi_task_process...
 	return
+

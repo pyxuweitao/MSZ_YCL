@@ -18,3 +18,10 @@ END
 
 exec dbo.createNewProcess 'F09', '材料验收记录(面料、花边)', '主料', '主料检验'
 
+---- 供应商评价报表统计过程
+CREATE PROC getSuppliersAssessment
+
+AS
+BEGIN
+
+END

@@ -22,6 +22,8 @@ urlpatterns = patterns('',
 	url(r'^api/inspect/editTask/$', views.editTask),
 	url(r'^api/inspect/(.+)/commitTask/$', views.commitTask),
     url(r'^api/inspect/getFlowList/$', views.getFlow),
+    url(r'^api/configuration/unitInfo/(.*)$', views.unitInfo),
+    #url(r'^api/configuration/MaterialInfo/(.*)$', views.MaterialInfo),
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/get(\w+)Data/(\w+)/$', views.getFormData),
 	url(r'^api/inspect/(.+)/insert(\w+)Data/$', views.insertFormData),
