@@ -244,33 +244,32 @@ def passProcess(requests, serialNo, processID):
 	passProcessBySerialNo(serialNo, processID, UserID)
 	return HttpResponse()
 
-def getSuppliersList(request, supplierName):
-	"""
-	根据供应商名字返回模糊匹配到的列表
-	:return:模糊匹配到的列表
-	"""
-	return HttpResponse( json.dumps(Configurations.getSuppliersByName(supplierName), encoding='GBK' ))
-
-def SupplierInfo(request, SupplierCode):
+def SupplierInfo(request, fuzzySupplierName, supplierCode):
 	"""
 	供应商维护界面增删查改相关操作
 	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除供应商
-	:param SupplierID:供应商代码
+	:param fuzzySupplierName:如果是模糊查询这个值为非空，为空时返回所有
+	:param supplierCode:供应商代码
 	:return:
 	"""
-	unit = Configurations.RestfulInfoAPI("RMI_SUPPLIER", request.session['UserId'])
+	supplier = Configurations.RestfulInfoAPI("RMI_SUPPLIER", request.session['UserId'])
 	if request.method == 'GET':
-		return HttpResponse(json.dumps(
-				unit.getInfoByID(ID=SupplierCode, queryFieldName='SupplierCode', columns=['SupplierCode', 'SupplierName'],
+		if fuzzySupplierName:
+			return HttpResponse(json.dumps(
+				supplier.getInfoByFuzzyInput(fuzzyInput=fuzzySupplierName, fuzzyFieldName='supplierName', columns=['SupplierCode', 'SupplierName'],
+				                             columnsAlternativeNames=['id','name']), encoding='GBK'))
+		else:
+			return HttpResponse(json.dumps(
+				supplier.getInfoByID(ID=supplierCode, queryFieldName='SupplierCode', columns=['SupplierCode', 'SupplierName'],
 		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
-		unit.newInfo(columns=['SupplierName'], values=[json.loads(request.POST['INFO'])['name']])
+		supplier.newInfo(columns=['SupplierName'], values=[json.loads(request.POST['INFO'])['name']])
 	elif request.method == 'PUT':
-		unit.updateInfo(
-				updateInfoID=SupplierCode, updateIDFieldName=['SupplierCode'],
+		supplier.updateInfo(
+				updateInfoID=supplierCode, updateIDFieldName=['SupplierCode'],
 				updateColumns=['SupplierName'], updateValues=[json.loads(request.body[5:])['name']] )
 	elif request.method == 'DELETE':
-		unit.deleteInfo(deleteIDFieldName='SupplierCode', deleteInfoID=SupplierCode)
+		supplier.deleteInfo(deleteIDFieldName='SupplierCode', deleteInfoID=supplierCode)
 	return HttpResponse()
 
 
@@ -282,16 +281,22 @@ def test(request):
 		raw.update()
 	return HttpResponse()
 
-def unitInfo(request, unitID):
+def unitInfo(request, fuzzyUnitName, unitID):
 	"""
 	计量单位维护界面增删查改相关操作，任务创建界面同样调用GET接口
+	:param fuzzyUnitName:如果是模糊查询这个值为非空，为空时返回所有
 	:param request:客户端请求，包括获取所有计量单位信息，根据对应请求方法去修改、新建、删除计量单位
 	:param unitID:计量单位ID
 	:return:
 	"""
 	unit = Configurations.RestfulInfoAPI("RMI_UNIT", request.session['UserId'])
 	if request.method == 'GET':
-		return HttpResponse(json.dumps(
+		if fuzzyUnitName:
+			return HttpResponse(json.dumps(
+				unit.getInfoByFuzzyInput(fuzzyInput=fuzzyUnitName, fuzzyFieldName='UnitName', columns=['UnitID', 'UnitName'],
+				                             columnsAlternativeNames=['id','name']), encoding='GBK'))
+		else:
+			return HttpResponse(json.dumps(
 				unit.getInfoByID(ID=unitID, queryFieldName='UnitID', columns=['UnitID', 'UnitName'],
 		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
@@ -305,4 +310,10 @@ def unitInfo(request, unitID):
 	return HttpResponse()
 
 def getMaterialNames(request, fuzzyName):
+	"""
+	根据模糊输入获取所有材料名称的视图函数
+	:param request: 客户端请求
+	:param fuzzyName: 模糊输入
+	:return: 材料名称打包的JSON
+	"""
 	return HttpResponse(json.dumps(taskEdit.getAllMaterialByName(fuzzyName), encoding='GBK'))

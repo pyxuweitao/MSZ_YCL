@@ -11,27 +11,46 @@ class RestfulInfoAPI(object):
 	Restful增删查改的API类
 	"""
 	def __init__(self, tableName, userID):
+		"""
+		__defaultUpdateString  :数据库更新语句默认的插入项，添加到更新语句对应位置中
+		__defaultInsertColumns :数据库插入语句默认的插入项，添加到插入语句对应位置中
+		__defaultInsertValues  :数据库插入语句默认插入项的值
+		dataSourceTable        :该实例对应的数据表
+		userID                 :修改该实例对应数据表的用户ID
+		raw                    :数据库连接对象
+		:param tableName: 初始化数据表名称
+		:param userID: 用户ID
+		"""
 		self.__defaultUpdateString  = ", LastModifiedUser = '%s', LastModifiedTime = GETDATE()"%userID
 		self.__defaultInsertColumns = ", LastModifiedTime, LastModifiedUser"
 		self.__defaultInsertValues  = ", '%s', GETDATE()"%userID
 		self.dataSourceTable        = tableName
 		self.userID                 = userID
-		return
+		self.raw                    = rawSql.Raw_sql()
 
 	def setDefaultUpdateString(self, alternativeStrings):
+		"""
+		修改数据库默认更新项语句
+		:param alternativeStrings:欲替换的数据库默认更新项语句
+		"""
 		self.__defaultUpdateString = alternativeStrings
 
 	def setDefaultInsertColumnsAndValues(self, alternativeColumns, alternativeValues):
+		"""
+		修改数据库默认插入项语句
+		:param alternativeColumns: 欲替换的数据库默认插入项语句
+		:param alternativeValues: 欲替换的数据库默认插入项语句
+		"""
 		self.__defaultInsertColumns = alternativeColumns
 		self.__defaultInsertValues  = alternativeValues
 
 	@staticmethod
 	def formatColumnString(columns=None, columnsAlternativeNames=None):
 		"""
-
-		:param columns:
-		:param columnsAlternativeNames:
-		:return:
+		根据传入的字段名列表和字段别名列表，用AS连接，生成SELECT时的字段名字符串
+		:param columns:字段原名列表
+		:param columnsAlternativeNames:字段别名列表
+		:return:返回生成的字段名字符串
 		"""
 		if columns is not None:
 			if columnsAlternativeNames is not None:
@@ -46,9 +65,9 @@ class RestfulInfoAPI(object):
 	@staticmethod
 	def smartReturn(res, cols):
 		"""
-
-		:param res:
-		:param cols:
+		根据查询的字段数，如果只有一个字段，直接将结果存入一个列表中返回，否则返回一个键值对组成的列表
+		:param res:查询结果序列
+		:param cols:查询字段序列
 		:return:
 		"""
 		if len(cols) == 1:
@@ -58,125 +77,76 @@ class RestfulInfoAPI(object):
 
 	@staticmethod
 	def formatUpdateString(updateColumns=None, updateValues=None):
+		"""
+		根据更新字段序列和更新值序列生成update语句的值SET语句字符串
+		:param updateColumns: 更新字段序列
+		:param updateValues: 更新字段对应值序列
+		:return: 返回生成的UPDATE的SET部分字符串
+		"""
 		return ",".join([updateCol + '=' + "'%s'"%updateValues[i] for i, updateCol in enumerate(updateColumns)])
 
-	def getInfoByName(self, fuzzyInput, fuzzyFieldName, columns=None, columnsAlternativeNames=None):
+	def getInfoByFuzzyInput(self, fuzzyInput, fuzzyFieldName, columns=None, columnsAlternativeNames=None):
 		"""
-		模糊查询获取匹配到的数据
+		模糊查询获取匹配到的数据，传入的字段原名和字段别名序列顺序必须保持一致
 		:param fuzzyInput: 模糊查询的输入
-		:param fuzzyFieldName:
-		:param columns:
-		:param columnsAlternativeNames:
-		:return:
+		:param fuzzyFieldName:模糊字段名称
+		:param columns:字段原名序列
+		:param columnsAlternativeNames:字段别名序列
+		:return:调用smartReturn来返回数据集
 		"""
-		raw = rawSql.Raw_sql()
-
-		raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable)
+		self.raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable)
 		if fuzzyInput:
-			raw.sql += """WHERE %s LIKE '%%%%%s%%%%'"""%(fuzzyFieldName, fuzzyInput)
-
-		res, cols = raw.query_all(needColumnName=True)
+			self.raw.sql += """ WHERE %s LIKE '%%%%%s%%%%'"""%(fuzzyFieldName, fuzzyInput)
+		res, cols = self.raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
 
 	def getInfoByID(self, ID, queryFieldName, columns=None, columnsAlternativeNames=None):
 		"""
-
-		:param ID:
-		:param queryFieldName:
-		:param columns:
-		:param columnsAlternativeNames:
-		:return:
+		根据制定ID获取对应信息，如果ID为空则返回所有信息
+		:param ID:指定ID
+		:param queryFieldName:指定的ID的字段名
+		:param columns:获取记录的字段序列
+		:param columnsAlternativeNames:查询结果字段别名
+		:return:调用smartReturn来返回数据集
 		"""
-		raw = rawSql.Raw_sql()
-		raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(
+		self.raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(
 			self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable)
 		if ID:
-			raw.sql += " WHERE %s = '%s'"%(queryFieldName, ID)
-		res, cols = raw.query_all(needColumnName=True)
+			self.raw.sql += " WHERE %s = '%s'"%(queryFieldName, ID)
+		res, cols = self.raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
 
 	def newInfo(self, columns=None, values=None):
-		raw = rawSql.Raw_sql()
-		raw.sql = """INSERT INTO %s WITH(ROWLOCK)
+		"""
+		向对应数据源表插入数据
+		:param columns: 字段名序列
+		:param values: 字段名对应的插入值的序列
+		"""
+		self.raw.sql = """INSERT INTO %s WITH(ROWLOCK)
  					( %s )
  	    			VALUES ( %s )"""%(
 			self.dataSourceTable, ",".join(columns), ",".join(['%s'%item for item in values]))
-		raw.update()
-		return
+		self.raw.update()
 
 	def updateInfo(self, updateInfoID, updateIDFieldName, updateColumns=None, updateValues=None):
-		raw = rawSql.Raw_sql()
-		raw.sql = """UPDATE %s SET %s%s
+		"""
+		在数据源表中更新指定ID的相关值
+		:param updateInfoID: 制定更新记录的ID
+		:param updateIDFieldName: 更新记录ID所在的字段的名称
+		:param updateColumns: 欲更新的字段的序列
+		:param updateValues: 与欲更新字段序列顺序对应的更新值
+		:return:
+		"""
+		self.raw.sql = """UPDATE %s SET %s%s
  	    			WHERE %s = '%s'"""%(
 			self.dataSourceTable, self.formatUpdateString(updateColumns, updateValues), self.__defaultUpdateString, updateIDFieldName, updateInfoID)
-		raw.update()
-		return
+		self.raw.update()
 
 	def deleteInfo(self, deleteInfoID, deleteIDFieldName):
-		raw = rawSql.Raw_sql()
-		raw.sql = "DELETE FROM %s WITH(ROWLOCK) WHERE %s = '%s'"%(self.dataSourceTable, deleteIDFieldName, deleteInfoID)
-		raw.update()
-		return
-
-def getSupplierByCode(supplierCode):
-	"""
-	获取所有供应商信息
-	:param supplierCode:供应商代码，为空则返回所有供应商
-	:return:[{"id":供应商代码，"name":供应商名称}]
-	"""
-	raw = rawSql.Raw_sql()
-	raw.sql = """SELECT SupplierCode AS id, SupplierName AS name FROM RMI_SUPPLIER WITH(NOLOCK)"""
-	if supplierCode:
-		raw.sql += " WHERE SupplierCode = '%s'"%supplierCode
-	res, cols = raw.query_all(needColumnName=True)
-	return CommonUtilities.translateQueryResIntoDict(cols, res)
-
-def newSupplier(userID, supplierInfo):
-	"""
-	创建新的供应商
-	:param userID:最近一次修改用户的ID
-	:param supplierInfo:供应商相关信息
-	:return:
-	"""
-	raw = rawSql.Raw_sql()
-	raw.sql = """INSERT INTO RMI_SUPPLIER WITH(ROWLOCK) (SupplierCode, SupplierName, LastModifiedTime, LastModifiedUser )
- 				VALUES('%s', '%s', '%s', GETDATE())"""%(supplierInfo['id'], supplierInfo['name'], userID)
-	raw.update()
-	return
-
-
-def updateSupplier(userID, supplierCode, supplierInfo):
-	"""
-	更新供应商相关信息
-	:param userID:最近一次修改人ID
-	:param supplierCode:指定的供应商代码
-	:param supplierInfo:供应商信息
-	:return:
-	"""
-	raw = rawSql.Raw_sql()
-	raw.sql = """UPDATE RMI_SUPPLIER SET supplierName = '%s', LastModifiedUser = '%s',
-				LastModifiedTime = GETDATE()
- 				WHERE SupplierCode = '%s'"""%(supplierInfo['name'], supplierCode, userID)
-	raw.update()
-	return
-
-def deleteSupplier(supplierCode):
-	"""
-	删除对应代码的供应商信息
-	:param supplierCode:供应商代码
-	:return:
-	"""
-	raw = rawSql.Raw_sql()
-	raw.sql = "DELETE FROM RMI_SUPPLIER WHERE SupplierCode = '%s'"%supplierCode
-	raw.update()
-	return
-
-def getAllUnits():
-	"""
-	获取所有的计量单位列表
-	:return: 返回[{"id":"","name":""}]
-	"""
-	raw       = rawSql.Raw_sql()
-	raw.sql   = """SELECT UnitID AS id, UnitName AS name  FROM RMI_UNIT"""
-	res, cols = raw.query_all(needColumnName=True)
-	return CommonUtilities.translateQueryResIntoDict(columns=cols, res=res)
+		"""
+		在数据源列表中删除制定ID的数据
+		:param deleteInfoID:指定的ID
+		:param deleteIDFieldName:指定的ID所对应的字段名称
+		"""
+		self.raw.sql = "DELETE FROM %s WITH(ROWLOCK) WHERE %s = '%s'"%(self.dataSourceTable, deleteIDFieldName, deleteInfoID)
+		self.raw.update()

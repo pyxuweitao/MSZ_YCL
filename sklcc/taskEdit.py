@@ -82,9 +82,9 @@ def deleteTaskBySerialNo(SerialNo):
 
 def getAllMaterialByName(fuzzyName):
 	"""
-
-	:param fuzzyName:
-	:return:
+	根据模糊输入获取所有材料的名称
+	:param fuzzyName:模糊输入
+	:return:{'id':材料名称ID,'name':材料名称,'cata':材料种类名称}
 	"""
 	raw = rawSql.Raw_sql()
 	raw.sql = """SELECT a.MaterialID AS id, a.MaterialName AS name, dbo.getMaterialTypeNameByID(b.MaterialTypeID) AS cata
