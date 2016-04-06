@@ -71,8 +71,9 @@ class RestfulInfoAPI(object):
 		"""
 		raw = rawSql.Raw_sql()
 
-		raw.sql = """SELECT %s FROM %s WITH(NOLOCK) WHERE %s LIKE '%%%%%s%%%%'"""%(
-			self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable, fuzzyFieldName, fuzzyInput)
+		raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable)
+		if fuzzyInput:
+			raw.sql += """WHERE %s LIKE '%%%%%s%%%%'"""%(fuzzyFieldName, fuzzyInput)
 
 		res, cols = raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
@@ -116,18 +117,6 @@ class RestfulInfoAPI(object):
 		raw.sql = "DELETE FROM %s WITH(ROWLOCK) WHERE %s = '%s'"%(self.dataSourceTable, deleteIDFieldName, deleteInfoID)
 		raw.update()
 		return
-
-
-
-def getSuppliersByName(supplierName):
-	"""
-	根据供应商模糊名查询获取供应商列表
-	:param supplierName: 供应商的模糊名
-	:return: 返回[供应商名称]
-	"""
-	raw = rawSql.Raw_sql()
-	raw.sql = """SELECT SupplierName FROM RMI_SUPPLIER WHERE SupplierName LIKE '%%%%%s%%%%'"""%supplierName
-	return 	[ row[0] for row in raw.query_all() ]
 
 def getSupplierByCode(supplierCode):
 	"""

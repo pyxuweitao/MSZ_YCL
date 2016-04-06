@@ -3,9 +3,6 @@
 from django.conf.urls import patterns, include, url
 from sklcc import views
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'MSZ_YCL.views.home', name='home'),
@@ -24,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^api/inspect/getFlowList/$', views.getFlow),
     url(r'^api/task/getMaterialNames/(.*)$', views.getMaterialNames),
     url(r'^api/configuration/unitInfo/(.*)$', views.unitInfo),
+    url(r'^api/Configuration/SuppliersInfo/(.*)$', views.SupplierInfo),
     #url(r'^api/configuration/MaterialInfo/(.*)$', views.MaterialInfo),
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/get(\w+)Data/(\w+)/$', views.getFormData),
@@ -32,8 +30,6 @@ urlpatterns = patterns('',
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
-    url(r'^api/inspect/getSuppliersList/(.*)/$', views.getSuppliersList),
-    url(r'^api/inspect/SuppliersInfo/(.*)$', views.SuppliersInfo),
     #statistic
 	#administration
     url(r'^api/users/$',views.users_info_operations),
@@ -47,6 +43,9 @@ urlpatterns = patterns('',
 
 	url(r'api/test/$', views.test)
 )
+# Uncomment the next two lines to enable the admin:
+# from django.contrib import admin
+# admin.autodiscover()
 
 
 # from django.conf import settings

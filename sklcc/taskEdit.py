@@ -91,6 +91,6 @@ def getAllMaterialByName(fuzzyName):
  				FROM RMI_MATERIAL_NAME a WITH(NOLOCK) JOIN RMI_MATERIAL_TYPE_NAME b WITH(NOLOCK)
 				ON a.MaterialID=b.MaterialID"""
 	if fuzzyName:
-		raw.sql += """WHERE MaterialName LIKE '%%%%%s%%%%'"""%fuzzyName
+		raw.sql += """ WHERE MaterialName LIKE '%%%%%s%%%%'"""%fuzzyName
 	res, cols = raw.query_all(needColumnName=True)
 	return CommonUtilities.translateQueryResIntoDict(cols, res)

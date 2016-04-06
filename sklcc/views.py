@@ -251,22 +251,26 @@ def getSuppliersList(request, supplierName):
 	"""
 	return HttpResponse( json.dumps(Configurations.getSuppliersByName(supplierName), encoding='GBK' ))
 
-def SuppliersInfo(request, supplierCode):
+def SupplierInfo(request, SupplierCode):
 	"""
 	供应商维护界面增删查改相关操作
 	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除供应商
-	:param supplierCode:供应商代码
+	:param SupplierID:供应商代码
 	:return:
 	"""
-	userID = request.session['UserId']
+	unit = Configurations.RestfulInfoAPI("RMI_SUPPLIER", request.session['UserId'])
 	if request.method == 'GET':
-		return HttpResponse(json.dumps(Configurations.getSupplierByCode(supplierCode), encoding='GBK'))
+		return HttpResponse(json.dumps(
+				unit.getInfoByID(ID=SupplierCode, queryFieldName='SupplierCode', columns=['SupplierCode', 'SupplierName'],
+		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
-		Configurations.newSupplier(userID, json.loads(request.POST['INFO']))
+		unit.newInfo(columns=['SupplierName'], values=[json.loads(request.POST['INFO'])['name']])
 	elif request.method == 'PUT':
-		Configurations.updateSupplier(userID, supplierCode, json.loads(request.body[5:]))
+		unit.updateInfo(
+				updateInfoID=SupplierCode, updateIDFieldName=['SupplierCode'],
+				updateColumns=['SupplierName'], updateValues=[json.loads(request.body[5:])['name']] )
 	elif request.method == 'DELETE':
-		Configurations.deleteSupplier(supplierCode)
+		unit.deleteInfo(deleteIDFieldName='SupplierCode', deleteInfoID=SupplierCode)
 	return HttpResponse()
 
 
@@ -280,9 +284,9 @@ def test(request):
 
 def unitInfo(request, unitID):
 	"""
-	供应商维护界面增删查改相关操作
-	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除供应商
-	:param unitID:供应商代码
+	计量单位维护界面增删查改相关操作，任务创建界面同样调用GET接口
+	:param request:客户端请求，包括获取所有计量单位信息，根据对应请求方法去修改、新建、删除计量单位
+	:param unitID:计量单位ID
 	:return:
 	"""
 	unit = Configurations.RestfulInfoAPI("RMI_UNIT", request.session['UserId'])
