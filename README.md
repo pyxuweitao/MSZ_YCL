@@ -1,5 +1,4 @@
 # `MSZ_YCL` 原材料质检系统版本更新记录
-========================
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pyxuweitao/MSZ_YCL/blob/master/LICENSE)
 
