@@ -299,3 +299,6 @@ def unitInfo(request, unitID):
 	elif request.method == 'DELETE':
 		unit.deleteInfo(deleteIDFieldName='UnitID', deleteInfoID=unitID)
 	return HttpResponse()
+
+def getMaterialNames(request, fuzzyName):
+	return HttpResponse(json.dumps(taskEdit.getAllMaterialByName(fuzzyName), encoding='GBK'))

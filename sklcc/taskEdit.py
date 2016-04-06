@@ -80,3 +80,17 @@ def deleteTaskBySerialNo(SerialNo):
 	#call trigger delete all task info in rmi_task_process...
 	return
 
+def getAllMaterialByName(fuzzyName):
+	"""
+
+	:param fuzzyName:
+	:return:
+	"""
+	raw = rawSql.Raw_sql()
+	raw.sql = """SELECT a.MaterialID AS id, a.MaterialName AS name, dbo.getMaterialTypeNameByID(b.MaterialTypeID) AS cata
+ 				FROM RMI_MATERIAL_NAME a WITH(NOLOCK) JOIN RMI_MATERIAL_TYPE_NAME b WITH(NOLOCK)
+				ON a.MaterialID=b.MaterialID"""
+	if fuzzyName:
+		raw.sql += """WHERE MaterialName LIKE '%%%%%s%%%%'"""%fuzzyName
+	res, cols = raw.query_all(needColumnName=True)
+	return CommonUtilities.translateQueryResIntoDict(cols, res)

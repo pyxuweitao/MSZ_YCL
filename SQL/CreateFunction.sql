@@ -1,4 +1,4 @@
-
+use RMI
 ----获取当前表单最新执行步骤的函数
 CREATE FUNCTION getCurrentFinishedStep(@serialno uniqueidentifier, @process varchar(50))
 RETURNS varchar(50)
@@ -51,3 +51,13 @@ SELECT TOP 1 @name = name FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE ID = @UserID;
 RETURN @name;
 END
 
+
+----根据材料类型ID获取材料类型名称
+CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID uniqueidentifier)
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @name varchar(MAX);
+SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
+RETURN @name;
+END
