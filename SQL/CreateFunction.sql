@@ -61,3 +61,4 @@ DECLARE @name varchar(MAX);
 SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
 RETURN @name;
 END
+
