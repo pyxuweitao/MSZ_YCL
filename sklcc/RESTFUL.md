@@ -27,3 +27,5 @@ DELETE /zoos/ID/animals/ID：删除某个指定供应商的指定动物
 4. 根据实际需要对字段类型进行微调
 
 5. `views.py`中的`getFormData`和`insertFormData`根据是否含有`listData`在对应的位置加入表ID
+
+5. 到数据库更新触发器`update_other_tables_when_delete_rmi_task`

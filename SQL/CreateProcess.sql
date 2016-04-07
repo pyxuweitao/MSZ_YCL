@@ -16,12 +16,4 @@ INSERT INTO RMI_PROCESS_STEP(PROCESSID, STEPID, STEPSEQ) VALUES(@processID,'3692
 END
 
 
-exec dbo.createNewProcess 'F09', '材料验收记录(面料、花边)', '主料', '主料检验'
-
----- 供应商评价报表统计过程
-CREATE PROC getSuppliersAssessment
-
-AS
-BEGIN
-
-END
+exec dbo.createNewProcess 'F10', '材料模压测试报告', '模压', '模压检验'

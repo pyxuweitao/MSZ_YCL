@@ -102,3 +102,34 @@ DECLARE @name varchar(MAX);
 SELECT TOP 1 @name = SupplierName FROM RMI_SUPPLIER WHERE SupplierCode = @SupplierCode;
 RETURN @name;
 END
+
+
+----判断指定流水号的任务是否合格
+DROP FUNCTION taskJudgement;
+CREATE FUNCTION taskJudgement(@serialNo uniqueidentifier)
+-------0：不合格 1：合格 2：不做判定
+RETURNS INT
+AS
+BEGIN
+DECLARE @judgeResult INT, @F09Res varchar(50), @F10Res varchar(50), @F03Res varchar(50);
+SELECT @F09Res = JieLun FROM RMI_F09_DATA WHERE SerialNo = @serialNo;
+SELECT @F10Res = JieLun FROM RMI_F10_DATA WHERE SerialNo = @serialNo;
+SELECT @F03Res = PingDing FROM RMI_F03_DATA WHERE SerialNo = @serialNo;
+
+IF ( @F09Res = 'BuHeGe' ) OR ( @F10Res = 'BuHeGe' ) OR ( @F03Res = 'BuHeGe' )
+BEGIN
+	SET @judgeResult = 0;
+END
+ELSE
+BEGIN
+	IF ( @F09Res = 'HeGe' ) OR ( @F10Res = 'HeGe' ) OR ( @F03Res = 'HeGe' )
+	BEGIN
+		SET @judgeResult = 1;
+	END
+	ELSE
+	BEGIN
+		SET @judgeResult = 2;
+	END
+END
+RETURN @judgeResult;
+END
