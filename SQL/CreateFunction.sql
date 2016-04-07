@@ -62,3 +62,43 @@ SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeI
 RETURN @name;
 END
 
+----根据材料ID获取材料名称
+CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID uniqueidentifier)
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @name varchar(MAX);
+SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
+RETURN @name;
+END
+
+----根据材料名称ID获取材料类别名称
+CREATE FUNCTION getMaterialTypeNameByMaterialID(@materialID uniqueidentifier)
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @name varchar(MAX);
+SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
+RETURN @name;
+END
+
+----根据单位ID获取单位名称
+CREATE FUNCTION getUnitNameByID(@UnitID uniqueidentifier)
+RETURNS varchar(50)
+AS
+BEGIN
+DECLARE @name varchar(MAX);
+SELECT TOP 1 @name = UnitName FROM RMI_UNIT WHERE UnitID = @UnitID;
+RETURN @name;
+END
+
+
+---根据供应商代码获取供应商名称
+CREATE FUNCTION getSupplierNameByID(@SupplierCode varchar(50))
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @name varchar(MAX);
+SELECT TOP 1 @name = SupplierName FROM RMI_SUPPLIER WHERE SupplierCode = @SupplierCode;
+RETURN @name;
+END
