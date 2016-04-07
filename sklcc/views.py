@@ -11,6 +11,7 @@ from inspectFunction import *
 import CommonUtilities
 import taskEdit
 import Configurations
+import Statistic
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -317,3 +318,14 @@ def getMaterialNames(request, fuzzyName):
 	:return: 材料名称打包的JSON
 	"""
 	return HttpResponse(json.dumps(taskEdit.getAllMaterialByName(fuzzyName), encoding='GBK'))
+
+
+def suppliersAnalysis(request):
+	"""
+
+	:param request:
+	:return:
+	"""
+	start = request.GET['start']
+	end   = request.GET['end']
+	return HttpResponse(json.dumps(Statistic.getSuppliersAssessmentDataByDate(start, end), encoding='GBK'))

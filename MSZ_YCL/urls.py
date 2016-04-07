@@ -15,10 +15,10 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index ),
 
-	url(r'^api/inspect/(\w+)/getTasks/$', views.getTasks),
-	url(r'^api/inspect/editTask/$', views.editTask),
-	url(r'^api/inspect/(.+)/commitTask/$', views.commitTask),
-    url(r'^api/inspect/getFlowList/$', views.getFlow),
+	url(r'^api/task/(\w+)/getTasks/$', views.getTasks),
+	url(r'^api/task/editTask/$', views.editTask),
+	url(r'^api/task/(.+)/commitTask/$', views.commitTask),
+    url(r'^api/task/getFlowList/$', views.getFlow),
     url(r'^api/task/getMaterialNames/(.*)$', views.getMaterialNames),
     url(r'^api/configuration/unitInfo(.*)/(.*)$', views.unitInfo),
     url(r'^api/Configuration/SuppliersInfo(.*)/(.*)$', views.SupplierInfo),
@@ -30,7 +30,10 @@ urlpatterns = patterns('',
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
+
     #statistic
+	url(r'^api/statistic/suppliersAnalysis/$', views.suppliersAnalysis),
+
 	#administration
     url(r'^api/users/$',views.users_info_operations),
     url(r'^api/users/departmentAndJob/$',views.getDepartmentsAndJobs),
