@@ -1,4 +1,5 @@
 -----供应商交货情况分析报表
+DROP VIEW SupplierInfoAnalysis
 CREATE VIEW SupplierInfoAnalysis /*创建视图*/
   AS
     SELECT GongYingShangBianMa=SupplierCode,
@@ -11,7 +12,8 @@ CREATE VIEW SupplierInfoAnalysis /*创建视图*/
 						   WHERE DATEDIFF(DAY,C.CREATETIME,CONVERT(varchar(10), Createtime , 21)) = 0
 						   AND dbo.taskJudgement(SerialNo) = 0
 						   AND C.SupplierCode = B.SupplierCode AND C.UnitID = B.UnitID),
-			RiQi=CONVERT(varchar(10), Createtime , 21)
+			RiQi=CONVERT(varchar(10), Createtime , 21),
+			DaoHuoShuLiangDanWei=(SELECT dbo.getUnitNameByID(B.UnitID))
 			FROM RMI_TASK B 
             GROUP BY SupplierCode, UnitID, CONVERT(varchar(10), Createtime , 21)
 GO

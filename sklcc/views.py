@@ -322,9 +322,9 @@ def getMaterialNames(request, fuzzyName):
 
 def suppliersAnalysis(request):
 	"""
-
-	:param request:
-	:return:
+	供应商交货情况报表视图
+	:param request:客户端请求，包括时间范围的开始时间start，时间范围的结束时间end
+	:return:返回报表详细数据的JSON格式文本
 	"""
 	start = request.GET['start']
 	end   = request.GET['end']
