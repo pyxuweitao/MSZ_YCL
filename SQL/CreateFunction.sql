@@ -63,23 +63,23 @@ RETURN @name;
 END
 
 ----根据材料ID获取材料名称
-CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID uniqueidentifier)
+CREATE FUNCTION getMaterialNameByID(@materialID uniqueidentifier)
 RETURNS varchar(MAX)
 AS
 BEGIN
 DECLARE @name varchar(MAX);
-SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
+SELECT TOP 1 @name = MaterialName FROM RMI_MATERIAL_NAME WHERE MaterialID = @materialID;
 RETURN @name;
 END
 
-----根据材料名称ID获取材料类别名称
-CREATE FUNCTION getMaterialTypeNameByMaterialID(@materialID uniqueidentifier)
-RETURNS varchar(MAX)
+----根据材料名称ID获取材料类别名称ID
+CREATE FUNCTION getMaterialTypeIDByMaterialID(@materialID uniqueidentifier)
+RETURNS uniqueidentifier
 AS
 BEGIN
-DECLARE @name varchar(MAX);
-SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeID = @materialTypeID;
-RETURN @name;
+DECLARE @ID uniqueidentifier;
+SELECT TOP 1 @ID = MaterialTypeID FROM RMI_MATERIAL_TYPE_NAME WHERE MaterialID = @materialID;
+RETURN @ID;
 END
 
 ----根据单位ID获取单位名称
