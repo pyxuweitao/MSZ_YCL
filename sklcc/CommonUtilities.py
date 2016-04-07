@@ -46,110 +46,52 @@ def JSONToCreateTable(JSON):
 	return SQL
 
 if __name__=="__main__":
-	print JSONToCreateTable("""{
-  "CiDian": [
-    {
-      "mistake": {
-        "id": "1",
-        "label": "疵点1"
-      },
-      "count": "8",
-      "score": 0
-    },
-    {
-      "mistake": {
-        "id": "2",
-        "label": "疵点2"
-      },
-      "count": "11",
-      "score": 0
-    },
-    {
-      "mistake": {
-        "id": "4",
-        "label": "疵点4"
-      },
-      "count": "8",
-      "score": 0
-    },
-    {
-      "mistake": {
-        "id": "5",
-        "label": "疵点5"
-      },
-      "count": "7",
-      "score": 0
-    }
-  ],
-  "JuanHao": "1243",
-  "GangHao": "2134",
-  "ShuLiangPiBiao1": 2134,
-  "ShuLiangShiCe1": 2134,
-  "ShuLiangPiBiao2": "2314",
-  "ShuLiangShiCe2": "2134",
-  "JianYanShu": 2134,
-  "DengJiPanDing": "A",
-  "BeiZhu": "2314",
-  "ShouRouHuiSuoLv": "3223",
-  "ZiRanHuiSuoLv": "2134",
-  "KuanDuOrGuiGeBiaoZhunZhi": "1234",
-  "KuanDuOrGuiGeBiaoZhunPianCha": "2341",
-  "KuanDuOrGuiGeShiCe1": "1234",
-  "KuanDuOrGuiGeShiCe2": "2134",
-  "KuanDuOrGuiGeShiCe3": "1243",
-  "DuiChenXingOrWanQuDuBiaoZhunZhi": "1234",
-  "DuiChenXingOrWanQuDuBiaoZhunPianCha": "1234",
-  "DuiChenXingOrWanQuDuShiCe": 23341,
-  "KeZhongBiaoZhunZhi": "2134",
-  "KeZhongBiaoZhunPianCha": "2134",
-  "KeZhongShiCe": 1234,
-  "KaiDuBiaoZhunZhi": "142",
-  "KaiDuBiaoZhunPianCha": "1234",
-  "KaiDuShiCe": "2134",
-  "HouDuBiaoZhunZhi": "412",
-  "HouDuBiaoZhunPianCha": "4123",
-  "HouDuShiCe": 434242,
-  "HuaXingBiaoZhunZhi": "1",
-  "HuaXingBiaoZhunPianCha": "34132",
-  "ShuiXi": "HeGe",
-  "HuaXingShiCe": 432,
-  "XiangMuFlag": {
-    "hasCiDian": true,
-    "hasKuanDuOrGuiGe": true,
-    "hasDuiChenXingOrWanQuDu": true,
-    "hasKeZhong": true,
-    "hasKaiDu": true,
-    "hasHouDu": true,
-    "hasHuaXingXunHuan": true,
-    "hasShuiXi": true
-  },
-  "ShuLiang": {
-    "MiIsChecked": true
-  },
-  "LeiBie": "B",
-  "CaiLiaoMingCheng": "2134",
-  "DaoLiaoZongShu": 2341,
-  "ChanPinZhongLei": "肩带",
-  "GongYingShang": "2134",
-  "hasBiaoZhunSeKa": true,
-  "BiaoZhunSeKa": "234",
-  "CaiLiaoFengYang": "124",
-  "hasCaiLiaoFengYang": true,
-  "QiWeiBeiZhu": "1234",
-  "QiWei": "BuZhengChang",
-  "AnLunShiYan": "HeGe",
-  "YanZhenJieGuo": "2143",
-  "ZhengFanMian": "ZhengQue",
-  "ShouGan": "1243",
-  "ShaXiang": "BuZhengQue",
-  "CaiLiaoCiDianZhuYaoWenTi": "124",
-  "YinBiaoWeiZhi": "BuZhengQue",
-  "JieLun": "BuZuoPanDing",
-  "GuiGeOrKuanDu": "KuanDu",
-  "GuiGeOrKuanDuDanWei": "1243",
-  "DuiChenXingOrWanQuDu": "WanQuDu",
-  "DuiChenXingOrWanQuDuDanWei": "1234",
-  "JieLunBeiZhu": "2134"
+	print JSONToCreateTable("""
+  {
+  "CaiLiaoChengFen": "1234",
+  "JuanHao": "1234",
+  "GangHao": "1234",
+  "PingPai": "2134",
+  "KuanHao": "1234",
+  "YongTu": "QiTa",
+  "YongTuBeiZhu": "1234",
+  "TiaoJianShangMoWenDu": "1234",
+  "TiaoJianXiaMoWenDu": "1234",
+  "TiaoJianShiJian": "1234",
+  "TiaoJianShenDu": "3124",
+  "SongJianRen": "2134",
+  "SongJianRenRiQi": "1324",
+  "MoYaTiaoJianBeiZhu": "1324",
+  "ShiYongMuJu": "3412",
+  "ZhuLiao": "3124",
+  "CanShuShangMoWenDu": "134",
+  "CanShuXiaMoWenDu": "1234",
+  "CanShuShiJian": "1234",
+  "CanShuShenDu": "1241233",
+  "GongYiYuan": "2134",
+  "GongYiYuanRiQi": "2314",
+  "MoYaCanShuBeiZhu": "1234231",
+  "TieHeJiaoShui": "43214",
+  "TieHeWenDu": "231432",
+  "TieHeSuDu": "11234",
+  "TieHeYaLi": "1234",
+  "TieHeQiTa": "1234",
+  "JiShuCanShuShangMoWenDu": "1234",
+  "JiShuCanShuXiaMoWenDu": "1234",
+  "JiShuCanShuShiJian": "1234",
+  "JiShuCanShuShenDu": "1234",
+  "JiShuCanShuBeiZhu": "1234",
+  "WenTiDian": "1234",
+  "ShiYangRen": "1234",
+  "ShiYangRenRiQi": "1234",
+  "ShiYaHouQueRen": "1234",
+  "ShiYaHouQueRenRiQi": "1234",
+  "GongYiQueRen": "1234",
+  "GongYiQueRenRiQi": "1234",
+  "CaiGouBuMenQueRen": "1234",
+  "CaiGouBuMenQueRenRiQi": "1234",
+  "CaiGouBuMenShenHe": "1234",
+  "CaiGouBuMenShenHeRiQi": "1234"
 }
 """)
 

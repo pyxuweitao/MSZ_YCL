@@ -1,6 +1,6 @@
 # `MSZ_YCL` 原材料质检系统版本更新记录
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pyxuweitao/MSZ_YCL/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/tufu9441/maupassant-hexo.svg?branch=master)](https://travis-ci.org/tufu9441/maupassant-hexo) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pyxuweitao/MSZ_YCL/blob/master/LICENSE)
 
 ------------
 >[@xuweitao](https://github.com/pyxuweitao/MSZ_YCL"code on github")
