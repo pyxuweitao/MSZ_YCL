@@ -16,6 +16,7 @@ def getTasksList(UserID):
 			"GongYingShang":{"id":供应商代码, "name":供应商名称},
 			"WuLiao":{"id":材料名称ID, "name":材料名称, "cata":材料种类名称},
 			"DaoLiaoZongShu":到料总数, "DanWei":{"id":到料总数单位ID, "name":到料总数单位}
+			"DaoLiaoZongShu2":到料总数, "DanWei":{"id":到料总数单位ID, "name":到料总数单位}
 		}
 	"""
 	raw = rawSql.Raw_sql()
@@ -23,7 +24,7 @@ def getTasksList(UserID):
 	           ProductNo, ColorNo, CONVERT(VARCHAR(10), a.ArriveTime, 20) ArriveTime, Name, SupplierCode,
 	           dbo.getSupplierNameByID(SupplierCode), MaterialID, dbo.getMaterialNameByID(MaterialID),
 	           dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)), DaoLiaoZongShu, UnitID,
-	           dbo.getUnitNameByID(UnitID)
+	           dbo.getUnitNameByID(UnitID), DaoLiaoZongShu2, UnitID2, dbo.getUnitNameByID(UnitID2) AS DanWei2
 	           FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_ACCOUNT_USER b WITH(NOLOCK)
 	           ON ID = UserID"""
 	if UserID != 'ALL':
@@ -38,7 +39,8 @@ def getTasksList(UserID):
 			"ProductNo":row[3], "ColorNo":row[4], "ArriveTime":row[5], "Name":row[6],
 			"GongYingShang":{"id":row[7], "name":row[8]},
 			"WuLiao":{"id":row[9], "name":row[10], "cata":row[11]},
-			"DaoLiaoZongShu":row[12], "DanWei":{"id":row[13], "name":row[14]}
+			"DaoLiaoZongShu":row[12], "DanWei":{"id":row[13], "name":row[14]},
+			"DaoLiaoZongShu2":row[15], "DanWei2":{"id":row[16], "name":row[17]}
 		})
 	return jsonReturn
 
@@ -51,20 +53,29 @@ def editTaskInfo(taskInfo, userID):
 	"""
 	isNew = True if taskInfo['isNew'] == "True" else False
 	raw = rawSql.Raw_sql()
+	#如果没有设置为None，即使前台返回null，经JSON转义仍为None
+	taskInfo['DaoLiaoZongShu2'] = False if 'DaoLiaoZongShu2' not in taskInfo else taskInfo['DaoLiaoZongShu2']
+	taskInfo['DanWei2']         = {'id':None} if 'DanWei2' not in taskInfo else taskInfo['DanWei2']
 	if isNew:
 		raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
-		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu)
-		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' );""" % (
+		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2)
+		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s );""" % (
 			          taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
 			          taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
-			          taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'])
+			          taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
+			          "'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+					  "'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL" )
 	else:
 		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierCode = '%s', UnitID = '%s',
-                     DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s'
+                     DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
+                     UnitID2 = %s
 		             WHERE SerialNo = '%s'""" % (
 					taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
 					taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
-		            taskInfo['ArriveTime'][:10], taskInfo['SerialNo'],)
+		            taskInfo['ArriveTime'][:10].replace('-',''),
+					"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+					"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL",
+					taskInfo['SerialNo'])
 	return raw.update()
 
 def getFlowList():

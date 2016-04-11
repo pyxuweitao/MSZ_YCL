@@ -82,17 +82,22 @@ SELECT TOP 1 @ID = MaterialTypeID FROM RMI_MATERIAL_TYPE_NAME WHERE MaterialID =
 RETURN @ID;
 END
 
+
+
+DROP FUNCTION getUnitNameByID
 ----根据单位ID获取单位名称
 CREATE FUNCTION getUnitNameByID(@UnitID uniqueidentifier)
 RETURNS varchar(50)
 AS
 BEGIN
 DECLARE @name varchar(MAX);
-SELECT TOP 1 @name = UnitName FROM RMI_UNIT WHERE UnitID = @UnitID;
+IF @UnitID IS NOT NULL
+	SELECT TOP 1 @name = UnitName FROM RMI_UNIT WHERE UnitID = @UnitID;
 RETURN @name;
 END
+SELECT dbo.getUnitNameByID(NULL)
 
-
+drop FUNCTION getSupplierNameByID
 ---根据供应商代码获取供应商名称
 CREATE FUNCTION getSupplierNameByID(@SupplierCode varchar(50))
 RETURNS varchar(MAX)
@@ -106,6 +111,7 @@ END
 
 ----判断指定流水号的任务是否合格
 DROP FUNCTION taskJudgement;
+
 CREATE FUNCTION taskJudgement(@serialNo uniqueidentifier)
 -------0：不合格 1：合格 2：不做判定
 RETURNS INT
@@ -115,7 +121,6 @@ DECLARE @judgeResult INT, @F09Res varchar(50), @F10Res varchar(50), @F03Res varc
 SELECT @F09Res = JieLun FROM RMI_F09_DATA WHERE SerialNo = @serialNo;
 SELECT @F10Res = JieLun FROM RMI_F10_DATA WHERE SerialNo = @serialNo;
 SELECT @F03Res = PingDing FROM RMI_F03_DATA WHERE SerialNo = @serialNo;
-
 IF ( @F09Res = 'BuHeGe' ) OR ( @F10Res = 'BuHeGe' ) OR ( @F03Res = 'BuHeGe' )
 BEGIN
 	SET @judgeResult = 0;
@@ -133,3 +138,22 @@ BEGIN
 END
 RETURN @judgeResult;
 END
+
+DROP FUNCTION getDaoLiaoZongShuAndUnit;
+
+CREATE FUNCTION getDaoLiaoZongShuAndUnit(@SerialNo uniqueidentifier)
+RETURNS varchar(100)
+AS
+BEGIN
+DECLARE @DaoLiaoZongShuAndUnit VARCHAR(100),@DaoLiaoZongShu varchar(100), @DaoLiaoZongShu2 varchar(100);
+SELECT @DaoLiaoZongShu = CONVERT(VARCHAR(20),DaoLiaoZongShu)+dbo.getUnitNameByID(UnitID),
+	   @DaoLiaoZongShu2 = CONVERT(VARCHAR(20),ISNULL(DaoLiaoZongShu2, ''))+ISNULL(dbo.getUnitNameByID(UnitID2),'')
+	   FROM RMI_TASK WHERE SerialNo = @SerialNo;
+IF @DaoLiaoZongShu2 <> '0'
+	SELECT @DaoLiaoZongShuAndUnit = @DaoLiaoZongShu + '/' + @DaoLiaoZongShu2;
+ELSE
+	SELECT @DaoLiaoZongShuAndUnit = @DaoLiaoZongShu;
+RETURN @DaoLiaoZongShuAndUnit;
+END
+
+

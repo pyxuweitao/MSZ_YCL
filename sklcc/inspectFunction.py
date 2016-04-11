@@ -209,8 +209,9 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
 	            ProductNo, ColorNo, UserID,
 	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
-	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
+	               dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
+	               FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
 	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
@@ -296,10 +297,11 @@ def withOutListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo = dict()
 	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
   	            ProductNo, ColorNo, UserID,
-  	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-  	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
-  	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-  	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
+  	            CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
+  	            dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
+  	            dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
+  	            FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+  	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
 	#判断是否审批中
@@ -364,14 +366,15 @@ def WithListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 		:param UserID:用户名，如果是ALL则表示汇总数据
 		:return:返回对应的表单数据
 	"""
-	raw = Raw_sql()
+	raw        = Raw_sql()
 	returnInfo = dict()
 	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
 	              ProductNo, ColorNo, UserID,
 	               CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	                dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
-	               RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-	                ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
+	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
+	              dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
+	              FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
 	res, columns = raw.query_one(needColumnName=True)
 	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
 	#判断是否审批中
