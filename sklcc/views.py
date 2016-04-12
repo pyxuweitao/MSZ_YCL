@@ -253,6 +253,7 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 	:param supplierCode:供应商代码
 	:return:
 	"""
+	UserID   = request.session['UserId']
 	supplier = Configurations.RestfulInfoAPI("RMI_SUPPLIER", request.session['UserId'])
 	if request.method == 'GET':
 		if fuzzySupplierName:
@@ -264,11 +265,14 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 				supplier.getInfoByID(ID=supplierCode, queryFieldName='SupplierCode', columns=['SupplierCode', 'SupplierName'],
 		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
-		supplier.newInfo(columns=['SupplierName'], values=[json.loads(request.POST['INFO'])['name']])
+		values = json.loads(request.POST['INFO'])
+		supplier.newInfo(columns=['SupplierName', 'SupplierCode', 'LastModifiedTime', 'LastModifiedUser'],
+		                 values=[values['name'], values['id'], 'GETDATE()', UserID ])
 	elif request.method == 'PUT':
+		info = json.loads(request.body[5:])
 		supplier.updateInfo(
-				updateInfoID=supplierCode, updateIDFieldName=['SupplierCode'],
-				updateColumns=['SupplierName'], updateValues=[json.loads(request.body[5:])['name']] )
+				updateInfoWhereValues=[supplierCode], updateInfoWhereColumns=['SupplierCode'],
+				updateColumns=['SupplierName', 'SupplierCode'], updateValues=[info['name'], info['id']] )
 	elif request.method == 'DELETE':
 		supplier.deleteInfo(deleteIDFieldName='SupplierCode', deleteInfoID=supplierCode)
 	return HttpResponse()

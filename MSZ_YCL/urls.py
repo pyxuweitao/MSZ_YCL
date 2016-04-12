@@ -15,13 +15,13 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index ),
 
-	url(r'^api/inspect/(\w+)/getTasks/$', views.getTasks),
-	url(r'^api/inspect/editTask/$', views.editTask),
-	url(r'^api/inspect/(.+)/commitTask/$', views.commitTask),
-    url(r'^api/inspect/getFlowList/$', views.getFlow),
+	url(r'^api/task/(\w+)/getTasks/$', views.getTasks),
+	url(r'^api/task/editTask/$', views.editTask),
+	url(r'^api/task/(.+)/commitTask/$', views.commitTask),
+    url(r'^api/task/getFlowList/$', views.getFlow),
     url(r'^api/task/getMaterialNames/(.*)$', views.getMaterialNames),
     url(r'^api/configuration/unitInfo(.*)/(.*)$', views.unitInfo),
-    url(r'^api/Configuration/SuppliersInfo(.*)/(.*)$', views.SupplierInfo),
+    url(r'^api/configuration/SuppliersInfo(.*)/(.*)$', views.SupplierInfo),
     #url(r'^api/configuration/MaterialInfo/(.*)$', views.MaterialInfo),
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/get(\w+)Data/(\w+)/$', views.getFormData),
@@ -30,7 +30,6 @@ urlpatterns = patterns('',
     url(r'^api/inspect/(.+)/getTaskProcess/$', views.getTaskProcess),
     url(r'^api/inspect/(.+)/deleteTask/$', views.deleteTask),
     url(r'^api/inspect/(.+)/passProcess/(.+)/$', views.passProcess),
-
     #statistic
 	url(r'^api/statistic/suppliersAnalysis/$', views.suppliersAnalysis),
 

@@ -21,12 +21,13 @@ class RestfulInfoAPI(object):
 		:param tableName: 初始化数据表名称
 		:param userID: 用户ID
 		"""
-		self.__defaultUpdateString  = ", LastModifiedUser = '%s', LastModifiedTime = GETDATE()"%userID
-		self.__defaultInsertColumns = ", LastModifiedTime, LastModifiedUser"
-		self.__defaultInsertValues  = ", '%s', GETDATE()"%userID
-		self.dataSourceTable        = tableName
-		self.userID                 = userID
-		self.raw                    = rawSql.Raw_sql()
+		self.__defaultUpdateString    = ", LastModifiedUser = '%s', LastModifiedTime = GETDATE()"%userID
+		self.__defaultInsertColumns   = ", LastModifiedTime, LastModifiedUser"
+		self.__defaultInsertValues    = ", '%s', GETDATE()"%userID
+		self.dataSourceTable          = tableName
+		self.userID                   = userID
+		self.raw                      = rawSql.Raw_sql()
+		self.MSDBBuiltInFunctionNames = ['GETDATE']
 
 	def setDefaultUpdateString(self, alternativeStrings):
 		"""
@@ -43,6 +44,20 @@ class RestfulInfoAPI(object):
 		"""
 		self.__defaultInsertColumns = alternativeColumns
 		self.__defaultInsertValues  = alternativeValues
+
+	def judgeWhetherFunctionOrObjects(self, value):
+		"""
+		判断某个待更新或插入的值是否是数据库函数或对象来确定是否需要加上''
+		:param value:待更新或插入的值
+		:return:如果是数据库内置函数或对象则返回True，否则返回False
+		"""
+		if '(' in value and ')' in value:
+			if value[0:value.index('(')] in self.MSDBBuiltInFunctionNames:
+				return True
+		elif value.startswith('DBO.') or value.startswith('dbo.'):
+			return True
+		else:
+			return False
 
 	@staticmethod
 	def formatColumnString(columns=None, columnsAlternativeNames=None):
@@ -61,6 +76,20 @@ class RestfulInfoAPI(object):
 			columnString = "*"
 
 		return columnString
+
+	def __formatValuesString(self, valuesList=None):
+		"""
+		根据传入的插入值的列表生成用,分隔的SQL中的插入值字符串
+		:param valuesList:插入值列表
+		:return:返回生成的插入值字符串
+		"""
+		valuesString = ""
+		for item in valuesList:
+			if self.judgeWhetherFunctionOrObjects(item):
+				valuesString += (unicode(item) + ',')
+			else:
+				valuesString += ("'" + unicode(item) + "'" + ',')
+		return valuesString[:-1]
 
 	@staticmethod
 	def smartReturn(res, cols):
@@ -84,6 +113,20 @@ class RestfulInfoAPI(object):
 		:return: 返回生成的UPDATE的SET部分字符串
 		"""
 		return ",".join([updateCol + '=' + "'%s'"%updateValues[i] for i, updateCol in enumerate(updateColumns)])
+
+	@staticmethod
+	def formatWhereString(whereColumns=None, whereValues=None):
+		"""
+
+		:param whereColumns:
+		:param whereValues:
+		:return:
+		"""
+		whereConditionRawList = zip(whereColumns, whereValues)
+		whereConditionList    = list()
+		for condition in whereConditionRawList:
+			whereConditionList.append("=".join([condition[0], "'"+unicode(condition[1])+"'"]))
+		return " AND ".join(whereConditionList)
 
 	def getInfoByFuzzyInput(self, fuzzyInput, fuzzyFieldName, columns=None, columnsAlternativeNames=None):
 		"""
@@ -123,12 +166,12 @@ class RestfulInfoAPI(object):
 		:param values: 字段名对应的插入值的序列
 		"""
 		self.raw.sql = """INSERT INTO %s WITH(ROWLOCK)
- 					( %s )
- 	    			VALUES ( %s )"""%(
-			self.dataSourceTable, ",".join(columns), ",".join(['%s'%item for item in values]))
+						 ( %s )
+					     VALUES ( %s )"""%(
+				self.dataSourceTable, ",".join(columns), self.__formatValuesString(values))
 		self.raw.update()
 
-	def updateInfo(self, updateInfoID, updateIDFieldName, updateColumns=None, updateValues=None):
+	def updateInfo(self, updateInfoWhereValues, updateInfoWhereColumns, updateColumns=None, updateValues=None):
 		"""
 		在数据源表中更新指定ID的相关值
 		:param updateInfoID: 制定更新记录的ID
@@ -138,8 +181,9 @@ class RestfulInfoAPI(object):
 		:return:
 		"""
 		self.raw.sql = """UPDATE %s SET %s%s
- 	    			WHERE %s = '%s'"""%(
-			self.dataSourceTable, self.formatUpdateString(updateColumns, updateValues), self.__defaultUpdateString, updateIDFieldName, updateInfoID)
+ 	    			WHERE %s"""%(
+			self.dataSourceTable, self.formatUpdateString(updateColumns, updateValues),
+			self.__defaultUpdateString, self.formatWhereString(updateInfoWhereColumns, updateInfoWhereValues))
 		self.raw.update()
 
 	def deleteInfo(self, deleteInfoID, deleteIDFieldName):
