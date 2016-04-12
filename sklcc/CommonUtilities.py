@@ -6,6 +6,7 @@ __author__ = 'XuWeitao'
 
 import json
 import decimal
+import rawSql
 
 def translateQueryResIntoDict(columns, res):
 	"""
@@ -44,6 +45,11 @@ def JSONToCreateTable(JSON):
 			  InspectorNo varchar(50)"""
 	SQL += ")"
 	return SQL
+
+def MSZDBSyncToLocal():
+	raw = rawSql.Raw_sql()
+	raw.sql = "SELECT * FROM RMI_TASK"
+	return
 
 if __name__=="__main__":
 	print JSONToCreateTable("""

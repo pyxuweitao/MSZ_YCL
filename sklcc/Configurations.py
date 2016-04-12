@@ -117,10 +117,10 @@ class RestfulInfoAPI(object):
 	@staticmethod
 	def formatWhereString(whereColumns=None, whereValues=None):
 		"""
-
-		:param whereColumns:
-		:param whereValues:
-		:return:
+		生成WHERE语句的字符串
+		:param whereColumns:WHERE条件中的字段名列表
+		:param whereValues:WHERE条件每个字段对应的值
+		:return:返回生成的WHERE条件字符串
 		"""
 		whereConditionRawList = zip(whereColumns, whereValues)
 		whereConditionList    = list()
@@ -174,8 +174,8 @@ class RestfulInfoAPI(object):
 	def updateInfo(self, updateInfoWhereValues, updateInfoWhereColumns, updateColumns=None, updateValues=None):
 		"""
 		在数据源表中更新指定ID的相关值
-		:param updateInfoID: 制定更新记录的ID
-		:param updateIDFieldName: 更新记录ID所在的字段的名称
+		:param updateInfoWhereValues: 更新的WHERE条件的值列表
+		:param updateInfoWhereColumns: 更新的WHERE条件字段的名称列表
 		:param updateColumns: 欲更新的字段的序列
 		:param updateValues: 与欲更新字段序列顺序对应的更新值
 		:return:

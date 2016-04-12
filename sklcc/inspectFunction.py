@@ -65,6 +65,27 @@ def formatSQLValuesString(insertItem):
 	elif isinstance(insertItem, (dict, list)):
 		return "'"+json.dumps(insertItem, ensure_ascii=False)+"'"
 
+def getTaskInfo(processID, serialNo):
+	"""
+	获取每张表个公用任务信息
+	:param processID:表格ID
+	:param serialNo:任务流水号
+	:return:返回给前台中info字段的相关信息
+	"""
+	raw        = Raw_sql()
+	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
+  	            ProductNo, ColorNo, UserID,
+  	            CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
+  	            dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
+  	            dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu,
+  	            dbo.getSupplierNameByID(SupplierCode) AS GongYingShang,
+	            dbo.getMaterialNameByID(MaterialID) AS CaiLiaoMingCheng,
+	            dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)) AS CaiLiaoDaLei
+  	            FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
+  	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
+	res, columns = raw.query_one(needColumnName=True)
+	return translateQueryResIntoDict(columns, (res,))[0]
+
 ########################## F01 商标，纸卡不干贴########################################################
 
 def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
@@ -75,16 +96,9 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	:param UserID:用户名，如果是ALL则表示汇总数据
 	:return:返回对应的表单数据
 	"""
-	raw = Raw_sql()
-	returnInfo = dict()
-	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
-	            ProductNo, ColorNo, UserID,
-	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime FROM
-	             RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
-	res, columns = raw.query_one(needColumnName=True)
-	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	raw                = Raw_sql()
+	returnInfo         = dict()
+	returnInfo['info'] = getTaskInfo(processID, serialNo)
 	#判断是否审批中
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
  					ON a.StepID = b.StepID
@@ -195,7 +209,6 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	return
 
 ########################### F02 辅料#########################################################
-
 def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	"""
 	根据流水号和表单ID获取表单数据
@@ -204,17 +217,9 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	:param UserID:用户名，如果是ALL则表示汇总数据
 	:return:返回对应的表单数据
 	"""
-	raw = Raw_sql()
-	returnInfo = dict()
-	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
-	            ProductNo, ColorNo, UserID,
-	             CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
-	               dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
-	               FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
-	res, columns = raw.query_one(needColumnName=True)
-	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	raw                = Raw_sql()
+	returnInfo         = dict()
+	returnInfo['info'] = getTaskInfo(processID, serialNo)
 	#判断是否审批中
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
  					ON a.StepID = b.StepID
@@ -295,15 +300,7 @@ def withOutListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	"""
 	raw        = Raw_sql()
 	returnInfo = dict()
-	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
-  	            ProductNo, ColorNo, UserID,
-  	            CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-  	            dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
-  	            dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
-  	            FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-  	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
-	res, columns = raw.query_one(needColumnName=True)
-	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	returnInfo['info'] = getTaskInfo(processID, serialNo)
 	#判断是否审批中
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
   					 ON a.StepID = b.StepID
@@ -366,17 +363,9 @@ def WithListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 		:param UserID:用户名，如果是ALL则表示汇总数据
 		:return:返回对应的表单数据
 	"""
-	raw        = Raw_sql()
-	returnInfo = dict()
-	raw.sql = """SELECT CONVERT(varchar(10), ArriveTime, 20) AS ArriveTime,
-	              ProductNo, ColorNo, UserID,
-	               CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
-	              dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
-	              dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu
-	              FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-	              ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
-	res, columns = raw.query_one(needColumnName=True)
-	returnInfo['info'] = translateQueryResIntoDict(columns, (res,))[0]
+	raw                = Raw_sql()
+	returnInfo         = dict()
+	returnInfo['info'] = getTaskInfo(processID, serialNo)
 	#判断是否审批中
 	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
 	  				 ON a.StepID = b.StepID
