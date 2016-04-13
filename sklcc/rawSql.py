@@ -80,7 +80,7 @@ class Raw_sql(object):
 		else:
 			return True
 
-	def pagedQuery(self, pageNo, pageSize, tableName, primaryKeyField, fieldString, whereString, orderString, needPageCounts=False, needColumnName=False, owner='default'):
+	def pagedQuery(self, pageNo, pageSize, tableName, primaryKeyField, fieldString, whereString, orderString, needCounts=False, needColumnName=False, owner='default'):
 		"""
 
 		:param pageNo:
@@ -109,7 +109,7 @@ class Raw_sql(object):
 			cursor = connections[owner].cursor()
 			cursor.execute(self.sql)
 			target_list = cursor.fetchall()
-			if not needPageCounts:
+			if not needCounts:
 				if needColumnName:
 					if len(target_list) == 0:
 						return (), [desc[0] for desc in cursor.description]
@@ -122,17 +122,17 @@ class Raw_sql(object):
 						return target_list
 			else:
 				self.sql  = "SELECT COUNT(*) FROM %s %s"%( tableName, whereString )
-				pageCount = self.query_one()[0] / pageSize + 1
+				count = self.query_one()[0]
 				if needColumnName:
 					if len(target_list) == 0:
-						return (), [desc[0] for desc in cursor.description], pageCount
+						return (), [desc[0] for desc in cursor.description], count
 					else:
-						return target_list, [desc[0] for desc in cursor.description], pageCount
+						return target_list, [desc[0] for desc in cursor.description], count
 				else:
 					if len(target_list) == 0:
-						return (), pageCount
+						return (), count
 					else:
-						return target_list, pageCount
+						return target_list, counts
 		except Exception,e:
 			print self.sql
 

@@ -193,9 +193,9 @@ class RestfulInfoAPI(object):
 		:param orderString:
 		:return:
 		"""
-		res, cols, pageCount = self.raw.pagedQuery(pageNo, pageSize, self.dataSourceTable, self.primaryKey, self.formatColumnString(columns, columnsAlternativeNames),
-		                    self.formatFuzzyWhereString(whereColumns, whereValues), orderString, needPageCounts=True, needColumnName=True )
-		return {'listData':CommonUtilities.translateQueryResIntoDict(cols, res), 'pageCount':pageCount}
+		res, cols, count = self.raw.pagedQuery(pageNo, pageSize, self.dataSourceTable, self.primaryKey, self.formatColumnString(columns, columnsAlternativeNames),
+		                    self.formatFuzzyWhereString(whereColumns, whereValues), orderString, needCounts=True, needColumnName=True )
+		return {'listData':CommonUtilities.translateQueryResIntoDict(cols, res), 'count':count}
 
 	def newInfo(self, columns=None, values=None):
 		"""
