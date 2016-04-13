@@ -53,7 +53,7 @@ END
 
 DROP FUNCTION getMaterialTypeNameByID
 ----根据材料类型ID获取材料类型名称
-CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID varchar(50))
+CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID uniqueidentifier)
 RETURNS varchar(MAX)
 AS
 BEGIN
@@ -64,7 +64,7 @@ END
 
 DROP FUNCTION getMaterialNameByID
 ----根据材料ID获取材料名称
-CREATE FUNCTION getMaterialNameByID(@materialID varchar(50))
+CREATE FUNCTION getMaterialNameByID(@materialID uniqueidentifier)
 RETURNS varchar(MAX)
 AS
 BEGIN
@@ -75,12 +75,12 @@ END
 
 DROP FUNCTION getMaterialTypeIDByMaterialID
 ----根据材料名称ID获取材料类别名称ID
-CREATE FUNCTION getMaterialTypeIDByMaterialID(@materialID varchar(50))
-RETURNS varchar(50)
+CREATE FUNCTION getMaterialTypeIDByMaterialID(@materialID uniqueidentifier)
+RETURNS uniqueidentifier
 AS
 BEGIN
-DECLARE @ID varchar(50);
-SELECT TOP 1 @ID = MaterialTypeID FROM RMI_MATERIAL_TYPE_NAME WHERE MaterialID = @materialID;
+DECLARE @ID uniqueidentifier;
+SELECT TOP 1 @ID = MaterialTypeID FROM RMI_MATERIAL_NAME WHERE MaterialID = @materialID;
 RETURN @ID;
 END
 

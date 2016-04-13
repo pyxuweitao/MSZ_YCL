@@ -132,7 +132,7 @@ class Raw_sql(object):
 					if len(target_list) == 0:
 						return (), count
 					else:
-						return target_list, counts
+						return target_list, count
 		except Exception,e:
 			print self.sql
 

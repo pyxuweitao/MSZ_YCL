@@ -166,11 +166,10 @@ class RestfulInfoAPI(object):
 		res, cols = self.raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
 
-	def getInfoByID(self, ID, queryFieldName, columns=None, columnsAlternativeNames=None):
+	def getInfoByID(self, ID, columns=None, columnsAlternativeNames=None):
 		"""
 		根据制定ID获取对应信息，如果ID为空则返回所有信息
 		:param ID:指定ID
-		:param queryFieldName:指定的ID的字段名
 		:param columns:获取记录的字段序列
 		:param columnsAlternativeNames:查询结果字段别名
 		:return:调用smartReturn来返回数据集
@@ -178,16 +177,16 @@ class RestfulInfoAPI(object):
 		self.raw.sql = """SELECT %s FROM %s WITH(NOLOCK)"""%(
 			self.formatColumnString(columns, columnsAlternativeNames), self.dataSourceTable)
 		if ID:
-			self.raw.sql += " WHERE %s = '%s'"%(queryFieldName, ID)
+			self.raw.sql += " WHERE %s = '%s'"%(self.primaryKey, ID)
 		res, cols = self.raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
 
 	def getPagedInfo(self, pageNo, pageSize, columns, columnsAlternativeNames, whereColumns, whereValues, orderString):
 		"""
-
-		:param pageNo:
-		:param pageSize:
-		:param columns:
+		分页查询接口
+		:param pageNo:页码
+		:param pageSize:页面大小
+		:param columns:字段
 		:param whereColumns:
 		:param whereValues:
 		:param orderString:
@@ -224,11 +223,10 @@ class RestfulInfoAPI(object):
 			self.__defaultUpdateString, self.formatWhereString(updateInfoWhereColumns, updateInfoWhereValues))
 		self.raw.update()
 
-	def deleteInfo(self, deleteInfoID, deleteIDFieldName):
+	def deleteInfo(self, deleteInfoID):
 		"""
 		在数据源列表中删除制定ID的数据
 		:param deleteInfoID:指定的ID
-		:param deleteIDFieldName:指定的ID所对应的字段名称
 		"""
-		self.raw.sql = "DELETE FROM %s WITH(ROWLOCK) WHERE %s = '%s'"%(self.dataSourceTable, deleteIDFieldName, deleteInfoID)
+		self.raw.sql = "DELETE FROM %s WITH(ROWLOCK) WHERE %s = '%s'"%(self.dataSourceTable, self.primaryKey, deleteInfoID)
 		self.raw.update()

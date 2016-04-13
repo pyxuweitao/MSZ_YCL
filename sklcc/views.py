@@ -262,7 +262,7 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 				                             columnsAlternativeNames=['id','name']), encoding='GBK'))
 		else:
 			return HttpResponse(json.dumps(
-				supplier.getInfoByID(ID=supplierCode, queryFieldName='SupplierCode', columns=['SupplierCode', 'SupplierName'],
+				supplier.getInfoByID(ID=supplierCode, columns=['SupplierCode', 'SupplierName'],
 		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
 		values = json.loads(request.POST['INFO'])
@@ -274,7 +274,7 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 				updateInfoWhereValues=[supplierCode], updateInfoWhereColumns=['SupplierCode'],
 				updateColumns=['SupplierName', 'SupplierCode'], updateValues=[info['name'], info['id']] )
 	elif request.method == 'DELETE':
-		supplier.deleteInfo(deleteIDFieldName='SupplierCode', deleteInfoID=supplierCode)
+		supplier.deleteInfo(deleteInfoID=supplierCode)
 	return HttpResponse()
 
 def MaterialTypeInfo(request, fuzzyMaterialTypeName, MaterialTypeID):
@@ -293,35 +293,81 @@ def MaterialTypeInfo(request, fuzzyMaterialTypeName, MaterialTypeID):
 				MaterialType.getInfoByFuzzyInput(fuzzyInput=fuzzyMaterialTypeName, fuzzyFieldName='MaterialTypeName', columns=['MaterialTypeID', 'MaterialTypeName', 'WorkTime'],
 				                             columnsAlternativeNames=['id','name', 'time']), encoding='GBK'))
 		else:
-			pageNo           = int(request.GET['page'])
-			pageSize         = int(request.GET['count'])
-			materialTypeID   = request.GET['id']
-			materialTypeName = request.GET['name']
-			whereColumns     = list()
-			whereValues      = list()
-			if materialTypeID:
-				whereColumns.append('MaterialTypeID')
-				whereValues.append(materialTypeID)
-			if materialTypeName:
-				whereColumns.append('MaterialTypeName')
-				whereValues.append(materialTypeName)
-			return HttpResponse(json.dumps(
-				MaterialType.getPagedInfo( pageNo=pageNo, pageSize=pageSize, columns=['MaterialTypeID', 'MaterialTypeName', 'WorkTime'],
+			if 'page' in request.GET:
+				pageNo           = int(request.GET['page'])
+				pageSize         = int(request.GET['count'])
+				materialTypeName = request.GET['name']
+				whereColumns     = list()
+				whereValues      = list()
+				if materialTypeName:
+					whereColumns.append('MaterialTypeName')
+					whereValues.append(materialTypeName)
+				return HttpResponse(json.dumps(
+					MaterialType.getPagedInfo( pageNo=pageNo, pageSize=pageSize, columns=['MaterialTypeID', 'MaterialTypeName', 'WorkTime'],
 		                        columnsAlternativeNames=['id','name', 'time'], whereColumns=whereColumns, whereValues=whereValues, orderString='LastModifiedTime DESC, MaterialTypeID ASC'), encoding='GBK'))
+			else:
+				return HttpResponse(json.dumps(
+						MaterialType.getInfoByID(ID="", columns=['MaterialTypeID', 'MaterialTypeName', 'WorkTime'],
+						                         columnsAlternativeNames=['id', 'name', 'time']), encoding='GBK'))
 	elif request.method == 'POST':
 		values = json.loads(request.POST['INFO'])
-		MaterialType.newInfo(columns=['MaterialTypeName', 'MaterialTypeID', 'WorkTime', 'LastModifiedTime', 'LastModifiedUser'],
-		                 values=[values['name'], values['id'], values['time'], 'GETDATE()', UserID ])
+		MaterialType.newInfo(columns=['MaterialTypeName', 'WorkTime', 'LastModifiedTime', 'LastModifiedUser'],
+		                 values=[values['name'], values['time'], 'GETDATE()', UserID ])
 	elif request.method == 'PUT':
 		info = json.loads(request.body[5:])
 		MaterialType.updateInfo(
 				updateInfoWhereValues=[MaterialTypeID], updateInfoWhereColumns=['MaterialTypeID'],
-				updateColumns=['MaterialTypeName', 'WorkTime', 'MaterialTypeID'], updateValues=[info['name'], info['time'], info['id']] )
+				updateColumns=['MaterialTypeName', 'WorkTime'], updateValues=[info['name'], info['time']] )
 	elif request.method == 'DELETE':
-		MaterialType.deleteInfo(deleteIDFieldName='MaterialTypeID', deleteInfoID=MaterialTypeID)
+		MaterialType.deleteInfo(deleteInfoID=MaterialTypeID)
 	return HttpResponse()
 
-
+def MaterialInfo(request, fuzzyMaterialName, MaterialID):
+	"""
+	材料种类维护界面增删查改相关操作
+	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除材料名称
+	:param fuzzyMaterialName:如果是模糊查询这个值为非空，为空时返回所有
+	:param MaterialID:材料名称种类代码
+	:return:
+	"""
+	UserID   = request.session['UserId']
+	Material = Configurations.RestfulInfoAPI("RMI_MATERIAL_NAME", 'MaterialID', request.session['UserId'])
+	if request.method == 'GET':
+		if fuzzyMaterialName:
+			return HttpResponse(json.dumps(
+				Material.getInfoByFuzzyInput(fuzzyInput=fuzzyMaterialName,
+				                             fuzzyFieldName='MaterialName',
+				                             columns=['MaterialID', 'MaterialName', 'dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID))', 'MaterialTypeID'],
+				                             columnsAlternativeNames=['id','name', 'cata', 'cataid']), encoding='GBK'))
+		else:
+			pageNo           = int(request.GET['page'])
+			pageSize         = int(request.GET['count'])
+			materialName     = request.GET['name']
+			whereColumns     = list()
+			whereValues      = list()
+			if materialName:
+				whereColumns.append('MaterialName')
+				whereValues.append(materialName)
+			return HttpResponse(json.dumps(
+				Material.getPagedInfo(pageNo=pageNo,
+				                      pageSize=pageSize,
+				                      columns=['MaterialID', 'MaterialName', 'dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID))', 'MaterialTypeID'],
+				                      columnsAlternativeNames=['id','name', 'cata', 'cataid'],
+				                      whereColumns=whereColumns,
+				                      whereValues=whereValues,
+				                      orderString='LastModifiedTime DESC, MaterialID ASC'), encoding='GBK'))
+	elif request.method == 'POST':
+		values = json.loads(request.POST['INFO'])
+		Material.newInfo(columns=['MaterialName', 'MaterialTypeId', 'LastModifiedTime', 'LastModifiedUser'],
+		                 values=[values['name'], values['cataid'], 'GETDATE()', UserID ])
+	elif request.method == 'PUT':
+		info = json.loads(request.body[5:])
+		Material.updateInfo(
+				updateInfoWhereValues=[MaterialID], updateInfoWhereColumns=['MaterialID'],
+				updateColumns=['MaterialName', 'MaterialTypeID'], updateValues=[info['name'], info['cataid']] )
+	elif request.method == 'DELETE':
+		Material.deleteInfo(deleteInfoID=MaterialID)
+	return HttpResponse()
 
 def test(request):
 	raw = Raw_sql()
@@ -347,7 +393,7 @@ def unitInfo(request, fuzzyUnitName, unitID):
 				                             columnsAlternativeNames=['id','name']), encoding='GBK'))
 		else:
 			return HttpResponse(json.dumps(
-				unit.getInfoByID(ID=unitID, queryFieldName='UnitID', columns=['UnitID', 'UnitName'],
+				unit.getInfoByID(ID=unitID, columns=['UnitID', 'UnitName'],
 		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
 	elif request.method == 'POST':
 		unit.newInfo(columns=['UnitName'], values=[json.loads(request.POST['INFO'])['name']])
@@ -356,7 +402,7 @@ def unitInfo(request, fuzzyUnitName, unitID):
 				updateInfoWhereColumns=['UnitID'], updateInfoWhereValues=[unitID],
 				updateColumns=['UnitName'], updateValues=[json.loads(request.body[5:])['name']] )
 	elif request.method == 'DELETE':
-		unit.deleteInfo(deleteIDFieldName='UnitID', deleteInfoID=unitID)
+		unit.deleteInfo(deleteInfoID=unitID)
 	return HttpResponse()
 
 def getMaterialNames(request, fuzzyName):
