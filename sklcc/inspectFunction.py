@@ -9,7 +9,7 @@ import copy
 
 ######################### Common Utilities ############################################
 
-def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID):
+def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, InspectorTotalNumber):
 	"""
 	返回一个更新步骤状态、更新任务最近一次修改时间、更新表格最后一次修改时间的SQL
 	:param isFinished: 步骤是否完成
@@ -17,19 +17,26 @@ def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, Us
 	:param SerialNo: 任务流水号
 	:param selectedStep: 选择步骤ID
 	:param UserID: 用户名
+	:param totalCount: 检验总数
 	:return:返回更新所需SQL
 	"""
 	if isFinished:
 		SQL = """;UPDATE RMI_TASK_PROCESS_STEP
  						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
+		SQL += """UPDATE RMI_TASK
+			SET LastModifiedTime = GETDATE() """
+		if InspectorTotalNumber != 0:
+			SQL += ", InspectTotalNumber = %s"%InspectorTotalNumber
+		SQL += " WHERE SerialNo = '%s';"%SerialNo
+
 	else:
 		SQL = """;UPDATE RMI_TASK_PROCESS_STEP
  						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
+		SQL += """UPDATE RMI_TASK
+			SET LastModifiedTime = GETDATE() WHERE SerialNo = '%s';"""%SerialNo
 	SQL += """UPDATE RMI_TASK_PROCESS
 				SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s'
 				WHERE ProcessID = '%s' AND SerialNo = '%s';"""%(UserID, processID, SerialNo)
-	SQL += """UPDATE RMI_TASK
-			SET LastModifiedTime = GETDATE() WHERE SerialNo = '%s';"""%SerialNo
 	return SQL
 
 def getStepsBySerialNoAndProcessID(SerialNo, ProcessID):
@@ -112,20 +119,18 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 		# 检验步骤未完成
 		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
 
-
-
 	if UserID != "ALL":
 		raw.sql = """SELECT
-	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai
+	            DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
+	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
-	             WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
+	            WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
 	else:
 		raw.sql = """SELECT
-	             MaterialType AS SelectedType,GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu,
-	             HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai
+	            DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
+	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
-	             WHERE SerialNo = '%s'""" %serialNo
+	            WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
@@ -173,38 +178,37 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	processID      = 'F01'
 	ListData       = rawData['listData']
 	DingDanHao     = rawData['DingDanHao']
-	GongYingShang  = rawData['GongYingShang']
 	DaoLiaoZongShu = rawData['DaoLiaoZongShu']
 	selectedStep   = rawData['selectedStep']
-	selectedType   = rawData['SelectedType']
 	isFinished     = rawData['isSubmit']
+	totalCount     = rawData['totalCount']
 
 	raw = Raw_sql()
 	raw.sql = "DELETE FROM RMI_%s_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
 	if len(ListData) > 0:
-		raw.sql += "INSERT INTO RMI_%s_DATA(MaterialType, InspectorNo, SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
-		          "TouChanShu, DingDanShu, BiaoZhiShu, ShiCeShu, WaiGuan, JianYanHao, QiTa, isZhuDiaoPai ) "%processID
+		raw.sql += "INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
+		           "TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo, JianYanHao, QiTa, isZhuDiaoPai ) "%processID
 
 		rawData['ZhuDiaoPai']['isZhuDiaoPai'] = True #如果是主吊牌，加入主吊牌标记键值对0
 		ListData.append(rawData['ZhuDiaoPai'])
 
 		for row in ListData:
-			raw.sql += "SELECT '%s', '%s', '%s', '%s', '%d', '%s'," % ( selectedType, UserID,
-				SerialNo, GongYingShang, DaoLiaoZongShu, DingDanHao )
+			raw.sql += "SELECT '%s', '%s', '%d', '%s'," % ( UserID, SerialNo, DaoLiaoZongShu, DingDanHao )
 			raw.sql += "'%s',"%row['GuiGe'] if row['GuiGe'] else 'NULL,' #规格在主吊牌中有可能不填
 			raw.sql += "%s,"%row['HeGeShu'] if row['HeGeShu'] else 'NULL,' #合格数在主吊牌中有可能不填
-
 			raw.sql += judgeWhetherNULL(row['TouChanShu'] if row['hasTouChanShu'] else None)
 			raw.sql += judgeWhetherNULL(row['DingDanShu'] if row['hasDingDanShu'] else None)
 			raw.sql += judgeWhetherNULL(row['BiaoZhiShu'])
+			raw.sql += judgeWhetherNULL(row['JianYanShu'])
 			raw.sql += judgeWhetherNULL(row['ShiCeShu'])
 			raw.sql += judgeWhetherNULL(row['WaiGuan'])
+			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
 			raw.sql += judgeWhetherNULL(row['QiTa'])
 			raw.sql += judgeWhetherNULL(1 if row['isZhuDiaoPai'] else 0, lastOne=True)#表示非主吊牌行
 			raw.sql += "UNION ALL\n"
 		raw.sql  = raw.sql[:-10]
-	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
+	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, totalCount)
 	raw.update()
 	return
 
@@ -276,6 +280,7 @@ def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 	processID    = 'F02'
 	selectedStep = rawData.pop('selectedStep')
 	isFinished   = rawData.pop('isSubmit')
+	totalCount   = rawData.pop('totalCount')
 	rawData['SerialNo'] = SerialNo
 	formatData   = transformRawDataIntoInsertFormatDict(rawData)
 	raw = Raw_sql()
@@ -284,7 +289,7 @@ def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 		columnsString = ",".join(row.keys()) + ",InspectorNo"
 		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ]) + ",'" + UserID + "'"
 		raw.sql      += "INSERT INTO RMI_%s_DATA(%s) VALUES(%s);"%(processID, columnsString, valuesString)
-	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
+	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, totalCount)
 	raw.update()
 	return
 
@@ -338,8 +343,9 @@ def WithOutListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID
 		:param processID:表格ID
 		:return:
 		"""
-	selectedStep = rawData.pop('selectedStep')
-	isFinished   = rawData.pop('isSubmit')
+	selectedStep        = rawData.pop('selectedStep')
+	isFinished          = rawData.pop('isSubmit')
+	InspectTotalNumber = rawData.pop('totalCount') if 'totalCount' in rawData else 0
 	rawData['SerialNo'] = SerialNo
 	#区分F02
 	formatData   = rawData
@@ -350,7 +356,7 @@ def WithOutListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID
 	valuesString  = ",".join([formatSQLValuesString(formatData[key]) for key in formatData.keys() ]) + ",'" + UserID + "'"
 	raw.sql      += "INSERT INTO RMI_%s_DATA(%s) VALUES(%s);"%(processID, columnsString, valuesString)
 
-	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
+	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, InspectTotalNumber)
 	raw.update()
 	return
 
@@ -405,6 +411,7 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 	"""
 	selectedStep = rawData.pop('selectedStep')
 	isFinished   = rawData.pop('isSubmit')
+	InspectTotalNumber = rawData.pop('totalCount') if 'totalCount' in rawData else 0
 	rawData['SerialNo'] = SerialNo
 	formatData   = transformRawDataIntoInsertFormatDict(rawData)
 	raw = Raw_sql()
@@ -413,7 +420,7 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 		columnsString = ",".join(row.keys()) + ",InspectorNo"
 		valuesString  = ",".join([formatSQLValuesString(row[key]) for key in row.keys() ]) + ",'" + UserID + "'"
 		raw.sql      += "INSERT INTO RMI_%s_DATA(%s) VALUES(%s);"%(processID, columnsString, valuesString)
-	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID)
+	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, InspectTotalNumber)
 	raw.update()
 	return
 

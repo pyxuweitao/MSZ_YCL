@@ -1,0 +1,73 @@
+{
+  "DingDanShu": 1,
+  "HeGeShu": 1,
+  "DaoLiaoZongShu": 1,
+  "listData": [
+    {
+      "isZhuDiaoPai": false,
+      "QiTa": "1",
+      "DaoLiaoZongShu": 0,
+      "SelectedType": "None",
+      "DingDanShu": 1,
+      "GongYingShang": "None",
+      "TouChanShu": null,
+      "GuiGe": "1",
+      "HeGeShu": 1,
+      "ShiCeShu": 1,
+      "DingDanHao": "1",
+      "BiaoZhiShu": 1,
+      "WaiGuan": 1,
+      "JianYanHao": "3",
+      "hasDingDanShu": true,
+      "hasTouChanShu": false,
+      "SaoMiaoJieGuo": "OK",
+      "JianYanShu": 2,
+      "timer": null
+    }
+  ],
+  "ZhuDiaoPai": {
+    "isZhuDiaoPai": true,
+    "QiTa": "1",
+    "DaoLiaoZongShu": 0,
+    "SelectedType": "None",
+    "DingDanShu": 1,
+    "GongYingShang": "None",
+    "TouChanShu": null,
+    "GuiGe": "1",
+    "HeGeShu": 1,
+    "ShiCeShu": 1,
+    "DingDanHao": "1",
+    "BiaoZhiShu": 1,
+    "WaiGuan": true,
+    "JianYanHao": "1",
+    "hasDingDanShu": true,
+    "JianYanShu": 1,
+    "SaoMiaoJieGuo": "OK"
+  },
+  "QiTa": "1",
+  "GongYingShang": "None",
+  "ShiCeShu": 1,
+  "step": [
+    {
+      "state": 0,
+      "name": "检验员填写",
+      "value": "4B652F7E-846E-419C-818E-544E1D00E6A5"
+    },
+    {
+      "state": 0,
+      "name": "审核",
+      "value": "36929B8A-8C15-4068-8C0A-6DA2060AA172"
+    }
+  ],
+  "isZhuDiaoPai": false,
+  "SelectedType": "None",
+  "DingDanHao": "1",
+  "TouChanShu": null,
+  "GuiGe": "1",
+  "BiaoZhiShu": 1,
+  "WaiGuan": true,
+  "JianYanHao": "3",
+  "selectedStep": "4B652F7E-846E-419C-818E-544E1D00E6A5",
+  "isSubmit": false,
+  "totalCount": 1
+}

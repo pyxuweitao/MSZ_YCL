@@ -254,7 +254,7 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 	:return:
 	"""
 	UserID   = request.session['UserId']
-	supplier = Configurations.RestfulInfoAPI("RMI_SUPPLIER", request.session['UserId'])
+	supplier = Configurations.RestfulInfoAPI("RMI_SUPPLIER", "SupplierCode", request.session['UserId'])
 	if request.method == 'GET':
 		if fuzzySupplierName:
 			return HttpResponse(json.dumps(
@@ -339,7 +339,7 @@ def unitInfo(request, fuzzyUnitName, unitID):
 	:param unitID:计量单位ID
 	:return:
 	"""
-	unit = Configurations.RestfulInfoAPI("RMI_UNIT", request.session['UserId'])
+	unit = Configurations.RestfulInfoAPI("RMI_UNIT", 'UnitID', request.session['UserId'])
 	if request.method == 'GET':
 		if fuzzyUnitName:
 			return HttpResponse(json.dumps(
@@ -353,7 +353,7 @@ def unitInfo(request, fuzzyUnitName, unitID):
 		unit.newInfo(columns=['UnitName'], values=[json.loads(request.POST['INFO'])['name']])
 	elif request.method == 'PUT':
 		unit.updateInfo(
-				updateInfoID=unitID, updateIDFieldName=['UnitID'],
+				updateInfoWhereColumns=['UnitID'], updateInfoWhereValues=[unitID],
 				updateColumns=['UnitName'], updateValues=[json.loads(request.body[5:])['name']] )
 	elif request.method == 'DELETE':
 		unit.deleteInfo(deleteIDFieldName='UnitID', deleteInfoID=unitID)

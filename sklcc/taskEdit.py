@@ -125,5 +125,7 @@ def getAllMaterialByName(fuzzyName):
 				ON a.MaterialID=b.MaterialID"""
 	if fuzzyName:
 		raw.sql += """ WHERE MaterialName LIKE '%%%%%s%%%%'"""%fuzzyName
-	res, cols = raw.query_all(needColumnName=True)
-	return CommonUtilities.translateQueryResIntoDict(cols, res)
+		res, cols = raw.query_all(needColumnName=True)
+		return CommonUtilities.translateQueryResIntoDict(cols, res)
+	else: #如果为空返回空数据，否则前端卡顿
+		return []
