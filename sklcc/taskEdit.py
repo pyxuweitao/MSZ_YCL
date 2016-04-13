@@ -128,4 +128,4 @@ def getAllMaterialByName(fuzzyName):
 		res, cols = raw.query_all(needColumnName=True)
 		return CommonUtilities.translateQueryResIntoDict(cols, res)
 	else: #如果为空返回空数据，否则前端卡顿
-		return []
+		return [{"name":'请输入关键字', "id":"", "group":""}]
