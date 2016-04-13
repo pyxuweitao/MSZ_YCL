@@ -80,6 +80,62 @@ class Raw_sql(object):
 		else:
 			return True
 
+	def pagedQuery(self, pageNo, pageSize, tableName, primaryKeyField, fieldString, whereString, orderString, needPageCounts=False, needColumnName=False, owner='default'):
+		"""
+
+		:param pageNo:
+		:param pageSize:
+		:param tableName:
+		:param primaryKeyField:
+		:param fieldString:
+		:param whereString:
+		:param orderString:
+		:param needColumnName:
+		:param owner:
+		:return:
+		"""
+		try:
+			newOrderString1 = orderString.upper().replace('DESC', '').replace('ASC', 'DESC')
+			newOrderString2 = orderString.upper().replace('ASC', '')
+			self.sql = """SELECT %s FROM %s t1
+						  WHERE %s IN (
+						  	SELECT TOP %d %s FROM (
+						  	  SELECT TOP %d %s FROM %s %s ORDER BY %s
+						  	) t2 ORDER BY %s
+						  ) ORDER BY %s"""%(
+				fieldString, tableName, primaryKeyField, pageSize, primaryKeyField,
+				pageSize * pageNo, primaryKeyField, tableName, whereString,
+				newOrderString2, newOrderString1, newOrderString2)
+			cursor = connections[owner].cursor()
+			cursor.execute(self.sql)
+			target_list = cursor.fetchall()
+			if not needPageCounts:
+				if needColumnName:
+					if len(target_list) == 0:
+						return (), [desc[0] for desc in cursor.description]
+					else:
+						return target_list, [desc[0] for desc in cursor.description]
+				else:
+					if len(target_list) == 0:
+						return ()
+					else:
+						return target_list
+			else:
+				self.sql  = "SELECT COUNT(*) FROM %s %s"%( tableName, whereString )
+				pageCount = self.query_one()[0] / pageSize + 1
+				if needColumnName:
+					if len(target_list) == 0:
+						return (), [desc[0] for desc in cursor.description], pageCount
+					else:
+						return target_list, [desc[0] for desc in cursor.description], pageCount
+				else:
+					if len(target_list) == 0:
+						return (), pageCount
+					else:
+						return target_list, pageCount
+		except Exception,e:
+			print self.sql
+
 	def bulk_insert(self, rawData, owner='default'):
 		"""
 		暂不使用

@@ -51,9 +51,9 @@ SELECT TOP 1 @name = name FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE ID = @UserID;
 RETURN @name;
 END
 
-
+DROP FUNCTION getMaterialTypeNameByID
 ----根据材料类型ID获取材料类型名称
-CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID uniqueidentifier)
+CREATE FUNCTION getMaterialTypeNameByID(@materialTypeID varchar(50))
 RETURNS varchar(MAX)
 AS
 BEGIN
@@ -62,8 +62,9 @@ SELECT TOP 1 @name = MaterialTypeName FROM RMI_MATERIAL_TYPE WHERE MaterialTypeI
 RETURN @name;
 END
 
+DROP FUNCTION getMaterialNameByID
 ----根据材料ID获取材料名称
-CREATE FUNCTION getMaterialNameByID(@materialID uniqueidentifier)
+CREATE FUNCTION getMaterialNameByID(@materialID varchar(50))
 RETURNS varchar(MAX)
 AS
 BEGIN
@@ -72,12 +73,13 @@ SELECT TOP 1 @name = MaterialName FROM RMI_MATERIAL_NAME WHERE MaterialID = @mat
 RETURN @name;
 END
 
+DROP FUNCTION getMaterialTypeIDByMaterialID
 ----根据材料名称ID获取材料类别名称ID
-CREATE FUNCTION getMaterialTypeIDByMaterialID(@materialID uniqueidentifier)
-RETURNS uniqueidentifier
+CREATE FUNCTION getMaterialTypeIDByMaterialID(@materialID varchar(50))
+RETURNS varchar(50)
 AS
 BEGIN
-DECLARE @ID uniqueidentifier;
+DECLARE @ID varchar(50);
 SELECT TOP 1 @ID = MaterialTypeID FROM RMI_MATERIAL_TYPE_NAME WHERE MaterialID = @materialID;
 RETURN @ID;
 END

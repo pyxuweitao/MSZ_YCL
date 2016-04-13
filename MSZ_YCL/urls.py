@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^api/configuration/unitInfo(.*)/(.*)$', views.unitInfo),
     url(r'^api/configuration/SuppliersInfo(.*)/(.*)$', views.SupplierInfo),
     #url(r'^api/configuration/MaterialInfo/(.*)$', views.MaterialInfo),
+    url(r'^api/configuration/MaterialTypeInfo(.*)/(.*)$', views.MaterialTypeInfo),
     #TODO:F01改成数据库获取
 	url(r'^api/inspect/(.+)/get(\w+)Data/(\w+)/$', views.getFormData),
 	url(r'^api/inspect/(.+)/insert(\w+)Data/$', views.insertFormData),

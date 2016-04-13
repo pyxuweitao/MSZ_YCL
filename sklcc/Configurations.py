@@ -10,7 +10,7 @@ class RestfulInfoAPI(object):
 	"""
 	Restful增删查改的API类
 	"""
-	def __init__(self, tableName, userID):
+	def __init__(self, tableName, primaryKey, userID):
 		"""
 		__defaultUpdateString  :数据库更新语句默认的插入项，添加到更新语句对应位置中
 		__defaultInsertColumns :数据库插入语句默认的插入项，添加到插入语句对应位置中
@@ -25,6 +25,7 @@ class RestfulInfoAPI(object):
 		self.__defaultInsertColumns   = ", LastModifiedTime, LastModifiedUser"
 		self.__defaultInsertValues    = ", '%s', GETDATE()"%userID
 		self.dataSourceTable          = tableName
+		self.primaryKey               = primaryKey
 		self.userID                   = userID
 		self.raw                      = rawSql.Raw_sql()
 		self.MSDBBuiltInFunctionNames = ['GETDATE']
@@ -122,11 +123,33 @@ class RestfulInfoAPI(object):
 		:param whereValues:WHERE条件每个字段对应的值
 		:return:返回生成的WHERE条件字符串
 		"""
+		if not whereColumns and not whereValues: #如果WHERE字段或者WHERE值为空，不生成WHERE字符串
+			return ""
+		WhereString = "WHERE "
 		whereConditionRawList = zip(whereColumns, whereValues)
 		whereConditionList    = list()
 		for condition in whereConditionRawList:
 			whereConditionList.append("=".join([condition[0], "'"+unicode(condition[1])+"'"]))
-		return " AND ".join(whereConditionList)
+		WhereString +=  " AND ".join(whereConditionList)
+		return WhereString
+
+	@staticmethod
+	def formatFuzzyWhereString(whereColumns=None, whereValues=None):
+		"""
+		生成Like条件的模糊查询WHERE语句的字符串
+		:param whereColumns:WHERE条件中的字段名列表
+		:param whereValues:WHERE条件每个字段对应的值
+		:return:返回生成的WHERE条件字符串
+		"""
+		if not whereColumns and not whereValues: #如果WHERE字段或者WHERE值为空，不生成WHERE字符串
+			return ""
+		WhereString = "WHERE "
+		whereConditionRawList = zip(whereColumns, whereValues)
+		whereConditionList    = list()
+		for condition in whereConditionRawList:
+			whereConditionList.append(" LIKE ".join([condition[0], "'%%%%"+unicode(condition[1])+"%%%%'"]))
+		WhereString +=  " AND ".join(whereConditionList)
+		return WhereString
 
 	def getInfoByFuzzyInput(self, fuzzyInput, fuzzyFieldName, columns=None, columnsAlternativeNames=None):
 		"""
@@ -159,6 +182,21 @@ class RestfulInfoAPI(object):
 		res, cols = self.raw.query_all(needColumnName=True)
 		return self.smartReturn(res, cols)
 
+	def getPagedInfo(self, pageNo, pageSize, columns, columnsAlternativeNames, whereColumns, whereValues, orderString):
+		"""
+
+		:param pageNo:
+		:param pageSize:
+		:param columns:
+		:param whereColumns:
+		:param whereValues:
+		:param orderString:
+		:return:
+		"""
+		res, cols, pageCount = self.raw.pagedQuery(pageNo, pageSize, self.dataSourceTable, self.primaryKey, self.formatColumnString(columns, columnsAlternativeNames),
+		                    self.formatFuzzyWhereString(whereColumns, whereValues), orderString, needPageCounts=True, needColumnName=True )
+		return {'listData':CommonUtilities.translateQueryResIntoDict(cols, res), 'pageCount':pageCount}
+
 	def newInfo(self, columns=None, values=None):
 		"""
 		向对应数据源表插入数据
@@ -181,7 +219,7 @@ class RestfulInfoAPI(object):
 		:return:
 		"""
 		self.raw.sql = """UPDATE %s SET %s%s
- 	    			WHERE %s"""%(
+ 	    			%s"""%(
 			self.dataSourceTable, self.formatUpdateString(updateColumns, updateValues),
 			self.__defaultUpdateString, self.formatWhereString(updateInfoWhereColumns, updateInfoWhereValues))
 		self.raw.update()
