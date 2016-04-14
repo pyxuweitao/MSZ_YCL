@@ -120,12 +120,11 @@ def getAllMaterialByName(fuzzyName):
 	:return:{'id':材料名称ID,'name':材料名称,'cata':材料种类名称}
 	"""
 	raw = rawSql.Raw_sql()
-	raw.sql = """SELECT a.MaterialID AS id, a.MaterialName AS name, dbo.getMaterialTypeNameByID(b.MaterialTypeID) AS cata
- 				FROM RMI_MATERIAL_NAME a WITH(NOLOCK) JOIN RMI_MATERIAL_TYPE_NAME b WITH(NOLOCK)
-				ON a.MaterialID=b.MaterialID"""
+	raw.sql = """SELECT MaterialID AS id, MaterialName AS name, dbo.getMaterialTypeNameByID(MaterialTypeID) AS cata
+ 				FROM RMI_MATERIAL_NAME WITH(NOLOCK)"""
 	if fuzzyName:
 		raw.sql += """ WHERE MaterialName LIKE '%%%%%s%%%%'"""%fuzzyName
 		res, cols = raw.query_all(needColumnName=True)
 		return CommonUtilities.translateQueryResIntoDict(cols, res)
 	else: #如果为空返回空数据，否则前端卡顿
-		return [{"name":'请输入关键字', "id":"", "group":""}]
+		return [{"name":u'请输入关键字', "id":"", "group":""}]

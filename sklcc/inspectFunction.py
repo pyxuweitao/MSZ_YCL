@@ -121,13 +121,13 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 
 	if UserID != "ALL":
 		raw.sql = """SELECT
-	            DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
+	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
 	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
 	else:
 		raw.sql = """SELECT
-	            DaoLiaoZongShu, DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
+	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
 	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s'""" %serialNo
@@ -183,17 +183,18 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	isFinished     = rawData['isSubmit']
 	totalCount     = rawData['totalCount']
 
-	raw = Raw_sql()
-	raw.sql = "DELETE FROM RMI_%s_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
+	raw      = Raw_sql()
+	raw.sql  = "DELETE FROM RMI_%s_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
+	raw.sql += "UPDATE RMI_TASK SET DaoLiaoZongShu = '%s' WHERE SerialNo = '%s';"%(DaoLiaoZongShu, SerialNo)
 	if len(ListData) > 0:
-		raw.sql += "INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DaoLiaoZongShu, DingDanHao, GuiGe, HeGeShu,"\
+		raw.sql += "INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DingDanHao, GuiGe, HeGeShu,"\
 		           "TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo, JianYanHao, QiTa, isZhuDiaoPai ) "%processID
 
 		rawData['ZhuDiaoPai']['isZhuDiaoPai'] = True #如果是主吊牌，加入主吊牌标记键值对0
 		ListData.append(rawData['ZhuDiaoPai'])
 
 		for row in ListData:
-			raw.sql += "SELECT '%s', '%s', '%d', '%s'," % ( UserID, SerialNo, DaoLiaoZongShu, DingDanHao )
+			raw.sql += "SELECT '%s', '%s', '%s'," % ( UserID, SerialNo, DingDanHao )
 			raw.sql += "'%s',"%row['GuiGe'] if row['GuiGe'] else 'NULL,' #规格在主吊牌中有可能不填
 			raw.sql += "%s,"%row['HeGeShu'] if row['HeGeShu'] else 'NULL,' #合格数在主吊牌中有可能不填
 			raw.sql += judgeWhetherNULL(row['TouChanShu'] if row['hasTouChanShu'] else None)
@@ -205,7 +206,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
 			raw.sql += judgeWhetherNULL(row['QiTa'])
-			raw.sql += judgeWhetherNULL(1 if row['isZhuDiaoPai'] else 0, lastOne=True)#表示非主吊牌行
+			raw.sql += judgeWhetherNULL(1 if 'isZhuDiaoPai' in row else 0, lastOne=True)#表示非主吊牌行
 			raw.sql += "UNION ALL\n"
 		raw.sql  = raw.sql[:-10]
 	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, totalCount)
