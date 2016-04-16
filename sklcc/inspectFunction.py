@@ -17,7 +17,7 @@ def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, Us
 	:param SerialNo: 任务流水号
 	:param selectedStep: 选择步骤ID
 	:param UserID: 用户名
-	:param totalCount: 检验总数
+	:param InspectorTotalNumber: 检验总数
 	:return:返回更新所需SQL
 	"""
 	if isFinished:

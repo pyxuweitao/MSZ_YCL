@@ -37,6 +37,7 @@ class Raw_sql(object):
 				else:
 					return target, [desc[0] for desc in cursor.description]
 		except Exception,e:
+			print e
 			print self.sql
 
 	def query_all(self, owner='default', needColumnName=False):
@@ -61,11 +62,12 @@ class Raw_sql(object):
 				else:
 					return target_list, [desc[0] for desc in cursor.description]
 		except Exception,e:
+			print e
 			print self.sql
 
 	def update(self, owner='default'):
 		"""
-		将定义的DMLSQL提交，出现异常时rollback
+		将定义的DML SQL提交，出现异常时rollback
 		:param owner:对应settings中的数据库key，默认为default
 		:return:提交成功返回True，提交失败返回False
 		"""
@@ -74,6 +76,7 @@ class Raw_sql(object):
 			cursor.execute(self.sql)
 			transaction.commit_unless_managed(owner)
 		except Exception, e:
+			print e
 			print self.sql
 			transaction.rollback(owner)
 			return False
@@ -82,17 +85,18 @@ class Raw_sql(object):
 
 	def pagedQuery(self, pageNo, pageSize, tableName, primaryKeyField, fieldString, whereString, orderString, needCounts=False, needColumnName=False, owner='default'):
 		"""
-
-		:param pageNo:
-		:param pageSize:
-		:param tableName:
-		:param primaryKeyField:
-		:param fieldString:
-		:param whereString:
-		:param orderString:
-		:param needColumnName:
-		:param owner:
-		:return:
+		一个分页查询的接口实现
+		:param pageNo:当前页码
+		:param pageSize:页面大小
+		:param tableName:表名
+		:param primaryKeyField:主键字段名
+		:param fieldString:查询字段列表
+		:param whereString:where语句
+		:param orderString:order by 语句
+		:param needColumnName:是否需要返回字段名称列表
+		:param needCounts:是否需要返回查询结果总条数（不分页）
+		:param owner:对应settings中的数据库key，默认为default
+		:return:返回对应设置的分页结果
 		"""
 		try:
 			newOrderString1 = orderString.upper().replace('DESC', '').replace('ASC', 'DESC')
@@ -134,6 +138,7 @@ class Raw_sql(object):
 					else:
 						return target_list, count
 		except Exception,e:
+			print e
 			print self.sql
 
 	def bulk_insert(self, rawData, owner='default'):
@@ -154,22 +159,10 @@ class Raw_sql(object):
 			cursor.execute(self.sql)
 			transaction.commit_unless_managed(owner)
 		except Exception, e:
+			print e
 			transaction.rollback(owner)
 			return False
 		else:
 			return True
 
-	def callproc(self, procname, parameter, owner='default'):
-		"""
-		暂不使用
-		:param procname:
-		:param parameter:
-		:param owner:
-		:return:
-		"""
-		try:
-			cursor = connections[owner].cursor()
-			res = cursor.callproc(procname, parameter)
-			return res
-		except Exception, e:
-			return e
+

@@ -187,10 +187,11 @@ class RestfulInfoAPI(object):
 		:param pageNo:页码
 		:param pageSize:页面大小
 		:param columns:字段
-		:param whereColumns:
-		:param whereValues:
-		:param orderString:
-		:return:
+		:param columnsAlternativeNames:字段替代名
+		:param whereColumns:where语句的字段列表
+		:param whereValues:where语句的字段列表对应的值
+		:param orderString:排序语句
+		:return:{''}
 		"""
 		res, cols, count = self.raw.pagedQuery(pageNo, pageSize, self.dataSourceTable, self.primaryKey, self.formatColumnString(columns, columnsAlternativeNames),
 		                    self.formatFuzzyWhereString(whereColumns, whereValues), orderString, needCounts=True, needColumnName=True )

@@ -22,7 +22,7 @@ def translateQueryResIntoDict(columns, res):
 
 class DecimalEncoder(json.JSONEncoder):
 	"""
-	自定义decimalJSONencoder类来使decimal可以序列化
+	自定义decimalJSON encoder类来使decimal可以序列化
 	"""
 	def default(self, o):
 		if isinstance(o, decimal.Decimal):

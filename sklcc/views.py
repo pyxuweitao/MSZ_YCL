@@ -280,9 +280,9 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 def MaterialTypeInfo(request, fuzzyMaterialTypeName, MaterialTypeID):
 	"""
 	材料种类维护界面增删查改相关操作
-	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除材料名称
+	:param request:客户端请求，包括获取所有材料种类信息，根据对应请求方法去修改、新建、删除材料种类名称
 	:param fuzzyMaterialTypeName:如果是模糊查询这个值为非空，为空时返回所有
-	:param MaterialTypeID:材料名称种类代码
+	:param MaterialTypeID:材料种类代码
 	:return:
 	"""
 	UserID   = request.session['UserId']
@@ -324,10 +324,10 @@ def MaterialTypeInfo(request, fuzzyMaterialTypeName, MaterialTypeID):
 
 def MaterialInfo(request, fuzzyMaterialName, MaterialID):
 	"""
-	材料种类维护界面增删查改相关操作
-	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除材料名称
+	材料细类维护界面增删查改相关操作
+	:param request:客户端请求，包括获取所有材料相关信息，根据对应请求方法去修改、新建、删除材料名称
 	:param fuzzyMaterialName:如果是模糊查询这个值为非空，为空时返回所有
-	:param MaterialID:材料名称种类代码
+	:param MaterialID:材料名称代码
 	:return:
 	"""
 	UserID   = request.session['UserId']
