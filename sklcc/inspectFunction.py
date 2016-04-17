@@ -93,6 +93,27 @@ def getTaskInfo(processID, serialNo):
 	res, columns = raw.query_one(needColumnName=True)
 	return translateQueryResIntoDict(columns, (res,))[0]
 
+def judgeWhetherStepFinished(serialNo, processID):
+	"""
+	判断指定的任务的表格是否填完
+	:param serialNo: 流水号
+	:param processID: 表格ID
+	:return: 返回标识是否完成填写的布尔值
+	"""
+	#判断是否审批中
+	raw     = Raw_sql()
+	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
+ 					ON a.StepID = b.StepID
+ 				    WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
+	target = raw.query_one()[0]
+
+	if target is None:
+		# 所有步骤完成
+		return True
+	else:
+		# 检验步骤未完成
+		return False #如果最大值不是0就表示还有步骤没有完成，则返回False
+
 ########################## F01 商标，纸卡不干贴########################################################
 
 def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
@@ -106,18 +127,7 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw                = Raw_sql()
 	returnInfo         = dict()
 	returnInfo['info'] = getTaskInfo(processID, serialNo)
-	#判断是否审批中
-	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
- 					ON a.StepID = b.StepID
- 				    WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
-	target = raw.query_one()[0]
-
-	if target is None:
-		# 所有步骤完成
-		returnInfo['info']['check'] = True
-	else:
-		# 检验步骤未完成
-		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+	returnInfo['info']['check'] = judgeWhetherStepFinished(serialNo, processID)
 
 	if UserID != "ALL":
 		raw.sql = """SELECT
@@ -225,19 +235,7 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw                = Raw_sql()
 	returnInfo         = dict()
 	returnInfo['info'] = getTaskInfo(processID, serialNo)
-	#判断是否审批中
-	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
- 					ON a.StepID = b.StepID
- 				    WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
-	target = raw.query_one()[0]
-
-	if target is None:
-		# 所有步骤完成
-		returnInfo['info']['check'] = True
-	else:
-		# 检验步骤未完成
-		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
-
+	returnInfo['info']['check'] = judgeWhetherStepFinished(serialNo, processID)
 
 	if UserID != "ALL":
 		raw.sql = """SELECT
@@ -307,17 +305,8 @@ def withOutListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw        = Raw_sql()
 	returnInfo = dict()
 	returnInfo['info'] = getTaskInfo(processID, serialNo)
-	#判断是否审批中
-	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
-  					 ON a.StepID = b.StepID
-  				     WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
-	target = raw.query_one()[0]
-	if target is None:
-		# 所有步骤完成
-		returnInfo['info']['check'] = True
-	else:
-		# 检验步骤未完成
-		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+	returnInfo['info']['check'] = judgeWhetherStepFinished(serialNo, processID)
+
 	if UserID != "ALL":
 		raw.sql = """SELECT
   	            *
@@ -373,17 +362,8 @@ def WithListDataGetFormDataBySerialNoAndUserID(serialNo, processID, UserID):
 	raw                = Raw_sql()
 	returnInfo         = dict()
 	returnInfo['info'] = getTaskInfo(processID, serialNo)
-	#判断是否审批中
-	raw.sql = """SELECT MAX(b.StepSeq) FROM RMI_TASK_PROCESS_STEP a WITH(NOLOCK) JOIN RMI_PROCESS_STEP b WITH(NOLOCK)
-	  				 ON a.StepID = b.StepID
-	  			     WHERE a.SerialNo = '%s' AND a.ProcessID = '%s' AND Finished = 0"""%(serialNo, processID)
-	target = raw.query_one()[0]
-	if target is None:
-		# 所有步骤完成
-		returnInfo['info']['check'] = True
-	else:
-		# 检验步骤未完成
-		returnInfo['info']['check'] = False #如果最大值不是0就表示还有步骤没有完成，则返回False
+	returnInfo['info']['check'] = judgeWhetherStepFinished(serialNo, processID)
+
 	if UserID != "ALL":
 		raw.sql = """SELECT
 	              *
