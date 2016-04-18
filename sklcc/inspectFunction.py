@@ -15,25 +15,27 @@ def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, Us
 	:param isFinished: 步骤是否完成
 	:param processID: 表格ID
 	:param SerialNo: 任务流水号
-	:param selectedStep: 选择步骤ID
+	:param selectedStep: 选择步骤ID,如果为空则为保存，同时没有选择步骤
 	:param UserID: 用户名
 	:param InspectorTotalNumber: 检验总数
 	:return:返回更新所需SQL
 	"""
 	if isFinished:
-		SQL = """;UPDATE RMI_TASK_PROCESS_STEP
- 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
-		SQL += """UPDATE RMI_TASK
+		SQL = """UPDATE RMI_TASK
 			SET LastModifiedTime = GETDATE() """
 		if InspectorTotalNumber != 0:
 			SQL += ", InspectTotalNumber = %s"%InspectorTotalNumber
 		SQL += " WHERE SerialNo = '%s';"%SerialNo
-
+		if selectedStep:
+			SQL += """;UPDATE RMI_TASK_PROCESS_STEP
+ 						SET Finished = 1, FinishTime = getdate(), LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
 	else:
-		SQL = """;UPDATE RMI_TASK_PROCESS_STEP
- 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
-		SQL += """UPDATE RMI_TASK
+		SQL = """UPDATE RMI_TASK
 			SET LastModifiedTime = GETDATE() WHERE SerialNo = '%s';"""%SerialNo
+		if selectedStep:
+			SQL += """UPDATE RMI_TASK_PROCESS_STEP
+ 						SET LastModifiedTime = getdate() WHERE SerialNo='%s' AND ProcessID = '%s' AND StepID = '%s';"""%(SerialNo, processID, selectedStep)
+
 	SQL += """UPDATE RMI_TASK_PROCESS
 				SET LastModifiedTime = GETDATE(), LastModifiedUser = '%s'
 				WHERE ProcessID = '%s' AND SerialNo = '%s';"""%(UserID, processID, SerialNo)
@@ -132,13 +134,14 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	if UserID != "ALL":
 		raw.sql = """SELECT
 	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
-	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai
+	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai, ShengChanRiQi
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
 	else:
 		raw.sql = """SELECT
 	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
-	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai
+	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu,
+	            dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai, ShengChanRiQi
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
@@ -189,16 +192,18 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	ListData       = rawData['listData']
 	DingDanHao     = rawData['DingDanHao']
 	DaoLiaoZongShu = rawData['DaoLiaoZongShu']
-	selectedStep   = rawData['selectedStep']
+	selectedStep   = rawData['selectedStep'] if 'selectedStep' in rawData else "" #如果没有这个键说明是保存状态,同时没有选择步骤
 	isFinished     = rawData['isSubmit']
 	totalCount     = rawData['totalCount']
+	ShengChanRiQi  = rawData['ShengChanRiQi']
 
 	raw      = Raw_sql()
 	raw.sql  = "DELETE FROM RMI_%s_DATA	 WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
 	raw.sql += "UPDATE RMI_TASK SET DaoLiaoZongShu = '%s' WHERE SerialNo = '%s';"%(DaoLiaoZongShu, SerialNo)
 	if len(ListData) > 0:
-		raw.sql += "INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DingDanHao, GuiGe, HeGeShu,"\
-		           "TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo, JianYanHao, QiTa, isZhuDiaoPai ) "%processID
+		raw.sql += """INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DingDanHao, GuiGe, HeGeShu,
+		           TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo,
+		           JianYanHao, QiTa, isZhuDiaoPai, ShengChanRiQi ) """%processID
 
 		rawData['ZhuDiaoPai']['isZhuDiaoPai'] = True #如果是主吊牌，加入主吊牌标记键值对0
 		ListData.append(rawData['ZhuDiaoPai'])
@@ -216,7 +221,8 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
 			raw.sql += judgeWhetherNULL(row['QiTa'])
-			raw.sql += judgeWhetherNULL(1 if 'isZhuDiaoPai' in row else 0, lastOne=True)#表示非主吊牌行
+			raw.sql += judgeWhetherNULL(1 if 'isZhuDiaoPai' in row else 0)#表示非主吊牌行
+			raw.sql += judgeWhetherNULL(ShengChanRiQi, lastOne=True)
 			raw.sql += "UNION ALL\n"
 		raw.sql  = raw.sql[:-10]
 	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, totalCount)
@@ -277,7 +283,7 @@ def insertF02DataBySerialNo(SerialNo, rawData, UserID):
 	:return:
 	"""
 	processID    = 'F02'
-	selectedStep = rawData.pop('selectedStep')
+	selectedStep = rawData.pop('selectedStep') if 'selectedStep' in rawData else "" #如果没有这个键说明是保存状态,同时没有选择步骤
 	isFinished   = rawData.pop('isSubmit')
 	totalCount   = rawData.pop('totalCount')
 	rawData['SerialNo'] = SerialNo
@@ -333,7 +339,7 @@ def WithOutListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID
 		:param processID:表格ID
 		:return:
 		"""
-	selectedStep        = rawData.pop('selectedStep')
+	selectedStep        = rawData.pop('selectedStep') if 'selectedStep' in rawData else "" #如果没有这个键说明是保存状态,同时没有选择步骤
 	isFinished          = rawData.pop('isSubmit')
 	InspectTotalNumber = rawData.pop('totalCount') if 'totalCount' in rawData else 0
 	rawData['SerialNo'] = SerialNo
@@ -390,9 +396,9 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 	:param processID:表格ID
 	:return:
 	"""
-	selectedStep = rawData.pop('selectedStep')
+	selectedStep = rawData.pop('selectedStep') if 'selectedStep' in rawData else "" #如果没有这个键说明是保存状态,同时没有选择步骤
 	isFinished   = rawData.pop('isSubmit')
-	InspectTotalNumber = rawData.pop('totalCount') if 'totalCount' in rawData else 0
+	InspectTotalNumber  = rawData.pop('totalCount') if 'totalCount' in rawData else 0
 	rawData['SerialNo'] = SerialNo
 	formatData   = transformRawDataIntoInsertFormatDict(rawData)
 	raw = Raw_sql()
