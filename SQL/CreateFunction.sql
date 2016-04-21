@@ -112,8 +112,6 @@ END
 
 
 ----判断指定流水号的任务是否合格
-DROP FUNCTION taskJudgement;
-
 CREATE FUNCTION taskJudgement(@serialNo uniqueidentifier)
 -------0：不合格 1：合格 2：不做判定
 RETURNS INT
@@ -143,6 +141,7 @@ END
 
 DROP FUNCTION getDaoLiaoZongShuAndUnit;
 
+----获取到了总数加上对应单位的字符串，如果有两个到了总数就以/分隔
 CREATE FUNCTION getDaoLiaoZongShuAndUnit(@SerialNo uniqueidentifier)
 RETURNS varchar(100)
 AS
@@ -169,3 +168,14 @@ SELECT @MaterialTypeID = MaterialTypeID FROM RMI_MATERIAL_TYPE WHERE MaterialTyp
 RETURN @MaterialTypeID;
 END; 
  
+----根据材料ID获取材料对应工时
+CREATE FUNCTION getMaterialWorkTime(@MaterialID uniqueidentifier)
+RETURNS float
+AS
+BEGIN
+DECLARE @WorkTime float;
+SELECT @WorkTime = WorkTime FROM RMI_MATERIAL_NAME WHERE MaterialID = @MaterialID;
+IF @WorkTime IS NULL
+	SET @WorkTime = 0;
+RETURN @WorkTime;
+END

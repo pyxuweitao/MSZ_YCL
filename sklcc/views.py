@@ -420,3 +420,14 @@ def suppliersAnalysis(request):
 	start = request.GET['start']
 	end   = request.GET['end']
 	return HttpResponse(json.dumps(Statistic.getSuppliersAssessmentDataByDate(start, end), encoding='GBK'))
+
+
+def inspectorWorkTimeSummary(request):
+	"""
+	进料检验公示汇总
+	:param request:客户端请求，GET搜索域包含日期的年份和月份
+	:return:返回报表详细数据的JSON格式文本
+	"""
+	year  = request.GET['year']
+	month = request.GET['month']
+	return HttpResponse(json.dumps(Statistic.getInspectorWorkTimeGroupByMaterial(year, month), encoding='GBK'))

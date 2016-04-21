@@ -26,3 +26,32 @@ def getSuppliersAssessmentDataByDate(start, end):
 	res, cols = raw.query_all(needColumnName=True)
 	return CommonUtilities.translateQueryResIntoDict(columns=cols, res=res)
 
+
+def getInspectorWorkTimeGroupByMaterial(year, month):
+	"""
+	根据查询的年份和月份产生当月检验员工时汇总
+	:param year:年份
+	:param month:月份，不规范
+	:return:[{no:"123432",name:"陈美华",
+            listData:[
+           {name:"name1",count:234,time:3232},
+           {name:"name2",count:2234,time:32232}]}]
+	"""
+	raw = rawSql.Raw_sql()
+	raw.sql = """SELECT Inspectors, dbo.getUserNameByUserID(Inspectors) InspectorName, MaterialID, dbo.getMaterialNameByID(MaterialID) MaterialName,
+ 				 dbo.getMaterialWorkTime(MaterialID) WorkTime, SUM(InspectTotalNumber) InspectTotalNumber
+ 				 FROM RMI_TASK_DIVIDE_INSPECTOR
+				 WHERE InspectTotalNumber is not null AND convert(varchar(7),CreateTime,120) = '%s'
+			     GROUP BY Inspectors, MaterialID"""%unicode(year)+'-'+unicode(month).ljust(2,'0')
+	data = list()
+	res  = raw.query_all()
+	if res:
+		for row in res:
+			if row[0] not in data:
+				data[row[0]] = {"name":row[1],"listData":dict()}
+			data[row[0]]['listData'][row[2]] = {"name":row[3], "time":row[4], "count":row[5]}
+
+	for inspectorNo, inspectorData in res.items():
+		inspectorData.listData = inspectorData.values
+		data.append({"no":inspectorNo}.update(inspectorData))
+	return data
