@@ -16,31 +16,44 @@ def getTasksList(UserID):
 			"GongYingShang":{"id":供应商代码, "name":供应商名称},
 			"WuLiao":{"id":材料名称ID, "name":材料名称, "cata":材料种类名称},
 			"DaoLiaoZongShu":到料总数, "DanWei":{"id":到料总数单位ID, "name":到料总数单位}
-			"DaoLiaoZongShu2":到料总数, "DanWei":{"id":到料总数单位ID, "name":到料总数单位}
+			"DaoLiaoZongShu2":到料总数, "DanWei":{"id":到料总数单位ID, "name":到料总数单位},
+			"XieZuoRen":当前任务的协作人员，不包含任务创建者
 		}
 	"""
 	raw = rawSql.Raw_sql()
-	raw.sql = """SELECT SerialNo, CONVERT(VARCHAR(16), a.CreateTime, 20) CreateTime, CONVERT(VARCHAR(16), a.LastModifiedTime, 20) LastModifiedTime,
-	           ProductNo, ColorNo, CONVERT(VARCHAR(10), a.ArriveTime, 20) ArriveTime, Name, SupplierCode,
+	raw.sql = """SELECT SerialNo, CONVERT(VARCHAR(16), CreateTime, 20) CreateTime, CONVERT(VARCHAR(16), LastModifiedTime, 20) LastModifiedTime,
+	           ProductNo, ColorNo, CONVERT(VARCHAR(10), ArriveTime, 20) ArriveTime, dbo.getUserNameByUserID(UserID), SupplierCode,
 	           dbo.getSupplierNameByID(SupplierCode), MaterialID, dbo.getMaterialNameByID(MaterialID),
 	           dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)), DaoLiaoZongShu, UnitID,
-	           dbo.getUnitNameByID(UnitID), DaoLiaoZongShu2, UnitID2, dbo.getUnitNameByID(UnitID2) AS DanWei2
-	           FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_ACCOUNT_USER b WITH(NOLOCK)
-	           ON ID = UserID"""
+	           dbo.getUnitNameByID(UnitID), DaoLiaoZongShu2, UnitID2, dbo.getUnitNameByID(UnitID2) AS DanWei2, Inspectors, UserID
+	           FROM RMI_TASK WITH(NOLOCK)"""
 	if UserID != 'ALL':
-		raw.sql += " WHERE ID = '%s' AND State = 2" % UserID
+		raw.sql += " WHERE UserID = '%s' AND State = 2" % UserID
 	else:
 		raw.sql += " WHERE State = 0"
-	res = raw.query_all()
+	res        = raw.query_all()
 	jsonReturn = list()
+
 	for row in res:
+		#协作人以@字符分割，但是其中包含创建任务人
+		Inspectors    = row[18].split('@')
+		InspectorList = list()
+		for inspectorNo in Inspectors:
+			if inspectorNo == row[19]:
+				continue
+			raw.sql       = "SELECT DBO.getUserNameByUserID('%s')"%inspectorNo
+			inspectorName = raw.query_one()
+			if inspectorName:
+				inspectorName = inspectorName[0]
+			InspectorList.append({'Name':inspectorName, 'ID':inspectorNo})
 		jsonReturn.append({
 			"SerialNo":row[0], "CreateTime":row[1], "LastModifiedTime":row[2],
 			"ProductNo":row[3], "ColorNo":row[4], "ArriveTime":row[5], "Name":row[6],
 			"GongYingShang":{"id":row[7], "name":row[8]},
 			"WuLiao":{"id":row[9], "name":row[10], "cata":row[11]},
 			"DaoLiaoZongShu":row[12], "DanWei":{"id":row[13], "name":row[14]},
-			"DaoLiaoZongShu2":row[15], "DanWei2":{"id":row[16], "name":row[17]}
+			"DaoLiaoZongShu2":row[15], "DanWei2":{"id":row[16], "name":row[17]},
+			"XieZuoRen":InspectorList
 		})
 	return jsonReturn
 
@@ -56,25 +69,28 @@ def editTaskInfo(taskInfo, userID):
 	#如果没有设置为None，即使前台返回null，经JSON转义仍为None
 	taskInfo['DaoLiaoZongShu2'] = False if 'DaoLiaoZongShu2' not in taskInfo else taskInfo['DaoLiaoZongShu2']
 	taskInfo['DanWei2']         = {'id':None} if 'DanWei2' not in taskInfo else taskInfo['DanWei2']
+	#前端传来的协作者不包含当前登录人员ID
+	taskInfo['XieZuoRen'].append({'ID':userID})
+	taskInfo['Inspectors']      = "@".join([User['ID'] for User in taskInfo['XieZuoRen']])
 	if isNew:
 		raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
-		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2)
-		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s );""" % (
+		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
+		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s' );""" % (
 			          taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
 			          taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
 			          taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
 			          "'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-					  "'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL" )
+					  "'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
 	else:
 		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierCode = '%s', UnitID = '%s',
                      DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
-                     UnitID2 = %s
+                     UnitID2 = %s, Inspectors = '%s'
 		             WHERE SerialNo = '%s'""" % (
 					taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
 					taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
 		            taskInfo['ArriveTime'][:10].replace('-',''),
 					"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-					"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL",
+					"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
 					taskInfo['SerialNo'])
 	return raw.update()
 

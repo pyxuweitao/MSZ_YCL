@@ -5,6 +5,7 @@
 __author__ = 'XuWeitao'
 from rawSql import Raw_sql
 import json
+import CommonUtilities
 
 
 def whetherAlreadyRegistered(Id):
@@ -16,17 +17,6 @@ def whetherAlreadyRegistered(Id):
 	raw = Raw_sql()
 	raw.sql = "SELECT * FROM RMI_ACCOUNT_USER WITH(NOLOCK) WHERE Id = '%s'" % Id
 	return True if len(raw.query_all()) != 0 else False
-
-
-def authentication(Id, password):
-	"""
-	验证用户登录
-	:param Id:用户ID
-	:param password:用户密码
-	:return: 返回是否验证通过的布尔值
-	"""
-	pass
-
 
 def getEmployeeCreateTime(Id):
 	"""
@@ -41,7 +31,6 @@ def getEmployeeCreateTime(Id):
 		return None
 	else:
 		return result[0]
-
 
 def editEmployeeInfo(employeeInfo):
 	"""
@@ -112,3 +101,17 @@ def deleteUserInfo(ID='ALL'):
 	if ID != 'ALL':
 		raw.sql += " WHERE ID = '%s'"%ID
 	raw.update()
+
+def getUserInfoByIdOrName(IdOrName):
+	"""
+	根据ID或者工号模糊查询获取对应的员工信息
+	:param IdOrName: ID或者员工名称的信息
+	:return:
+	"""
+	raw       = Raw_sql()
+	raw.sql   = """SELECT ID, Name, Password, DepartmentID, JobID, Permission,
+	          CONVERT(varchar(16), CreateTime, 20) CreateTime,
+	          CONVERT(varchar(16), LastModifiedTime, 20) LastModifiedTime
+	          FROM RMI_ACCOUNT_USER WHERE ID LIKE '%%%%%s%%%%' OR Name LIKE '%%%%%s%%%%'"""%(IdOrName, IdOrName)
+	res, cols = raw.query_all(needColumnName=True)
+	return CommonUtilities.translateQueryResIntoDict(res=res, columns=cols)

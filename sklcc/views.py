@@ -116,18 +116,14 @@ def users_info_operations(request):
 	return HttpResponse(json.dumps(getUserInfo(), encoding='GB2312', ensure_ascii=False))
 
 
-def user_info(request, Id):
-	cursor = connection.cursor()
-	if request.method == 'GET':
-		cursor.execute("select * from RMI_ACCOUNT_USER where Id = '%s'" % Id)
-		user_data = cursor.fetchone()
-		if not user_data:
-			return HttpResponseNotFound()
-		col_names = [desc[0] for desc in cursor.description]
-		user = dict(zip(col_names, user_data))
-		return HttpResponse(json.dumps(user, encoding='GB2312'), content_type="application/json")
-	else:
-		return HttpResponseBadRequest()
+def user_info(request, IdOrName):
+	"""
+	根据Id或者Name获取员工信息
+	:param request: 客户端请求
+	:param IdOrName:
+	:return:
+	"""
+	return HttpResponse(json.dumps(getUserInfoByIdOrName(IdOrName), encoding='GB2312'))
 
 
 def getTasks(request, UserID):
