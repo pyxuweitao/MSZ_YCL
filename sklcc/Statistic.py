@@ -42,16 +42,17 @@ def getInspectorWorkTimeGroupByMaterial(year, month):
  				 dbo.getMaterialWorkTime(MaterialID) WorkTime, SUM(InspectTotalNumber) InspectTotalNumber
  				 FROM RMI_TASK_DIVIDE_INSPECTOR
 				 WHERE InspectTotalNumber is not null AND convert(varchar(7),CreateTime,120) = '%s'
-			     GROUP BY Inspectors, MaterialID"""%unicode(year)+'-'+unicode(month).ljust(2,'0')
-	data = list()
+			     GROUP BY Inspectors, MaterialID"""%(unicode(year)+'-'+unicode(month).rjust(2,'0'))
+	data     = list()
+	dataTemp = dict()
 	res  = raw.query_all()
 	if res:
 		for row in res:
-			if row[0] not in data:
-				data[row[0]] = {"name":row[1],"listData":dict()}
-			data[row[0]]['listData'][row[2]] = {"name":row[3], "time":row[4], "count":row[5]}
-
-	for inspectorNo, inspectorData in res.items():
-		inspectorData.listData = inspectorData.values
-		data.append({"no":inspectorNo}.update(inspectorData))
+			if row[0] not in dataTemp:
+				dataTemp[row[0]] = {"name":row[1],"listData":dict()}
+			dataTemp[row[0]]['listData'][row[2]] = {"name":row[3], "time":row[4], "count":row[5]}
+	for inspectorNo, inspectorData in dataTemp.items():
+		inspectorData['listData'] = inspectorData['listData'].values()
+		inspectorData['no']       = inspectorNo
+		data.append(inspectorData)
 	return data

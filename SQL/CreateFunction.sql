@@ -157,24 +157,25 @@ ELSE
 RETURN @DaoLiaoZongShuAndUnit;
 END
 
-
+DROP FUNCTION getMaterialTypeIDByMaterialTypeName
 ------根据材料种类名称获取材料种类ID
 CREATE FUNCTION getMaterialTypeIDByMaterialTypeName(@MaterialTypeName varchar(50))
 RETURNS uniqueidentifier
 AS
 BEGIN
 DECLARE @MaterialTypeID uniqueidentifier;
-SELECT @MaterialTypeID = MaterialTypeID FROM RMI_MATERIAL_TYPE WHERE MaterialTypeName = @MaterialTypeName;
+SELECT TOP 1 @MaterialTypeID = MaterialTypeID FROM RMI_MATERIAL_TYPE WHERE MaterialTypeName = @MaterialTypeName;
 RETURN @MaterialTypeID;
 END; 
  
+DROP FUNCTION getMaterialWorkTime
 ----根据材料ID获取材料对应工时
 CREATE FUNCTION getMaterialWorkTime(@MaterialID uniqueidentifier)
 RETURNS float
 AS
 BEGIN
 DECLARE @WorkTime float;
-SELECT @WorkTime = WorkTime FROM RMI_MATERIAL_NAME WHERE MaterialID = @MaterialID;
+SELECT TOP 1 @WorkTime = WorkTime FROM RMI_MATERIAL_NAME WHERE MaterialID = @MaterialID;
 IF @WorkTime IS NULL
 	SET @WorkTime = 0;
 RETURN @WorkTime;

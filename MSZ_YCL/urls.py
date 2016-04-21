@@ -34,7 +34,7 @@ urlpatterns = patterns('',
 
     #statistic
 	url(r'^api/statistic/suppliersAnalysis/$', views.suppliersAnalysis),
-	url(r'^api/statistic/inspectorWorkTimeSummary/$', views.suppliersAnalysis),
+	url(r'^api/statistic/inspectorWorkTimeSummary/$', views.inspectorWorkTimeSummary),
 
 	#administration
     url(r'^api/users/$',views.users_info_operations),
