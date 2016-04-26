@@ -70,28 +70,31 @@ def editTaskInfo(taskInfo, userID):
 	taskInfo['DaoLiaoZongShu2'] = False if 'DaoLiaoZongShu2' not in taskInfo else taskInfo['DaoLiaoZongShu2']
 	taskInfo['DanWei2']         = {'id':None} if 'DanWei2' not in taskInfo else taskInfo['DanWei2']
 	#前端传来的协作者不包含当前登录人员ID
-	taskInfo['XieZuoRen'].append({'ID':userID})
-	taskInfo['Inspectors']      = "@".join([User['ID'] for User in taskInfo['XieZuoRen']])
+	if 'XieZuoRen' in taskInfo:
+		taskInfo['XieZuoRen'].append({'ID':userID})
+		taskInfo['Inspectors'] = "@".join([User['ID'] for User in taskInfo['XieZuoRen']])
+	else:
+		taskInfo['Inspectors'] = userID
 	if isNew:
 		raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
 		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
 		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s' );""" % (
-			          taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
-			          taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
-			          taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
-			          "'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-					  "'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
+			taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
+			taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
+			taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
+			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
 	else:
 		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierCode = '%s', UnitID = '%s',
                      DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
                      UnitID2 = %s, Inspectors = '%s'
 		             WHERE SerialNo = '%s'""" % (
-					taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
-					taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
-		            taskInfo['ArriveTime'][:10].replace('-',''),
-					"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-					"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
-					taskInfo['SerialNo'])
+			taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
+			taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
+			taskInfo['ArriveTime'][:10].replace('-',''),
+			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
+			taskInfo['SerialNo'])
 	return raw.update()
 
 def getFlowList():
