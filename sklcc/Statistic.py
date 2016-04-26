@@ -15,7 +15,9 @@ def getSuppliersAssessmentDataByDate(start, end):
 	"TongJiQiNeiDaoHuoPiCi": 统计期内到货批次, "GongHuoShuLiang": 供货数量, "GongYingShangBianMa": 供应商编码,
 	"JinHuoJianYanHeGeLv": 进货检验合格率, "BuHeGePiCi": 不合格批次数量},...]
 	"""
-	raw = rawSql.Raw_sql()
+	raw     = rawSql.Raw_sql()
+	start   = "-".join([number.rjust(2,'0') if len(number) < 2 else number for number in start.split('-')])
+	end     = "-".join([number.rjust(2,'0') if len(number) < 2 else number for number in end.split('-')])
 	raw.sql = """SELECT GongYingShangBianMa, dbo.getSupplierNameByID(GongYingShangBianMa) GongYingShangMingCheng,
 				 SUM(GongHuoShuLiang) GongHuoShuLiang, SUM(TongJiQiNeiDaoHuoPiCi) TongJiQiNeiDaoHuoPiCi,
 				 SUM(BuHeGePiCi) BuHeGePiCi, SUM(BuHeGeShuLiang) BuHeGeShuLiang,
