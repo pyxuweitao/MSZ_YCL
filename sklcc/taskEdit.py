@@ -84,6 +84,10 @@ def editTaskInfo(taskInfo, userID):
 			taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
 			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
 			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
+		raw.update()
+		#辅料表页面右上角快速新建任务流水号的返回
+		raw.sql = "SELECT TOP 1 SerialNo FROM RMI_TASK WHERE UserID = '%s' AND State = 2 ORDER BY CreateTime desc"%userID
+		return raw.query_one()[0]
 	else:
 		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierCode = '%s', UnitID = '%s',
                      DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
@@ -95,7 +99,8 @@ def editTaskInfo(taskInfo, userID):
 			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
 			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
 			taskInfo['SerialNo'])
-	return raw.update()
+		raw.update()
+
 
 def getFlowList():
 	"""

@@ -141,8 +141,7 @@ def editTask(request):
 	:param request:客户端请求，其中包含需要修改的任务的serialNo和对应的信息
 	:return:
 	"""
-	taskEdit.editTaskInfo(json.loads(request.body[5:], encoding='utf-8'), request.session['UserId'])
-	return HttpResponse()
+	return HttpResponse(taskEdit.editTaskInfo(json.loads(request.body[5:], encoding='utf-8'), request.session['UserId']))
 
 def commitTask(request, SerialNo):
 	"""
@@ -263,12 +262,12 @@ def SupplierInfo(request, fuzzySupplierName, supplierCodeOrID):
 	elif request.method == 'POST':
 		values = json.loads(request.POST['INFO'])
 		supplier.newInfo(columns=['SupplierName', 'SupplierCode', 'LastModifiedTime', 'LastModifiedUser'],
-		                 values=[values['name'], values['id'], 'GETDATE()', UserID ])
+		                 values=[values['name'], values['code'] if 'code' in values else '', 'GETDATE()', UserID ])
 	elif request.method == 'PUT':
 		info = json.loads(request.body[5:])
 		supplier.updateInfo(
 				updateInfoWhereValues=[supplierCodeOrID], updateInfoWhereColumns=['SupplierID'],
-				updateColumns=['SupplierName', 'SupplierCode'], updateValues=[info['name'], info['id']] )
+				updateColumns=['SupplierName', 'SupplierCode'], updateValues=[info['name'], info['code']] )
 	elif request.method == 'DELETE':
 		supplier.deleteInfo(deleteInfoID=supplierCodeOrID)
 	return HttpResponse()
@@ -431,3 +430,8 @@ def inspectorWorkTimeSummary(request):
 	year  = request.GET['year']
 	month = request.GET['month']
 	return HttpResponse(json.dumps(Statistic.getInspectorWorkTimeGroupByMaterial(year, month), encoding='GBK'))
+
+
+def updateInfo(request):
+	html = get_template("update.html")
+	return TemplateResponse(request, html)

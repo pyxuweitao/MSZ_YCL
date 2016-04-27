@@ -46,7 +46,9 @@ urlpatterns = patterns('',
 	url(r'^api/users/(\w+)/delete/$', views.deleteUser),
 
 
-	url(r'api/test/$', views.test)
+	url(r'api/test/$', views.test),
+	#updateInfo
+	url(r'^api/updateInfo/$', views.updateInfo),
 )
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
