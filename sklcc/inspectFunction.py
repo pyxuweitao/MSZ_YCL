@@ -89,9 +89,10 @@ def getTaskInfo(processID, serialNo):
   	            dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu,
   	            dbo.getSupplierNameByID(SupplierCode) AS GongYingShang,
 	            dbo.getMaterialNameByID(MaterialID) AS CaiLiaoMingCheng,
-	            dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)) AS CaiLiaoDaLei
+	            dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)) AS CaiLiaoDaLei,
+	            dbo.getConfigByProcessIDAndMaterialTypeID(MaterialID, '%s') config
   	            FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
-  	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, serialNo)
+  	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, processID, serialNo)
 	res, columns = raw.query_one(needColumnName=True)
 	return translateQueryResIntoDict(columns, (res,))[0]
 

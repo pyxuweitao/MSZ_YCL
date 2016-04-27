@@ -241,12 +241,12 @@ def passProcess(requests, serialNo, processID):
 	passProcessBySerialNo(serialNo, processID, UserID)
 	return HttpResponse()
 
-def SupplierInfo(request, fuzzySupplierName, supplierCode):
+def SupplierInfo(request, fuzzySupplierName, supplierCodeOrID):
 	"""
 	供应商维护界面增删查改相关操作
 	:param request:客户端请求，包括获取所有供应商信息，根据对应请求方法去修改、新建、删除供应商
 	:param fuzzySupplierName:如果是模糊查询这个值为非空，为空时返回所有
-	:param supplierCode:供应商代码
+	:param supplierCodeOrID:对应到查询界面，此处为供应商代码，对应到更新时，这个where条件为SupplierID
 	:return:
 	"""
 	UserID   = request.session['UserId']
@@ -254,12 +254,12 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 	if request.method == 'GET':
 		if fuzzySupplierName:
 			return HttpResponse(json.dumps(
-				supplier.getInfoByFuzzyInput(fuzzyInput=fuzzySupplierName, fuzzyFieldName='supplierName', columns=['SupplierCode', 'SupplierName'],
-				                             columnsAlternativeNames=['id','name']), encoding='GBK'))
+				supplier.getInfoByFuzzyInput(fuzzyInput=fuzzySupplierName, fuzzyFieldName='supplierName', columns=['SupplierID', 'SupplierCode', 'SupplierName'],
+				                             columnsAlternativeNames=['id', 'code', 'name']), encoding='GBK'))
 		else:
 			return HttpResponse(json.dumps(
-				supplier.getInfoByID(ID=supplierCode, columns=['SupplierCode', 'SupplierName'],
-		                        columnsAlternativeNames=['id','name']), encoding='GBK'))
+				supplier.getInfoByID(ID=supplierCodeOrID, columns=['SupplierID', 'SupplierCode', 'SupplierName'],
+				                     columnsAlternativeNames=['id', 'code', 'name']), encoding='GBK'))
 	elif request.method == 'POST':
 		values = json.loads(request.POST['INFO'])
 		supplier.newInfo(columns=['SupplierName', 'SupplierCode', 'LastModifiedTime', 'LastModifiedUser'],
@@ -267,10 +267,10 @@ def SupplierInfo(request, fuzzySupplierName, supplierCode):
 	elif request.method == 'PUT':
 		info = json.loads(request.body[5:])
 		supplier.updateInfo(
-				updateInfoWhereValues=[supplierCode], updateInfoWhereColumns=['SupplierCode'],
+				updateInfoWhereValues=[supplierCodeOrID], updateInfoWhereColumns=['SupplierID'],
 				updateColumns=['SupplierName', 'SupplierCode'], updateValues=[info['name'], info['id']] )
 	elif request.method == 'DELETE':
-		supplier.deleteInfo(deleteInfoID=supplierCode)
+		supplier.deleteInfo(deleteInfoID=supplierCodeOrID)
 	return HttpResponse()
 
 def MaterialTypeInfo(request, fuzzyMaterialTypeName, MaterialTypeID):

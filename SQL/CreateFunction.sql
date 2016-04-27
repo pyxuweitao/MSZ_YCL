@@ -182,3 +182,18 @@ RETURN @WorkTime;
 END
 
 
+ 
+DROP FUNCTION getConfigByProcessIDAndMaterialID
+----根据表格ID和材料小类ID获取前端配置代码
+CREATE FUNCTION getConfigByProcessIDAndMaterialTypeID(@MaterialID uniqueidentifier, @ProcessID varchar(50))
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @config varchar(MAX);
+SELECT TOP 1 @config = JavaScriptConfig FROM RMI_TABLE_CONFIG WHERE MaterialID = @MaterialID AND ProcessID = @ProcessID;
+IF @config IS NULL
+	SET @config = '';
+RETURN @config;
+END
+
+
