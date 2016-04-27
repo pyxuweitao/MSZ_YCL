@@ -48,6 +48,19 @@ def getInspectorWorkTimeGroupByMaterial(year, month):
 	data     = list()
 	dataTemp = dict()
 	res  = raw.query_all()
+	#工时增加主吊牌计算
+	raw.sql = """SELECT InspectorNo,  dbo.getUserNameByUserID(InspectorNo) InspectorName, '04de803d-6570-4547-8dc0-1eda8470baf6',
+				 dbo.getMaterialNameByID('04de803d-6570-4547-8dc0-1eda8470baf6') MaterialName,
+				 dbo.getMaterialWorkTime('04de803d-6570-4547-8dc0-1eda8470baf6') WorkTime, SUM(JianYanShu) InspectTotalNumber
+ 				 FROM RMI_F01_DATA
+ 				 WHERE SerialNo in (
+ 				 SELECT SerialNo FROM RMI_TASK WHERE convert(varchar(7),CreateTime,120) = '%s')
+ 				 AND isZhuDiaoPai = 1 AND JianYanShu is not null
+ 				 GROUP BY InspectorNo"""%(unicode(year)+'-'+unicode(month).rjust(2,'0'))
+	res2 = raw.query_all()
+	if res2:
+		res += res2
+
 	if res:
 		for row in res:
 			if row[0] not in dataTemp:

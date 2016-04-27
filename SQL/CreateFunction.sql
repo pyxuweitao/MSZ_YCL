@@ -180,3 +180,5 @@ IF @WorkTime IS NULL
 	SET @WorkTime = 0;
 RETURN @WorkTime;
 END
+
+

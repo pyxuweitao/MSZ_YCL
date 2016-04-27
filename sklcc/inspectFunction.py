@@ -420,6 +420,7 @@ def getAllQuestionsByQuestionClass(questionClass):
 	:param questionClass:疵点种类
 	:return:对应疵点种类的所有疵点
 	"""
+	print questionClass
 	raw       = Raw_sql()
 	raw.sql   = "SELECT questionID as id, questionName as label FROM RMI_QUESTION WHERE questionClass LIKE '%%%%%s%%%%'"%questionClass
 	res, cols = raw.query_all(needColumnName=True)
