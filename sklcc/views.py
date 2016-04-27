@@ -433,5 +433,10 @@ def inspectorWorkTimeSummary(request):
 
 
 def updateInfo(request):
+	"""
+	更新内容页面
+	:param request: 客户端请求
+	:return: 返回静态页面
+	"""
 	html = get_template("update.html")
 	return TemplateResponse(request, html)
