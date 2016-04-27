@@ -13,8 +13,9 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+import os,sys
 
+sys.path.append(os.path.join(os.path.dirname(__file__),"..").replace('\\','/'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "MSZ_YCL.settings")
 
 # This application object is used by any WSGI server configured to use this

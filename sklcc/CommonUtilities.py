@@ -40,7 +40,7 @@ def JSONToCreateTable(JSON):
 	for k, v in rawDict.items():
 		temp = "%s varchar(50),\n"%k if not isinstance(v, bool) else "%s bit,\n"%k
 		SQL += temp
-	SQL += """Id uniqueidentifier default newid() primary key,
+	SQL += """Id uniqueidentifier default NEWSEQUENTIALID() primary key,
 			  SerialNo uniqueidentifier,
 			  InspectorNo varchar(50)"""
 	SQL += ")"

@@ -1,32 +1,118 @@
 {
-  'shixiao': {
-    'listData': {
-      '67A8831C-7738-4915-A81F-8D3055012A86': {
-        'count': 654.0,
-        'name': '\xb2\xb8\xc8\xe9\xbf\xdb',
-        'time': 9.0
-      }
+  "JianYanShu": null,
+  "ShengChanRiQi": "1970-01-01T00:00:00.000Z",
+  "listData": [
+    {
+      "isZhuDiaoPai": null,
+      "JianYanShu": 11,
+      "DingDanShu": null,
+      "ShengChanRiQi": null,
+      "QiTa": null,
+      "TouChanShu": null,
+      "GuiGe": "A1",
+      "HeGeShu": 11,
+      "SaoMiaoJieGuo": "OK",
+      "ShiCeShu": 11,
+      "DingDanHao": null,
+      "BiaoZhiShu": 11,
+      "WaiGuan": 1,
+      "JianYanHao": "3",
+      "hasDingDanShu": false,
+      "hasTouChanShu": false,
+      "timer": null
     },
-    'name': '\xca\xb7\xcf\xfe'
+    {
+      "GuiGe": "B1",
+      "BiaoZhiShu": 22,
+      "ShiCeShu": 22,
+      "HeGeShu": 22,
+      "WaiGuan": 1,
+      "JianYanShu": 22,
+      "SaoMiaoJieGuo": "OK",
+      "JianYanHao": "3",
+      "QiTa": null,
+      "TouChanShu": null,
+      "DingDanShu": null,
+      "hasDingDanShu": false,
+      "hasTouChanShu": false,
+      "timer": null
+    },
+    {
+      "GuiGe": "C1",
+      "BiaoZhiShu": 33,
+      "ShiCeShu": 33,
+      "HeGeShu": 33,
+      "WaiGuan": 1,
+      "JianYanShu": 33,
+      "SaoMiaoJieGuo": "OK",
+      "JianYanHao": "3",
+      "QiTa": null,
+      "TouChanShu": null,
+      "DingDanShu": null,
+      "hasDingDanShu": false,
+      "hasTouChanShu": false,
+      "timer": null
+    },
+    {
+      "GuiGe": "D1",
+      "BiaoZhiShu": 44,
+      "ShiCeShu": 44,
+      "HeGeShu": 44,
+      "WaiGuan": 1,
+      "JianYanShu": 44,
+      "SaoMiaoJieGuo": "OK",
+      "JianYanHao": "3",
+      "QiTa": null,
+      "TouChanShu": null,
+      "DingDanShu": null,
+      "hasDingDanShu": false,
+      "hasTouChanShu": false,
+      "timer": null
+    }
+  ],
+  "DingDanShu": null,
+  "DingDanHao": "sB",
+  "ShiCeShu": null,
+  "step": [
+    {
+      "state": 0,
+      "name": "检验员填写",
+      "value": "4B652F7E-846E-419C-818E-544E1D00E6A5"
+    },
+    {
+      "state": 0,
+      "name": "审核",
+      "value": "36929B8A-8C15-4068-8C0A-6DA2060AA172"
+    }
+  ],
+  "isZhuDiaoPai": null,
+  "HeGeShu": null,
+  "SaoMiaoJieGuo": null,
+  "TouChanShu": null,
+  "GuiGe": null,
+  "BiaoZhiShu": null,
+  "WaiGuan": null,
+  "JianYanHao": null,
+  "QiTa": null,
+  "ZhuDiaoPai": {
+    "GuiGe": "E1",
+    "BiaoZhiShu": 55,
+    "ShiCeShu": 55,
+    "HeGeShu": 55,
+    "WaiGuan": true,
+    "SaoMiaoJieGuo": "OK",
+    "JianYanHao": "3",
+    "QiTa": null,
+    "TouChanShu": null,
+    "DingDanShu": null,
+    "hasDingDanShu": false,
+    "hasTouChanShu": false,
+    "JianYanShu": 55,
+    "timer": null
   },
-  '0000': {
-    'listData': {
-      '67A8831C-7738-4915-A81F-8D3055012A86': {
-        'count': 654.0,
-        'name': '\xb2\xb8\xc8\xe9\xbf\xdb',
-        'time': 9.0
-      }
-    },
-    'name': '\xcd\xf5\xd1\xde'
-  },
-  '1227401050': {
-    'listData': {
-      '67A8831C-7738-4915-A81F-8D3055012A86': {
-        'count': 333.0,
-        'name': '\xb2\xb8\xc8\xe9\xbf\xdb',
-        'time': 9.0
-      }
-    },
-    'name': '\xd0\xec\xce\xac\xcc\xce'
-  }
+  "DaoLiaoZongShu": 110,
+  "default_jianyanhao": "3",
+  "selectedStep": "4B652F7E-846E-419C-818E-544E1D00E6A5",
+  "totalCount": 0,
+  "isSubmit": false
 }

@@ -145,13 +145,17 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
+	print res, columns
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 
 	listData = {'listData': translateQueryResIntoDict(columns, [row for row in res])}
+	print listData
 	for i,row in enumerate(listData['listData']):
 		if row['isZhuDiaoPai']:
 			returnInfo['data']['ZhuDiaoPai'] = listData['listData'].pop(i)
+	print '=============='
+	print listData
 	returnInfo['data'].update(listData)
 	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
@@ -205,9 +209,8 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 		           TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo,
 		           JianYanHao, QiTa, isZhuDiaoPai, ShengChanRiQi ) """%processID
 
-		rawData['ZhuDiaoPai']['isZhuDiaoPai'] = True #如果是主吊牌，加入主吊牌标记键值对0
+		rawData['ZhuDiaoPai']['ZhuDiaoPaiFlag'] = True #如果是主吊牌，加入主吊牌标记键值对0
 		ListData.append(rawData['ZhuDiaoPai'])
-
 		for row in ListData:
 			raw.sql += "SELECT '%s', '%s', '%s'," % ( UserID, SerialNo, DingDanHao )
 			raw.sql += "'%s',"%row['GuiGe'] if row['GuiGe'] else 'NULL,' #规格在主吊牌中有可能不填
@@ -221,7 +224,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
 			raw.sql += judgeWhetherNULL(row['QiTa'])
-			raw.sql += judgeWhetherNULL(1 if 'isZhuDiaoPai' in row else 0)#表示非主吊牌行
+			raw.sql += judgeWhetherNULL(1 if 'ZhuDiaoPaiFlag' in row else 0)#表示非主吊牌行
 			raw.sql += judgeWhetherNULL(ShengChanRiQi, lastOne=True)
 			raw.sql += "UNION ALL\n"
 		raw.sql  = raw.sql[:-10]
