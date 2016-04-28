@@ -1,83 +1,164 @@
-{
-  "KuanDuBiaoZhunZhi": "65",
-  "KuanDuBiaoZhunPianCha": "6151",
-  "KuanDuShiCe1": "65",
-  "KuanDuShiCe2": "65",
-  "KuanDuShiCe3": "165",
-  "ChangDuBiaoZhunZhi": "165",
-  "ChangDuBiaoZhunPianCha": "16515",
-  "ChangDuShiCe1": "1651",
-  "ChangDuShiCe2": "65",
-  "ChangDuShiCe3": "165",
-  "JuanHao": "12",
-  "GangHao": "4156",
-  "ShuLiangPiBiao1": "456",
-  "ShuLiangShiCe1": "48",
-  "ShuLiangPiBiao2": "489",
-  "ShuLiangShiCe2": "84",
-  "JianYanShu": "984",
-  "KuanDuOrGuiGeBiaoZhunZhi": "89498",
-  "KuanDuOrGuiGeBiaoZhunPianCha": "489",
-  "KuanDuOrGuiGeShiCe1": "498",
-  "KuanDuOrGuiGeShiCe2": "49",
-  "KuanDuOrGuiGeShiCe3": "8489",
-  "CiDianJiDian": "489",
-  "CiDianJiFen": "4",
-  "DuiChenXingOrWanQuDuBiaoZhunZhi": "894",
-  "DuiChenXingOrWanQuDuBiaoZhunPianCha": "894",
-  "DuiChenXingOrWanQuDuShiCe": "984",
-  "KeZhongBiaoZhunPianCha": "51651",
-  "KeZhongShiCe": "516",
-  "KeZhongBiaoZhunZhi": "156",
-  "KaiDuBiaoZhunZhi": "55",
-  "KaiDuBiaoZhunPianCha": "156",
-  "KaiDuShiCe": "51651",
-  "HouDuBiaoZhunZhi": "651",
-  "HouDuBiaoZhunPianCha": "651",
-  "HouDuShiCe": "651",
-  "HuaXingBiaoZhunZhi": "651",
-  "HuaXingBiaoZhunPianCha": "51",
-  "HuaXingShiCe": "561",
-  "DengJiPanDing": "C",
-  "BeiZhu": "51",
-  "ShouRouHuiSuoLv": "156",
-  "ZiRanHuiSuoLv": "615",
-  "XiangMuFlag": {
-    "hasKuanDuOrGuiGe": true,
-    "hasCiDian": true,
-    "hasDuiChenXingOrWanQuDu": true,
-    "hasKeZhong": true,
-    "hasKaiDu": true,
-    "hasChangKuan": true,
-    "hasHouDu": true,
-    "hasHuaXingXunHuan": true
-  },
-  "check1": true,
-  "check2": true,
-  "check3": true,
-  "LeiBie": "A",
-  "ShuLiang": {
-    "MiIsChecked": true,
-    "PianIsChecked": true
-  },
-  "GuiGeOrKuanDu": "KuanDu",
-  "GuiGeOrKuanDuDanWei": "23",
-  "DuiChenXingOrWanQuDu": "WanQuDu",
-  "DuiChenXingOrWanQuDuDanWei": "23",
-  "hasBiaoZhunSeKa": true,
-  "BiaoZhunSeKa": "516",
-  "hasCaiLiaoFengYang": true,
-  "CaiLiaoFengYang": "51",
-  "QiWei": "ZhengChang",
-  "QiWeiBeiZhu": "51",
-  "AnLunShiYan": "HeGe",
-  "YanZhenJieGuo": "1565",
-  "ZhengFanMian": "ZhengQue",
-  "ShouGan": "516",
-  "ShaXiang": "ZhengQue",
-  "YinBiaoWeiZhi": "ZhengQue",
-  "GangTuoBeiZhu": "32452345",
-  "CaiLiaoCiDianZhuYaoWenTi": "3245324523",
-  "JieLun": "BuHeGe",
-  "JieLunBeiZhu": "234234"
-}
+[
+  {
+    u
+    'BeiZhu': None,
+    u
+    'JieLunBeiZhu': None,
+    u
+    'HuaXingBiaoZhunPianCha': None,
+    u
+    'KaiDuBiaoZhunPianCha': None,
+    u
+    'KuanDuOrGuiGeShiCe2': None,
+    u
+    'HouDuBiaoZhunZhi': None,
+    u
+    'ShaXiang': None,
+    u
+    'ShouGan': None,
+    u
+    'CaiLiaoCiDianZhuYaoWenTi': None,
+    u
+    'ZhengFanMian': None,
+    u
+    'BiaoZhunSeKa': None,
+    u
+    'JieLun': None,
+    u
+    'hasBiaoZhunSeKa': None,
+    u
+    'XiangMuFlag': {
+      u
+      'hasCiDian': True
+    },
+    u
+    'DuiChenXingOrWanQuDu': None,
+    u
+    'ChanPinZhongLei': None,
+    u
+    'HuaXingBiaoZhunZhi': None,
+    u
+    'KaiDuBiaoZhunZhi': None,
+    u
+    'DuiChenXingOrWanQuDuBiaoZhunPianCha': None,
+    u
+    'LeiBie': u
+    'A',
+    u
+    'JianBianSeCha': None,
+    u
+    'HuaXingShiCe': None,
+    u
+    'ShuLiangPiBiao1': None,
+    u
+    'ShuLiang': None,
+    u
+    'DengJiPanDing': None,
+    u
+    'ShiHuaGaoShiCe': None,
+    u
+    'SerialNo': u
+    '86D6EEA3-F40C-E611-8D17-240A64EA4054',
+    u
+    'DuiChenXingOrWanQuDuDanWei': None,
+    u
+    'HouDuShiCe': None,
+    u
+    'CiDian': [
+      {
+        u
+        'count': 1,
+        u
+        'score': 0,
+        u
+        'mistake': {
+          u
+          'id': u
+          '5589E83B-2C0F-4E38-9709-AAD51F826829',
+          u
+          'label': u
+          '\u9488\u773c'
+        }
+      },
+      {
+        u
+        'count': 1,
+        u
+        'score': 0,
+        u
+        'mistake': {
+          u
+          'id': u
+          '555127FC-2EB3-4952-AB07-62D739907AC8',
+          u
+          'label': u
+          '\u5370\u82b1\u6c61\u67d3'
+        }
+      }
+    ],
+    u
+    'TiaoShuOrJieTou': None,
+    u
+    'KaiDuShiCe': None,
+    u
+    'ShuLiangPiBiao2': None,
+    u
+    'ShiHuaKuanBiaoZhun': None,
+    u
+    'KuanDuOrGuiGeShiCe1': None,
+    u
+    'ShiHuaKuanShiCe': None,
+    u
+    'CaiLiaoMingCheng': None,
+    u
+    'AnLunShiYan': None,
+    u
+    'ShuLiangShiCe1': None,
+    u
+    'KuanDuOrGuiGeBiaoZhunZhi': None,
+    u
+    'DuiChenXingOrWanQuDuShiCe': None,
+    u
+    'KeZhongBiaoZhunPianCha': None,
+    u
+    'JianYanShu': None,
+    u
+    'KuanDuOrGuiGeBiaoZhunPianCha': None,
+    u
+    'KeZhongBiaoZhunZhi': None,
+    u
+    'QiWei': None,
+    u
+    'ShuLiangShiCe2': None,
+    u
+    'DuiChenXingOrWanQuDuBiaoZhunZhi': None,
+    u
+    'GuiGeOrKuanDuDanWei': None,
+    u
+    'GongYingShang': None,
+    u
+    'ShiHuaGaoBiaoZhun': None,
+    u
+    'GuiGeOrKuanDu': None,
+    u
+    'HouDuBiaoZhunPianCha': None,
+    u
+    'JiDianOrJiFen': None,
+    u
+    'GangHao': None,
+    u
+    'ShuiXi': None,
+    u
+    'CaiLiaoFengYang': None,
+    u
+    'QiWeiBeiZhu': None,
+    u
+    'KuanDuOrGuiGeShiCe3': None,
+    u
+    'JuanHao': None,
+    u
+    'KeZhongShiCe': None,
+    u
+    'hasCaiLiaoFengYang': None
+  }
+]

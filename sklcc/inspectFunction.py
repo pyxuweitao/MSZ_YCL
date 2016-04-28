@@ -135,14 +135,14 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	if UserID != "ALL":
 		raw.sql = """SELECT
 	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
-	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai, ShengChanRiQi
+	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu, isZhuDiaoPai, ShengChanRiQi, JingZhong, KeZhong
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s' AND InspectorNo = '%s'""" %( serialNo, UserID )
 	else:
 		raw.sql = """SELECT
 	            DingDanHao, GuiGe, BiaoZhiShu, ShiCeShu, SaoMiaoJieGuo, JianYanShu,
 	            HeGeShu, WaiGuan, JianYanHao, QiTa, TouChanShu, DingDanShu,
-	            dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai, ShengChanRiQi
+	            dbo.getUserNameByUserID(InspectorNo) as Inspector, isZhuDiaoPai, ShengChanRiQi, JingZhong, KeZhong
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
@@ -204,7 +204,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 	if len(ListData) > 0:
 		raw.sql += """INSERT INTO RMI_%s_DATA(InspectorNo, SerialNo, DingDanHao, GuiGe, HeGeShu,
 		           TouChanShu, DingDanShu, BiaoZhiShu, JianYanShu, ShiCeShu, WaiGuan, SaoMiaoJieGuo,
-		           JianYanHao, QiTa, isZhuDiaoPai, ShengChanRiQi ) """%processID
+		           JianYanHao, JingZhong, KeZhong, QiTa, isZhuDiaoPai, ShengChanRiQi ) """%processID
 
 		rawData['ZhuDiaoPai']['ZhuDiaoPaiFlag'] = True #如果是主吊牌，加入主吊牌标记键值对0
 		ListData.append(rawData['ZhuDiaoPai'])
@@ -220,6 +220,8 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['WaiGuan'])
 			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
 			raw.sql += judgeWhetherNULL(row['JianYanHao'])
+			raw.sql += judgeWhetherNULL(row['JingZhong'])
+			raw.sql += judgeWhetherNULL(row['KeZhong'])
 			raw.sql += judgeWhetherNULL(row['QiTa'])
 			raw.sql += judgeWhetherNULL(1 if 'ZhuDiaoPaiFlag' in row else 0)#表示非主吊牌行
 			raw.sql += judgeWhetherNULL(ShengChanRiQi, lastOne=True)
@@ -262,7 +264,7 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
 
-def transformRawDataIntoInsertFormatDict( rawDict ):
+def transformRawDataIntoInsertFormatDict(rawDict):
 	"""
 	根据前台传过来的JSON，将其转换成以行记录为单元的列表，一行记录一个字典，字典中有可能缺少键
 	:param rawDict: 传过来的原始数据
@@ -403,7 +405,7 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 	InspectTotalNumber  = rawData.pop('totalCount') if 'totalCount' in rawData else 0
 	rawData['SerialNo'] = SerialNo
 	formatData   = transformRawDataIntoInsertFormatDict(rawData)
-	raw = Raw_sql()
+	raw      = Raw_sql()
 	raw.sql  = "DELETE FROM RMI_%s_DATA WHERE SerialNo = '%s' AND InspectorNo = '%s';"%(processID, SerialNo, UserID)
 	for row in formatData:
 		columnsString = ",".join(row.keys()) + ",InspectorNo"
