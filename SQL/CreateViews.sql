@@ -2,20 +2,21 @@
 DROP VIEW SupplierInfoAnalysis
 CREATE VIEW SupplierInfoAnalysis /*创建视图*/
   AS
-    SELECT GongYingShangBianMa=SupplierCode,
-		   GongYingShangMingCheng=dbo.getSupplierNameByID(SupplierCode),
+    SELECT GongYingShangBianMa=dbo.getSupplierCodeByID(SupplierID),
+		   GongYingShangMingCheng=dbo.getSupplierNameByID(SupplierID),
 		   GongHuoShuLiang = SUM(DaoLiaoZongShu),  TongJiQiNeiDaoHuoPiCi=COUNT(*),
            BuHeGePiCi=(SELECT COUNT(*) FROM RMI_TASK A
 						WHERE DATEDIFF(DAY,A.CREATETIME,CONVERT(varchar(10), Createtime , 21)) = 0
-						AND dbo.taskJudgement(SerialNo) = 0 AND A.SupplierCode = B.SupplierCode AND A.UnitID = B.UnitID),
+						AND dbo.taskJudgement(SerialNo) = 0 AND A.SupplierID = B.SupplierID AND A.UnitID = B.UnitID),
 		   BuHeGeShuLiang=(SELECT ISNULL(SUM(C.DaoLiaoZongShu), 0) FROM RMI_TASK C
 						   WHERE DATEDIFF(DAY,C.CREATETIME,CONVERT(varchar(10), Createtime , 21)) = 0
 						   AND dbo.taskJudgement(SerialNo) = 0
-						   AND C.SupplierCode = B.SupplierCode AND C.UnitID = B.UnitID),
+						   AND C.SupplierID = B.SupplierID AND C.UnitID = B.UnitID),
 			RiQi=CONVERT(varchar(10), Createtime , 21),
 			DaoHuoShuLiangDanWei=(SELECT dbo.getUnitNameByID(B.UnitID))
-			FROM RMI_TASK B 
-            GROUP BY SupplierCode, UnitID, CONVERT(varchar(10), Createtime , 21)
+			FROM RMI_TASK B
+			WHERE dbo.getSupplierCodeByID(SupplierID) != ''
+            GROUP BY SupplierID, UnitID, CONVERT(varchar(10), Createtime , 21)
 GO
 
 ----对应SQL

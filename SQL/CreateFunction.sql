@@ -101,14 +101,28 @@ SELECT dbo.getUnitNameByID(NULL)
 
 drop FUNCTION getSupplierNameByID
 ---根据供应商代码获取供应商名称
-CREATE FUNCTION getSupplierNameByID(@SupplierCode varchar(50))
+CREATE FUNCTION getSupplierNameByID(@SupplierID uniqueidentifier)
 RETURNS varchar(MAX)
 AS
 BEGIN
 DECLARE @name varchar(MAX);
-SELECT TOP 1 @name = SupplierName FROM RMI_SUPPLIER WHERE SupplierCode = @SupplierCode;
+SELECT TOP 1 @name = SupplierName FROM RMI_SUPPLIER WHERE SupplierID = @SupplierID;
 RETURN @name;
 END
+
+drop FUNCTION getSupplierCodeByID
+---根据供应商代码获取供应商名称
+CREATE FUNCTION getSupplierCodeByID(@SupplierID uniqueidentifier)
+RETURNS varchar(MAX)
+AS
+BEGIN
+DECLARE @code varchar(MAX);
+SELECT TOP 1 @code = SupplierCode FROM RMI_SUPPLIER WHERE SupplierID = @SupplierID;
+IF @code IS NULL
+	SET @code = '';
+RETURN @code;
+END
+
 
 
 ----判断指定流水号的任务是否合格
@@ -183,9 +197,9 @@ END
 
 
  
-DROP FUNCTION getConfigByProcessIDAndMaterialID
+DROP FUNCTION getConfigByProcessIDAndMaterialTypeID
 ----根据表格ID和材料小类ID获取前端配置代码
-CREATE FUNCTION getConfigByProcessIDAndMaterialTypeID(@MaterialID uniqueidentifier, @ProcessID varchar(50))
+CREATE FUNCTION getConfigByProcessIDAndMaterialID(@MaterialID uniqueidentifier, @ProcessID varchar(50))
 RETURNS varchar(MAX)
 AS
 BEGIN

@@ -87,10 +87,10 @@ def getTaskInfo(processID, serialNo):
   	            CONVERT(varchar(10), CreateTime, 20) AS CreateTime,
   	            dbo.getUserNameByUserID(Assessor) AS Assessor, CONVERT(varchar(10), AssessTime, 20) AS AssessTime,
   	            dbo.getDaoLiaoZongShuAndUnit(a.SerialNo) AS DaoLiaoZongShu,
-  	            dbo.getSupplierNameByID(SupplierCode) AS GongYingShang,
+  	            dbo.getSupplierNameByID(SupplierID) AS GongYingShang,
 	            dbo.getMaterialNameByID(MaterialID) AS CaiLiaoMingCheng,
 	            dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)) AS CaiLiaoDaLei,
-	            dbo.getConfigByProcessIDAndMaterialTypeID(MaterialID, '%s') config
+	            dbo.getConfigByProcessIDAndMaterialID(MaterialID, '%s') config
   	            FROM RMI_TASK a WITH(NOLOCK) JOIN RMI_TASK_PROCESS b WITH(NOLOCK)
   	            ON a.SerialNo = b.SerialNo And b.ProcessID = '%s' WHERE a.SerialNo = '%s'"""%(processID, processID, serialNo)
 	res, columns = raw.query_one(needColumnName=True)
@@ -146,17 +146,13 @@ def getF01DataBySerialNoAndUserID(serialNo, processID, UserID):
 	            FROM RMI_F01_DATA WITH(NOLOCK)
 	            WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
-	print res, columns
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 
 	listData = {'listData': translateQueryResIntoDict(columns, [row for row in res])}
-	print listData
 	for i,row in enumerate(listData['listData']):
 		if row['isZhuDiaoPai']:
 			returnInfo['data']['ZhuDiaoPai'] = listData['listData'].pop(i)
-	print '=============='
-	print listData
 	returnInfo['data'].update(listData)
 	returnInfo['data'].update({'step': getStepsBySerialNoAndProcessID(serialNo, processID)})
 	return returnInfo
@@ -219,7 +215,7 @@ def insertF01DataBySerialNo(SerialNo, rawData, UserID):
 			raw.sql += judgeWhetherNULL(row['TouChanShu'] if row['hasTouChanShu'] else None)
 			raw.sql += judgeWhetherNULL(row['DingDanShu'] if row['hasDingDanShu'] else None)
 			raw.sql += judgeWhetherNULL(row['BiaoZhiShu'])
-			raw.sql += judgeWhetherNULL(row['JianYanShu'])
+			raw.sql += judgeWhetherNULL(float(row['JianYanShu']))
 			raw.sql += judgeWhetherNULL(row['ShiCeShu'])
 			raw.sql += judgeWhetherNULL(row['WaiGuan'])
 			raw.sql += judgeWhetherNULL(row['SaoMiaoJieGuo'])
@@ -423,7 +419,6 @@ def getAllQuestionsByQuestionClass(questionClass):
 	:param questionClass:疵点种类
 	:return:对应疵点种类的所有疵点
 	"""
-	print questionClass
 	raw       = Raw_sql()
 	raw.sql   = "SELECT questionID as id, questionName as label FROM RMI_QUESTION WHERE questionClass LIKE '%%%%%s%%%%'"%questionClass
 	res, cols = raw.query_all(needColumnName=True)

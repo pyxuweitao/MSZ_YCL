@@ -22,8 +22,8 @@ def getTasksList(UserID):
 	"""
 	raw = rawSql.Raw_sql()
 	raw.sql = """SELECT SerialNo, CONVERT(VARCHAR(16), CreateTime, 20) CreateTime, CONVERT(VARCHAR(16), LastModifiedTime, 20) LastModifiedTime,
-	           ProductNo, ColorNo, CONVERT(VARCHAR(10), ArriveTime, 20) ArriveTime, dbo.getUserNameByUserID(UserID), SupplierCode,
-	           dbo.getSupplierNameByID(SupplierCode), MaterialID, dbo.getMaterialNameByID(MaterialID),
+	           ProductNo, ColorNo, CONVERT(VARCHAR(10), ArriveTime, 20) ArriveTime, dbo.getUserNameByUserID(UserID), SupplierID,
+	           dbo.getSupplierNameByID(SupplierID), MaterialID, dbo.getMaterialNameByID(MaterialID),
 	           dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)), DaoLiaoZongShu, UnitID,
 	           dbo.getUnitNameByID(UnitID), DaoLiaoZongShu2, UnitID2, dbo.getUnitNameByID(UnitID2) AS DanWei2, Inspectors, UserID
 	           FROM RMI_TASK WITH(NOLOCK)"""
@@ -78,7 +78,7 @@ def editTaskInfo(taskInfo, userID):
 		taskInfo['Inspectors'] = userID
 	if isNew:
 		raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
-		          ArriveTime, UserID, FlowID, MaterialID, SupplierCode, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
+		          ArriveTime, UserID, FlowID, MaterialID, SupplierID, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
 		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s' );""" % (
 			taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
 			taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
@@ -90,7 +90,7 @@ def editTaskInfo(taskInfo, userID):
 		raw.sql = "SELECT TOP 1 SerialNo FROM RMI_TASK WHERE UserID = '%s' AND State = 2 ORDER BY CreateTime desc"%userID
 		return raw.query_one()[0]
 	else:
-		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierCode = '%s', UnitID = '%s',
+		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierID = '%s', UnitID = '%s',
                      DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
                      UnitID2 = %s, Inspectors = '%s'
 		             WHERE SerialNo = '%s'""" % (
