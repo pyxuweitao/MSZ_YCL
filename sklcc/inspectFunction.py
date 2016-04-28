@@ -259,8 +259,7 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	             WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
 	#为勾袢自动添加大小的设定添加键
-	returnInfo['info']['isEmpty'] = True if res else False
-
+	returnInfo['info']['isEmpty'] = True if len(res) == 0 else False
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})

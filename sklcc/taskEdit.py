@@ -27,8 +27,9 @@ def getTasksList(UserID):
 	           dbo.getMaterialTypeNameByID(dbo.getMaterialTypeIDByMaterialID(MaterialID)), DaoLiaoZongShu, UnitID,
 	           dbo.getUnitNameByID(UnitID), DaoLiaoZongShu2, UnitID2, dbo.getUnitNameByID(UnitID2) AS DanWei2, Inspectors, UserID
 	           FROM RMI_TASK WITH(NOLOCK)"""
+	#身为协作人也可以看到该任务
 	if UserID != 'ALL':
-		raw.sql += " WHERE UserID = '%s' AND State = 2" % UserID
+		raw.sql += " WHERE CHARINDEX('%s', Inspectors) > 0 AND State = 2" % UserID
 	else:
 		raw.sql += " WHERE State = 0"
 	res        = raw.query_all()
