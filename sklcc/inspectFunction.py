@@ -258,6 +258,9 @@ def getF02DataBySerialNoAndUserID(serialNo, processID, UserID):
 	             FROM RMI_F02_DATA WITH(NOLOCK)
 	             WHERE SerialNo = '%s'""" %serialNo
 	res, columns = raw.query_all(needColumnName=True)
+	#为勾袢自动添加大小的设定添加键
+	returnInfo['info']['isEmpty'] = True if res else False
+
 	returnInfo['data'] = dict()
 	returnInfo['data'].update(translateQueryResIntoDict(columns, [row for row in res])[0])
 	returnInfo['data'].update({'listData': translateQueryResIntoDict(columns, [row for row in res])})
