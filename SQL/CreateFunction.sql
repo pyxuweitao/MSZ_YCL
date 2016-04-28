@@ -100,7 +100,7 @@ END
 SELECT dbo.getUnitNameByID(NULL)
 
 drop FUNCTION getSupplierNameByID
----根据供应商代码获取供应商名称
+---根据供应商ID获取供应商名称
 CREATE FUNCTION getSupplierNameByID(@SupplierID uniqueidentifier)
 RETURNS varchar(MAX)
 AS
@@ -111,7 +111,7 @@ RETURN @name;
 END
 
 drop FUNCTION getSupplierCodeByID
----根据供应商代码获取供应商名称
+---根据供应商ID获取供应商代码
 CREATE FUNCTION getSupplierCodeByID(@SupplierID uniqueidentifier)
 RETURNS varchar(MAX)
 AS

@@ -65,42 +65,47 @@ def editTaskInfo(taskInfo, userID):
 	:param userID:用户ID
 	:return:返回编辑成功与否的标志
 	"""
-	isNew = True if taskInfo['isNew'] == "True" else False
 	raw = rawSql.Raw_sql()
-	#如果没有设置为None，即使前台返回null，经JSON转义仍为None
-	taskInfo['DaoLiaoZongShu2'] = False if 'DaoLiaoZongShu2' not in taskInfo else taskInfo['DaoLiaoZongShu2']
-	taskInfo['DanWei2']         = {'id':None} if 'DanWei2' not in taskInfo else taskInfo['DanWei2']
-	#前端传来的协作者不包含当前登录人员ID
-	if 'XieZuoRen' in taskInfo:
-		taskInfo['XieZuoRen'].append({'ID':userID})
-		taskInfo['Inspectors'] = "@".join([User['ID'] for User in taskInfo['XieZuoRen']])
-	else:
-		taskInfo['Inspectors'] = userID
-	if isNew:
-		raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
-		          ArriveTime, UserID, FlowID, MaterialID, SupplierID, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
-		          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s' );""" % (
-			taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
-			taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
-			taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
-			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
+	#是否退回的判定
+	if "isReturn" in taskInfo:
+		raw.sql = "UPDATE RMI_TASK WITH(ROWLOCK) SET State = 2 WHERE SerialNo = '%s'"%taskInfo['SerialNo']
 		raw.update()
-		#辅料表页面右上角快速新建任务流水号的返回
-		raw.sql = "SELECT TOP 1 SerialNo FROM RMI_TASK WHERE UserID = '%s' AND State = 2 ORDER BY CreateTime desc"%userID
-		return raw.query_one()[0]
 	else:
-		raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierID = '%s', UnitID = '%s',
-                     DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
-                     UnitID2 = %s, Inspectors = '%s'
-		             WHERE SerialNo = '%s'""" % (
-			taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
-			taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
-			taskInfo['ArriveTime'][:10].replace('-',''),
-			"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
-			"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
-			taskInfo['SerialNo'])
-		raw.update()
+		isNew    = True if taskInfo['isNew'] == "True" else False
+		#如果没有设置为None，即使前台返回null，经JSON转义仍为None
+		taskInfo['DaoLiaoZongShu2'] = False if 'DaoLiaoZongShu2' not in taskInfo else taskInfo['DaoLiaoZongShu2']
+		taskInfo['DanWei2']         = {'id':None} if 'DanWei2' not in taskInfo else taskInfo['DanWei2']
+		#前端传来的协作者不包含当前登录人员ID
+		if 'XieZuoRen' in taskInfo:
+			taskInfo['XieZuoRen'].append({'ID':userID})
+			taskInfo['Inspectors'] = "@".join([User['ID'] for User in taskInfo['XieZuoRen']])
+		else:
+			taskInfo['Inspectors'] = userID
+		if isNew:
+			raw.sql = """INSERT INTO RMI_TASK WITH(ROWLOCK) (CreateTime, LastModifiedTime, ProductNo, ColorNo,
+			          ArriveTime, UserID, FlowID, MaterialID, SupplierID, UnitID, DaoLiaoZongShu, DaoLiaoZongShu2, UnitID2, Inspectors)
+			          VALUES ( getdate(), getdate(),'%s','%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s' );""" % (
+				taskInfo['ProductNo'], taskInfo['ColorNo'], taskInfo['ArriveTime'][:10], userID,
+				taskInfo['FlowID'], taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'],
+				taskInfo['DanWei']['id'], taskInfo['DaoLiaoZongShu'],
+				"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+				"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'] )
+			raw.update()
+			#辅料表页面右上角快速新建任务流水号的返回
+			raw.sql = "SELECT TOP 1 SerialNo FROM RMI_TASK WHERE UserID = '%s' AND State = 2 ORDER BY CreateTime desc"%userID
+			return raw.query_one()[0]
+		else:
+			raw.sql = """UPDATE RMI_TASK WITH(ROWLOCK) SET MaterialID = '%s',SupplierID = '%s', UnitID = '%s',
+                             DaoLiaoZongShu = '%s', ProductNo = '%s', ColorNo = '%s', ArriveTime = '%s', DaoLiaoZongShu2 = %s,
+                             UnitID2 = %s, Inspectors = '%s'
+				             WHERE SerialNo = '%s'""" % (
+					taskInfo['WuLiao']['id'], taskInfo['GongYingShang']['id'], taskInfo['DanWei']['id'],
+					taskInfo['DaoLiaoZongShu'], taskInfo['ProductNo'], taskInfo['ColorNo'],
+					taskInfo['ArriveTime'][:10].replace('-',''),
+					"'"+unicode(taskInfo['DaoLiaoZongShu2'])+"'" if taskInfo['DaoLiaoZongShu2'] else "NULL",
+					"'"+unicode(taskInfo['DanWei2']['id'])+"'"  if taskInfo['DanWei2']['id'] else "NULL", taskInfo['Inspectors'],
+					taskInfo['SerialNo'])
+			raw.update()
 
 
 def getFlowList():

@@ -18,13 +18,13 @@ def getSuppliersAssessmentDataByDate(start, end):
 	raw     = rawSql.Raw_sql()
 	start   = "-".join([number.rjust(2,'0') if len(number) < 2 else number for number in start.split('-')])
 	end     = "-".join([number.rjust(2,'0') if len(number) < 2 else number for number in end.split('-')])
-	raw.sql = """SELECT GongYingShangBianMa, dbo.getSupplierNameByID(GongYingShangBianMa) GongYingShangMingCheng,
-				 SUM(GongHuoShuLiang) GongHuoShuLiang, SUM(TongJiQiNeiDaoHuoPiCi) TongJiQiNeiDaoHuoPiCi,
+	raw.sql = """SELECT GongYingShangBianMa, GongYingShangMingCheng,
+				 CAST(SUM(GongHuoShuLiang) as varchar(50)) + DaoHuoShuLiangDanWei GongHuoShuLiang, SUM(TongJiQiNeiDaoHuoPiCi) TongJiQiNeiDaoHuoPiCi,
 				 SUM(BuHeGePiCi) BuHeGePiCi, SUM(BuHeGeShuLiang) BuHeGeShuLiang,
 				 CAST(CAST( 1 - CAST(SUM(BuHeGePiCi) AS DECIMAL(9,2)) / CAST(SUM(TongJiQiNeiDaoHuoPiCi) AS DECIMAL(9,2)) AS DECIMAL(9,2)) * 100 AS INT) JinHuoJianYanHeGeLv
   				 FROM dbo.SupplierInfoAnalysis
  				 WHERE RiQi >= '%s' AND RiQi <= '%s'
- 				 GROUP BY GongYingShangBianMa, DaoHuoShuLiangDanWei"""%(start,end)
+ 				 GROUP BY GongYingShangBianMa, GongYingShangMingCheng, DaoHuoShuLiangDanWei"""%(start,end)
 	res, cols = raw.query_all(needColumnName=True)
 	return CommonUtilities.translateQueryResIntoDict(columns=cols, res=res)
 
@@ -48,6 +48,9 @@ def getInspectorWorkTimeGroupByMaterial(year, month):
 	data     = list()
 	dataTemp = dict()
 	res  = raw.query_all()
+	if not res:
+		res = list()
+
 	#工时增加主吊牌计算
 	raw.sql = """SELECT InspectorNo,  dbo.getUserNameByUserID(InspectorNo) InspectorName, '04de803d-6570-4547-8dc0-1eda8470baf6',
 				 dbo.getMaterialNameByID('04de803d-6570-4547-8dc0-1eda8470baf6') MaterialName,
@@ -58,6 +61,7 @@ def getInspectorWorkTimeGroupByMaterial(year, month):
  				 AND isZhuDiaoPai = 1 AND JianYanShu is not null
  				 GROUP BY InspectorNo"""%(unicode(year)+'-'+unicode(month).rjust(2,'0'))
 	res2 = raw.query_all()
+
 	if res2:
 		res += res2
 
