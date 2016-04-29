@@ -1,4 +1,4 @@
-huse RMI
+use RMI
 ----获取当前表单最新执行步骤的函数
 CREATE FUNCTION getCurrentFinishedStep(@serialno uniqueidentifier, @process varchar(50))
 RETURNS varchar(50)
