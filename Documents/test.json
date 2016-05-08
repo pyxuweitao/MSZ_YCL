@@ -16,10 +16,8 @@
   "GongYingShang": null,
   "ShiHuaGaoBiaoZhun": null,
   "GuiGeOrKuanDu": null,
-  "listData": [
-    {
       "BeiZhu": "11",
-      "JiDianOrJiFen": null,
+
       "KaiDuBiaoZhunPianCha": null,
       "KuanDuOrGuiGeShiCe2": "1",
       "KuanDuOrGuiGeBiaoZhunZhi": "1",
@@ -47,8 +45,7 @@
             "id": "555127FC-2EB3-4952-AB07-62D739907AC8",
             "label": "印花污染"
           }
-        }
-      ],
+        ,
       "DuiChenXingOrWanQuDuBiaoZhunPianCha": null,
       "HouDuShiCe": null,
       "ShuLiangPiBiao2": "11",

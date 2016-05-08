@@ -210,4 +210,3 @@ IF @config IS NULL
 RETURN @config;
 END
 
-

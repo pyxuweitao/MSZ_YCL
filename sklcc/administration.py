@@ -54,7 +54,6 @@ def editEmployeeInfo(employeeInfo):
 			        permission, employeeInfo['Name'], employeeInfo['ID'])
 	return raw.update()
 
-
 def getAllDepartmentsInfo():
 	"""
 	获取所有组别的信息，包括ID,部门名称和类别

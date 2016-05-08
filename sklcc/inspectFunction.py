@@ -8,7 +8,6 @@ from CommonUtilities import *
 import copy
 
 ######################### Common Utilities ############################################
-
 def updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, InspectorTotalNumber):
 	"""
 	返回一个更新步骤状态、更新任务最近一次修改时间、更新表格最后一次修改时间的SQL
@@ -414,6 +413,7 @@ def WithListDataInsertFormDataBySerialNo(SerialNo, rawData, UserID, processID):
 	raw.sql += updateStepStateAndModified(isFinished, processID, SerialNo, selectedStep, UserID, InspectTotalNumber)
 	raw.update()
 	return
+
 
 def getAllQuestionsByQuestionClass(questionClass):
 	"""

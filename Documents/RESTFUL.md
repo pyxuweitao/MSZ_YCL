@@ -11,6 +11,8 @@ PATCH /api/inspect/SuppliersInfo/ID：更新某个指定供应商的信息（提
 GET /zoos/ID/animals：列出某个指定供应商的所有动物
 DELETE /zoos/ID/animals/ID：删除某个指定供应商的指定动物
 
+
+
 # 表格创建方法
 
 1. 利用`CreateProcess.sql`中的`dbo.createNewProcess`创建表格与流程的相关联系，如：
@@ -28,4 +30,4 @@ DELETE /zoos/ID/animals/ID：删除某个指定供应商的指定动物
 
 5. `views.py`中的`getFormData`和`insertFormData`根据是否含有`listData`在对应的位置加入表ID
 
-5. 到数据库更新触发器`update_other_tables_when_delete_rmi_task`
+6. 到数据库更新触发器`update_other_tables_when_delete_rmi_task`

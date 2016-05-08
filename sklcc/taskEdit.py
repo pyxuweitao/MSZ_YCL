@@ -107,7 +107,6 @@ def editTaskInfo(taskInfo, userID):
 					taskInfo['SerialNo'])
 			raw.update()
 
-
 def getFlowList():
 	"""
 	从数据库获取所有的工作流列表
@@ -128,7 +127,6 @@ def commitTaskBySerialNo(SerialNo):
 	raw.sql = "UPDATE RMI_TASK SET State = 0 WHERE SerialNo = '%s'"%SerialNo
 	raw.update()
 	return
-
 
 def deleteTaskBySerialNo(SerialNo):
 	"""
